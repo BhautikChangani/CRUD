@@ -1,0 +1,41 @@
+
+        <button id="default">Paste</button>
+        <button id="flat">Paste</button>
+        <button id="outline">Paste</button>
+
+        <script type="module">
+            $(document).ready(function () {
+                $("#default").kendoSplitButton({
+                    icon: "clipboard",
+                    items: [
+                        { id: "keep-text", text: "Keep Text Only", icon: "clipboard-text", click: function() { alert("Keep Text Only") }},
+                        { id: "paste-html", text: "Paste as HTML", icon: "clipboard-code", click:function(){ alert("Paste as HTML") }},
+                        { id: "paste-markdown", text: "Paste Markdown", icon: "clipboard-markdown", click: function() { alert("Paste Markdown") }},
+                        { id: "paste-default", text: "Set Default Paste", click: function(){ alert("Set Default Paste")} }
+                    ]
+                });
+
+                $("#flat").kendoSplitButton({
+                    icon: "clipboard",
+                    fillMode:"flat",
+                    items: [
+                        { id: "keep-text", text: "Keep Text Only", icon: "clipboard-text", click: function() { alert("Keep Text Only") }},
+                        { id: "paste-html", text: "Paste as HTML", icon: "clipboard-code", click:function(){ alert("Paste as HTML") }},
+                        { id: "paste-markdown", text: "Paste Markdown", icon: "clipboard-markdown", click: function() { alert("Paste Markdown") }},
+                        { id: "paste-default", text: "Set Default Paste", click: function(){ alert("Set Default Paste")} }
+                    ],
+                });
+
+                $("#outline").kendoSplitButton({
+                    fillMode:"outline",
+                    icon: "clipboard",
+                    items: [
+                        { id: "keep-text", text: "Keep Text Only", icon: "clipboard-text", click: function() { alert("Keep Text Only") }},
+                        { id: "paste-html", text: "Paste as HTML", icon: "clipboard-code", click:function(){ alert("Paste as HTML") }},
+                        { id: "paste-markdown", text: "Paste Markdown", icon: "clipboard-markdown", click: function() { alert("Paste Markdown") }},
+                        { id: "paste-default", text: "Set Default Paste", click: function(){ alert("Set Default Paste")} }
+                    ]
+                });
+            });
+        </script>
+    

@@ -1,0 +1,80 @@
+<div class="k-d-flex k-justify-content-center" style="width: 600px; margin: auto;">
+    <div class="k-w-full">
+        @(Html.Kendo().AIPrompt()
+                    .Name("aiprompt")
+                    .ShowOutputRating(false)
+                    .PromptSuggestionItemTemplateHandler("promptSuggestionTemplate")
+                    .ActiveView(0)
+                    .Events(ev => ev.PromptRequest("onPromptRequest"))
+                    .Views(views =>
+                    {
+                        views.Add().Type(Kendo.Mvc.UI.ViewType.Prompt)
+                        .PromptSuggestions(new string[] { "Out of office (contact colleague)", "LinkedIn post for work/life balance and well-being" });
+                        views.Add().Type(Kendo.Mvc.UI.ViewType.Output);
+                        views.Add().Type(Kendo.Mvc.UI.ViewType.Custom)
+                        .Name("custom")
+                        .ButtonText("Custom View from Options")
+                        .ViewTemplate("<div><p>Custom View</p></div>")
+                        .FooterTemplate("<div class='k-actions k-actions-start k-actions-horizontal k-prompt-actions'><button ref-custom-button>Click me</button></div>")
+                        .InitializeComponents("initializeComponents");
+                })
+            )
+    </div>
+</div>
+
+<script src="~/Scripts/prompt-data.js"></script>
+
+@section scripts {
+    <script>
+        function promptSuggestionTemplate(data) {
+            let suggestionText = data.suggestion;
+            let promptSuggestions = $("#aiprompt").data("kendoAIPrompt").views.prompt.promptSuggestions;
+            let getSuggestionData = $.grep(promptSuggestions, function (item) {
+                return item == suggestionText;
+            });
+            return `<span role="listitem" class="k-prompt-suggestion prompt-suggestion-item">${getSuggestionData[0]}</span>`;
+        }
+
+        function onPromptRequest(ev) {
+            const response = promptData.find((s) => s.suggestion === ev.prompt);
+            const output = {
+                id: kendo.guid(),
+                output: response?.english || defaultResponse,
+                prompt: ev.prompt,
+                isRetry: ev.isRetry,
+            };
+
+            this.addPromptOutput(output);
+            this.activeView(1);
+        }
+
+        function initializeComponents() {
+            this.element.find("[ref-custom-button]").kendoButton({
+                click: function (e) {
+                    kendo.alert("Custom button clicked", e);
+                }
+            });
+        }
+    </script>
+}
+
+<style>
+    .k-d-flex {
+        border-radius: 4px 4px 0 0;
+        box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .prompt-suggestion-item {
+        cursor: pointer;
+        border: 1px solid #eaeaea;
+        border-radius: 24px;
+        margin: 3px;
+        padding: 0.5rem;
+        transition: transform 0.2s;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .prompt-suggestion-item:hover {
+        transform: scale(1.05)
+    }
+</style>

@@ -1,0 +1,85 @@
+
+        <div id="example">
+            <div id="vertical">
+                <div id="top-pane">
+                    <div id="horizontal" style="height: 100%; width: 100%;">
+                        <div id="left-pane">
+                            <div class="pane-content">
+                                <h2>Inner splitter / left pane</h2>
+                                <p>Resizable and collapsible.</p>
+                            </div>
+                        </div>
+                        <div id="center-pane">
+                            <div class="pane-content">
+                                <h2>Inner splitter / center pane</h2>
+                                <p>Resizable only.</p>
+                            </div>
+                        </div>
+                        <div id="right-pane">
+                            <div class="pane-content">
+                                <h2>Inner splitter / right pane</h2>
+                                <p>Resizable and collapsible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="bottom-pane">
+                    <div class="pane-content">
+                        <h2>Outer splitter / bottom pane</h2>
+                        <p>Non-resizable and non-collapsible.</p>
+                    </div>
+                </div>
+            </div>
+            <script type="module">
+                $(document).ready(function () {
+                    $("#vertical").kendoSplitter({
+                        orientation: "vertical",
+                        panes: [
+                            { collapsible: false, label: "between top and bottom" },
+                            { collapsible: false, size: "100px" }
+                        ]
+                    });
+
+                    $("#horizontal").kendoSplitter({
+                        panes: [
+                            { collapsible: true, label: "between left and center" },
+                            { collapsible: false, label: "between center and right" },
+                            { collapsible: true }
+                        ]
+                    });
+
+                    //focus the widget
+                    $(document).on("keydown.examples", function (e) {
+                        if (e.altKey && e.keyCode === 87 /* w */) {
+                            $("#horizontal").find(".k-splitbar:first").focus();
+                        }
+                    });
+                });
+            </script>
+
+            <style>
+                #vertical {
+                    height: 200px;
+                    margin: 0 auto;
+                }
+
+                #middle-pane {
+                    background-color: rgba(60, 70, 80, 0.10);
+                }
+
+                #bottom-pane {
+                    background-color: rgba(60, 70, 80, 0.15);
+                }
+
+                #left-pane,
+                #center-pane,
+                #right-pane {
+                    background-color: rgba(60, 70, 80, 0.05);
+                }
+
+                .pane-content {
+                    padding: 0 10px;
+                }
+            </style>
+        </div>
+    

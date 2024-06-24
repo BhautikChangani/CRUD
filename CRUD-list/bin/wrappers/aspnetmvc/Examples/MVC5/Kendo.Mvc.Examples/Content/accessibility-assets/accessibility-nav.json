@@ -1,0 +1,500 @@
+[
+    {
+        "component": "actionsheet",
+        "name": "ActionSheet",
+        "url": "accessibility/actionsheet",
+        "category": "Navigation"
+    },
+    {
+        "component": "appbar",
+        "name": "AppBar",
+        "url": "accessibility/appbar",
+        "category": "Navigation"
+    },
+    {
+        "component": "arc-gauge",
+        "name": "Arc Gauge",
+        "url": "accessibility/arcgauge",
+        "category": "Gauges"
+    },
+    {
+        "component": "autocomplete",
+        "name": "AutoComplete",
+        "url": "accessibility/autocomplete",
+        "category": "Editors"
+    },
+    {
+        "component": "avatar",
+        "name": "Avatar",
+        "url": "accessibility/avatar",
+        "category": "Layout"
+    },
+    {
+        "component": "badge",
+        "name": "Badge",
+        "url": "accessibility/badge",
+        "category": "Layout"
+    },
+    {
+        "component": "barcode",
+        "name": "Barcode",
+        "url": "accessibility/barcode",
+        "category": "Barcodes"
+    },
+    {
+        "component": "bottomnavigation",
+        "name": "BottomNavigation",
+        "url": "accessibility/bottomnavigation",
+        "category": "Navigation"
+    },
+    {
+        "component": "breadcrumb",
+        "name": "Breadcrumb",
+        "url": "accessibility/breadcrumb",
+        "category": "Navigation"
+    },
+    {
+        "component": "button",
+        "name": "Button",
+        "url": "accessibility/button",
+        "category": "Navigation"
+    },
+    {
+        "component": "button-group",
+        "name": "ButtonGroup",
+        "url": "accessibility/buttongroup",
+        "category": "Navigation"
+    },
+    {
+        "component": "calendar",
+        "name": "Calendar",
+        "url": "accessibility/Calendar",
+        "category": "Scheduling"
+    },
+    {
+        "component": "captcha",
+        "name": "Captcha",
+        "url": "accessibility/captcha",
+        "category": "Editors"
+    },
+    {
+        "component": "charts",
+        "name": "Chart",
+        "url": "accessibility/chart",
+        "category": "Charts"
+    },
+    {
+        "component": "chat",
+        "name": "Chat",
+        "url": "accessibility/chat",
+        "category": "Conversational UI"
+    },
+    {
+        "component": "checkboxgroup",
+        "name": "CheckBoxGroup",
+        "url": "accessibility/checkboxgroup",
+        "category": "Editors"
+    },
+    {
+        "component": "circular-gauge",
+        "name": "Circular Gauge",
+        "url": "accessibility/circulargauge",
+        "category": "Gauges"
+    },
+    {
+        "component": "circularprogressbar",
+        "name": "Circular ProgressBar",
+        "url": "accessibility/circularprogressbar",
+        "category": "Interactivity & UX"
+    },
+    {
+        "component": "colorpicker",
+        "name": "ColorPicker",
+        "url": "accessibility/colorpicker",
+        "category": "Editors"
+    },
+    {
+        "component": "combobox",
+        "name": "ComboBox",
+        "url": "accessibility/combobox",
+        "category": "Editors"
+    },
+    {
+        "component": "dateinput",
+        "name": "DateInput",
+        "url": "accessibility/dateinput",
+        "category": "Editors"
+    },
+    {
+        "component": "datepicker",
+        "name": "DatePicker",
+        "url": "accessibility/datepicker",
+        "category": "Editors"
+    },
+    {
+        "component": "datetimepicker",
+        "name": "DateTimePicker",
+        "url": "accessibility/datetimepicker",
+        "category": "Editors"
+    },
+    {
+        "component": "diagram",
+        "name": "Diagram",
+        "url": "accessibility/diagram",
+        "category": "Diagrams & Maps"
+    },
+    {
+        "component": "dialog",
+        "name": "Dialog",
+        "url": "accessibility/dialog",
+        "category": "Layout"
+    },
+    {
+        "component": "drawer",
+        "name": "Drawer",
+        "url": "accessibility/drawer",
+        "category": "Navigation"
+    },
+    {
+        "component": "dropdownlist",
+        "name": "DropDownList",
+        "url": "accessibility/dropdownlist",
+        "category": "Editors"
+    },
+    {
+        "component": "dropdowntree",
+        "name": "DropDownTree",
+        "url": "accessibility/dropdowntree",
+        "category": "Editors"
+    },
+    {
+        "component": "editor",
+        "name": "Editor",
+        "url": "accessibility/editor",
+        "category": "Editors"
+    },
+    {
+        "component": "expansionpanel",
+        "name": "ExpansionPanel",
+        "url": "accessibility/expansionpanel",
+        "category": "Layout"
+    },
+    {
+        "component": "filemanager",
+        "name": "FileManager",
+        "url": "accessibility/filemanager",
+        "category": "Data Management"
+    },
+    {
+        "component": "filter",
+        "name": "Filter",
+        "url": "accessibility/filter",
+        "category": "Data Management"
+    },
+    {
+        "component": "floatingactionbutton",
+        "name": "FloatingActionButton",
+        "url": "accessibility/floatingactionbutton",
+        "category": "Navigation"
+    },
+    {
+        "component": "form",
+        "name": "Form",
+        "url": "accessibility/form",
+        "category": "Layout"
+    },
+    {
+        "component": "gantt",
+        "name": "Gantt",
+        "url": "accessibility/gantt",
+        "category": "Scheduling"
+    },
+    {
+        "component": "grid",
+        "name": "Grid Editing",
+        "url": "accessibility/grid-edit",
+        "category": "Data Management"
+    },
+    {
+        "component": "grid",
+        "name": "Grid Hierarchy and Filter Row",
+        "url": "accessibility/grid-hierarchy-and-filter-row",
+        "category": "Data Management"
+    },
+    {
+        "component": "grid",
+        "name": "Grid MultiColumn Headers",
+        "url": "accessibility/grid-multicolumnheaders",
+        "category": "Data Management"
+    },
+    {
+        "component": "grid",
+        "name": "Grid",
+        "url": "accessibility/grid",
+        "category": "Data Management"
+    },
+    {
+        "component": "imageeditor",
+        "name": "ImageEditor",
+        "url": "accessibility/imageeditor",
+        "category": "Editors"
+    },
+    {
+        "component": "linear-gauge",
+        "name": "Linear Gauge",
+        "url": "accessibility/lineargauge",
+        "category": "Gauges"
+    },
+    {
+        "component": "listbox",
+        "name": "ListBox",
+        "url": "accessibility/listbox",
+        "category": "Editors"
+    },
+    {
+        "component": "listview",
+        "name": "ListView",
+        "url": "accessibility/listview",
+        "category": "Data Management"
+    },
+    {
+        "component": "loader",
+        "name": "Loader",
+        "url": "accessibility/loader",
+        "category": "Interactivity & UX"
+    },
+    {
+        "component": "map",
+        "name": "Map",
+        "url": "accessibility/map",
+        "category": "Diagrams & Maps"
+    },
+    {
+        "component": "maskedtextbox",
+        "name": "MaskedTextBox",
+        "url": "accessibility/maskedtextbox",
+        "category": "Editors"
+    },
+    {
+        "component": "mediaplayer",
+        "name": "MediaPlayer",
+        "url": "accessibility/mediaplayer",
+        "category": "Media"
+    },
+    {
+        "component": "menu",
+        "name": "Menu",
+        "url": "accessibility/menu",
+        "category": "Navigation"
+    },
+    {
+        "component": "multicolumncombobox",
+        "name": "MultiColumnComboBox",
+        "url": "accessibility/multicombobox",
+        "category": "Editors"
+    },
+    {
+        "component": "multiselect",
+        "name": "MultiSelect",
+        "url": "accessibility/multiselect",
+        "category": "Editors"
+    },
+    {
+        "component": "multiviewcalendar",
+        "name": "MultiViewCalendar",
+        "url": "accessibility/multiviewcalendar",
+        "category": "Scheduling"
+    },
+    {
+        "component": "notification",
+        "name": "Notification",
+        "url": "accessibility/notification",
+        "category": "Layout"
+    },
+    {
+        "component": "numerictextbox",
+        "name": "NumericTextBox",
+        "url": "accessibility/numerictextbox",
+        "category": "Editors"
+    },
+    {
+        "component": "orgchart",
+        "name": "OrgChart",
+        "url": "accessibility/orgchart",
+        "category": "Diagrams & Maps"
+    },
+    {
+        "component": "Pager",
+        "name": "Pager",
+        "url": "accessibility/pager",
+        "category": "Data Management"
+    },
+    {
+        "component": "panelbar",
+        "name": "PanelBar",
+        "url": "accessibility/panelbar",
+        "category": "Navigation"
+    },
+    {
+        "component": "pdfviewer",
+        "name": "PDFViewer",
+        "url": "accessibility/pdfviewer",
+        "category": "PDF"
+    },
+    {
+        "component": "popover",
+        "name": "Popover",
+        "url": "accessibility/popover",
+        "category": "Layout"
+    },
+    {
+        "component": "progressbar",
+        "name": "ProgressBar",
+        "url": "accessibility/progressbar",
+        "category": "Interactivity & UX"
+    },
+    {
+        "component": "qrcode",
+        "name": "QR Code",
+        "url": "accessibility/qrcode",
+        "category": "Barcodes"
+    },
+    {
+        "component": "radial-gauge",
+        "name": "Radial Gauge",
+        "url": "accessibility/radialgauge",
+        "category": "Gauges"
+    },
+    {
+        "component": "radiogroup",
+        "name": "RadioGroup",
+        "url": "accessibility/radiogroup",
+        "category": "Editors"
+    },
+    {
+        "component": "scheduler",
+        "name": "Scheduler",
+        "url": "accessibility/scheduler",
+        "category": "Scheduling"
+    },
+    {
+        "component": "scrollview",
+        "name": "ScrollView",
+        "url": "accessibility/scrollview",
+        "category": "Media"
+    },
+    {
+        "component": "slider",
+        "name": "Slider",
+        "url": "accessibility/slider",
+        "category": "Editors"
+    },
+    {
+        "component": "splitter",
+        "name": "Splitter",
+        "url": "accessibility/splitter",
+        "category": "Layout"
+    },
+    {
+        "component": "spreadsheet",
+        "name": "Spreadsheet",
+        "url": "accessibility/spreadsheet",
+        "category": "Data Management"
+    },
+    {
+        "component": "stepper",
+        "name": "Stepper",
+        "url": "accessibility/stepper",
+        "category": "Navigation"
+    },
+    {
+        "component": "switch",
+        "name": "Switch",
+        "url": "accessibility/switch",
+        "category": "Editors"
+    },
+    {
+        "component": "tabstrip",
+        "name": "TabStrip",
+        "url": "accessibility/tabstrip",
+        "category": "Navigation"
+    },
+    {
+        "component": "taskboard",
+        "name": "TaskBoard",
+        "url": "accessibility/taskboard",
+        "category": "Data Management"
+    },
+    {
+        "component": "textarea",
+        "name": "TextArea",
+        "url": "accessibility/textarea",
+        "category": "Editors"
+    },
+    {
+        "component": "textbox",
+        "name": "TextBox",
+        "url": "accessibility/textbox",
+        "category": "Editors"
+    },
+    {
+        "component": "tilelayout",
+        "name": "TileLayout",
+        "url": "accessibility/tilelayout",
+        "category": "Layout"
+    },
+    {
+        "component": "timeline",
+        "name": "Timeline",
+        "url": "accessibility/timeline",
+        "category": "Navigation"
+    },
+    {
+        "component": "timepicker",
+        "name": "TimePicker",
+        "url": "accessibility/timepicker",
+        "category": "Editors"
+    },
+    {
+        "component": "toolbar",
+        "name": "ToolBar",
+        "url": "accessibility/toolbar",
+        "category": "Navigation"
+    },
+    {
+        "component": "tooltip",
+        "name": "Tooltip",
+        "url": "accessibility/tooltip",
+        "category": "Layout"
+    },
+    {
+        "component": "treelist",
+        "name": "TreeList",
+        "url": "accessibility/treelist",
+        "category": "Data Management"
+    },
+    {
+        "component": "treeview",
+        "name": "TreeView",
+        "url": "accessibility/treeview",
+        "category": "Navigation"
+    },
+    {
+        "component": "upload",
+        "name": "Upload",
+        "url": "accessibility/upload",
+        "category": "Editors"
+    },
+    {
+        "component": "window",
+        "name": "Window",
+        "url": "accessibility/window",
+        "category": "Layout"
+    },
+    {
+        "component": "wizard",
+        "name": "Wizard",
+        "url": "accessibility/wizard",
+        "category": "Navigation"
+    }
+]

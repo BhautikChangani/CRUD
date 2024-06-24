@@ -1,0 +1,27 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  When it is possible to fit all <a href="https://www.telerik.com/aspnet-mvc/grid">Telerik UI for ASP.NET MVC Grid</a>
+  data items into a single page, you may not need to show a pager.
+</p>
+<p>
+  The Data Grid toggles the pager visibility by using the
+  <code>.Pageable(pager => pager.AlwaysVisible(true))</code> method. By default, the component will show the pager even
+  when the total amount of items in the DataSource is less than the <code>PageSize</code>.
+</p>
+<p>
+  If the value is set to <code>false</code>, the behavior will be as follows:</p>
+<ul>
+    <li>When the total amount of items initially set in the DataSource is less than the <code>PageSize</code> value, the pager will
+        be hidden.</li>
+    <li>When the total amount of items initially set in the DataSource is greater than or equal to the <code>PageSize</code> value,
+        the pager will be shown.</li>
+    <li>When the total amount of items in the DataSource becomes less than the <code>PageSize</code> value after a delete or filter
+        operation, or a change in the <code>PageSize</code>, the pager will be hidden.</li>
+    <li>When the total amount of items in the DataSource becomes greater than or equal to the <code>PageSize</code> value after an
+        insert or filter operation, or a change in the <code>PageSize</code>, the pager will be shown.</li>
+</ul>
+<p>
+  In this demo, the <strong>alwaysVisible</strong> checkbox enables or disables the <code>pageable.alwaysVisible</code> 
+  option for the Data Grid. To set the pager position to the top, use the <a href="https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/pageable.position"><code>position</code></a>
+  property of the pager&#8212;the <strong>pager on top</strong> checkbox changes the position of the Pager for the Grid.
+</p>

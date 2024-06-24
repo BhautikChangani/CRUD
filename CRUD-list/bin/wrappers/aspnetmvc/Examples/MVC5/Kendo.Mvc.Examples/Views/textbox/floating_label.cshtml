@@ -1,0 +1,14 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().TextBox()
+            .Name("textbox")
+            .Label(l => l.Content("Name").Floating(true))
+        )
+    </div>
+</div>
+
+<style>
+    .k-floating-label-container {
+        width: 100%;
+    }
+</style>

@@ -1,0 +1,58 @@
+
+    <div id="example">
+        <div class="demo-section">
+            <label for="listbox">ListBox 1</label>
+            <select id="listbox"></select>
+            <label for="listbox2">ListBox 2</label>
+            <select id="listbox2"></select>
+        </div>
+
+        <script type="module">
+            $(document).ready(function() {
+                $("#listbox").kendoListBox({
+                    dataTextField: "ProductName",
+                    dataValueField: "ProductID",
+                    dataSource: {
+                        type: "odata",
+                        serverFiltering: true,
+                        transport: {
+                            read: {
+                                url: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Products",
+                            }
+                        }
+                    },
+                    selectable: "multiple",
+                    connectWith:"listbox2",
+                    navigatable: true,
+                    toolbar: {
+                    tools: ["moveUp", "moveDown", "transferTo", "transferFrom", "transferAllTo", "transferAllFrom", "remove"]
+                }
+                });
+                $("#listbox2").kendoListBox({
+                dataTextField: "ProductName",
+                dataValueField: "ProductID",
+                dataSource: [],
+                selectable: "single",
+                navigatable: true
+            });
+                $(document.body).keydown(function (e) {
+                    if (e.altKey && e.keyCode === 87) {
+                        $("#listbox").data("kendoListBox").focus();
+                    }
+                });
+            });
+        </script>
+        <style>
+
+            #example .k-listbox {
+                width: 255px;
+                height: 310px;
+            }
+
+                #example .k-listbox:first-of-type {
+                    margin-right: 1px;
+                }
+        </style>
+
+    </div>
+        

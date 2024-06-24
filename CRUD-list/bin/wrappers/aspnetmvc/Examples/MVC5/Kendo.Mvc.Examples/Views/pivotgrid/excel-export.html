@@ -1,0 +1,7 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+    <p>The <a href="https://www.telerik.com/aspnet-mvc/pivotgrid" target="_blank">Telerik UI for ASP.NET MVC PivotGrid control</a> allows you to <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/pivotgrid/export/excel-export" target="_blank">export its content to Excel</a> by using the filtering applied by the user. For greater control over the output, configure the <code>Export()</code> export configuration method. For instance, you can specify the file name and whether to export all pages, margins, paper size, font, and so on.</p>
+    <p>The current example shows how to enable the export functionality for the PivotGrid through an external button, which, upon clicking, utilizes the client-side <a href="https://docs.telerik.com/kendo-ui/api/javascript/ui/pivotgrid/methods/saveasexcel" target="_blank"><code>saveAsExcel()</code></a> method while passing the explicitly defined Excel configurations set through the <code>Excel()</code> configuration method.</p>
+</div>
+<p>Note that the PivotGrid does not use the <code>dataCellTemplate</code>, <code>columnHeaderTemplate</code>, and <code>rowHeaderTemplate</code> configurations during Excel export and exports only its data, because the templates may contain arbitrary HTML which cannot be converted to Excel column values.</p>
+    

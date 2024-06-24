@@ -1,0 +1,42 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="timepicker">Select time:</label>
+        @(Html.Kendo().TimePicker()
+            .Name("timepicker")
+            .Value("10:00 AM")
+            .ComponentType("modern")
+            .HtmlAttributes(new { style = "width: 100%", title = "timepicker" })
+            .DateInput()
+        )
+        <br/>
+        <br/>
+        <label for="ddl">Set component type:</label>
+        @(Html.Kendo().DropDownList()
+            .Name("ddl")
+            .BindTo(new string[] { "modern", "classic" })
+            .Value("modern")
+            .Events(ev => ev.Change("onChange"))
+        )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function onChange(e) {
+            var picker = $("#timepicker").data("kendoTimePicker");
+            var type = this.value();
+            var format = picker.options.format;
+            var value = picker.value();
+            var parent = $("#timepicker").parent();
+
+            picker.destroy();
+            parent.empty();
+            parent.append('<input id="timepicker" title="timepicker" style="width: 100%;" />');
+            $("#timepicker").kendoTimePicker({
+                format: format,
+                value: value,
+                componentType: type
+            });
+        }
+    </script>
+}

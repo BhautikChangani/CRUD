@@ -1,0 +1,10 @@
+<div class="demo-section k-rtl">
+    @(Html.Kendo().Upload()
+        .Name("files")
+        .Async(a => a
+            .Save("Right_To_Left_Save", "Upload")
+            .Remove("Right_To_Left_Remove", "Upload")
+            .AutoUpload(true)
+        )
+    )
+</div>

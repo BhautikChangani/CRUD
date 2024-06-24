@@ -1,0 +1,44 @@
+<div class="configurator">
+    <div class="box-col">
+        <h4>Information</h4>
+        <p><b>Replace</b> paste operation:</p>
+        <ul>
+            <li>Copy cell(s) from Excel or another Telerik UI for ASP.NET MVC Grid, select the first Grid cell from which you want to start the replacing and press <b>Ctrl/Command + V</b> to paste the copied cell(s).</li>
+        </ul>
+        <p><b>Insert</b> paste operation: </p>
+        <ul>
+            <li>Copy cell(s) from Excel or another Telerik UI for ASP.NET MVC Grid, select the Grid cell from which you want to start the inserting and press <b>Ctrl/Command + V</b> to insert a new row below the selected cell.</li>
+        </ul>
+    </div>
+</div>
+
+    @(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.OrderViewModel>()
+        .Name("grid")
+        .Columns(columns => {
+            columns.Bound(o => o.ShipCountry);
+            columns.Bound(p => p.Freight);
+            columns.Bound(p => p.OrderDate).Format("{0:dd/MM/yyyy}");
+        })
+        .ToolBar(toolBar => toolBar.Paste())
+        .Pageable(pageable => pageable.ButtonCount(4).Info(false))
+        .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Cell))
+        .AllowCopy(true)
+        .AllowPaste(true)
+        .ContextMenu()
+        .Navigatable()
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(5)
+            .Read(read => read.Action("Paste_From_Excel_Orders_Read", "Grid"))
+         )
+    )
+
+<style>
+    .configurator ul {
+        list-style: disc;
+        margin: 10px;
+        padding: 0px 10px 0px 10px;
+    }
+</style>

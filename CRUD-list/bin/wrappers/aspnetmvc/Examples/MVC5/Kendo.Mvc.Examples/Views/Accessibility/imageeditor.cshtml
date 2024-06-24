@@ -1,0 +1,19 @@
+
+            <div class="demo-section">
+                <div id="imageEditor"></div>
+            </div>
+
+            <script type="module">
+                $(document).ready(function () {
+                    $("#imageEditor").kendoImageEditor({
+                        imageUrl: "/playground/accessibility/images/image1.jpg",
+                        imageLabel: "Fontana del Moro by night, Piazza Navona, Rome, Italy.",
+                        width: "800",
+                        height: 900,
+                        saveAs: {
+                            fileName: "image_edited.png"
+                        }
+                    });
+                });
+            </script>
+        

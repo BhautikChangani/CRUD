@@ -1,0 +1,13 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    @(Html.Kendo().DropDownButton()
+                .Name("button")
+                .Text("Paste")
+                .Icon("clipboard")
+                .Items(items=>{
+                    items.Add().Id("keep-text").Text("Keep Text Only").Icon("clipboard-text");
+                    items.Add().Id("paste-html").Text("Paste as HTML").Icon("clipboard-code").Hidden(true);
+                    items.Add().Id("paste-markdown").Text("Paste Markdown").ImageUrl(Url.Content("~/Content/shared/icons/16/star.png"));
+                    items.Add().Id("paste-default").Text("Set Default Paste");
+                })
+    )
+</div>

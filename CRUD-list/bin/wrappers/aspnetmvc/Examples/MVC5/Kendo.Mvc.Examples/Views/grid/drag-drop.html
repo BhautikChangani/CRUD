@@ -1,0 +1,20 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The <a href="https://www.telerik.com/aspnet-mvc/grid" target="_blank">Telerik UI for ASP.NET MVC Data Grid</a> provides a drag-and-drop feature, which allows users to reorder single or multiple Grid rows by dragging and move rows between different Grids. 
+</p>
+<p>
+  To enable the dragging and dropping in the Data Grid:
+</p>
+<ol>
+    <li>Set the <code>reorderable</code> configuration of the Grid rows&#8212;<code><a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/gridbuilder#reorderablesystemaction">.Reorderable(reorder => reorder.Rows(true))</a></code>.</li>
+    <li>Add a drag handle to a specified column to reorder the rows by dragging&#8212;<code>.Draggable(true)</code>.</li>
+</ol>
+<p>
+  To handle the drag-and-drop operations and modify the data source as required, for example, to move rows between Grids, use the <code>RowReorder</code> event of the Data Grid.
+</p>
+<p>
+  Additionally, you can enable the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/gridbuilder#navigatablesystemboolean"><code>Navigatable()</code></a> option and reorder the rows by using the <code>Ctrl</code> + <code>Up Arrow</code> or <code>Down Arrow</code>.
+</p>
+<p>
+  For more information, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/row-drag-drop" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on dragging and dropping rows and columns</a>.
+</p>

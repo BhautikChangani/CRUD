@@ -1,0 +1,24 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The <a href="https://www.telerik.com/aspnet-mvc/grid">Telerik UI for ASP.NET MVC Grid</a> comes with an editing feature, which enables users to edit the content of its cells by simply clicking on them. As a result, the modified data on the client is processed by the component on the server in a single-batch update.
+</p>    
+<p>
+  This demo shows how to implement editing in the Data Grid by using its built-in batch <code>create</code>, <code>update</code>, and <code>destroy</code> commands.
+</p>
+<p>
+  To enable the batch data-editing functionality of the Data Grid:
+</p>
+<ol style="list-style-type: disc;">
+    <li>Turn on the in-cell editing by setting <code>.Editable(editable => editable.Mode(GridEditMode.InCell))</code>.</li>
+    <li>Add the <strong>Create</strong>, <strong>Cancel</strong>, and <strong>SaveChanges</strong> buttons to the toolbar by setting <code>.ToolBar(toolbar => { toolbar.Create(); toolbar.Save(); }</code>.</li>
+    <li>To enable the <strong>Delete</strong> command on each row, insert a new column by setting <code>columns.Command(command => { command.Destroy(); });</code>.</li>
+    <li>Set the <code>.Batch(true)</code> and <code>.ServerOperation(false)</code> properties in the DataSource declaration to enable batch updates and perform the paging, sorting, filtering, and grouping operations on the client.</li>
+    <li>Declare the <code>Create</code>, <code>Read</code>, <code>Update</code>, and <code>Destroy</code> action methods in the DataSource. These methods are responsible for the manipulation of the data items.</li>
+    <li>Specify a unique field in the <code>Model</code> as the <code>DataSource.Model.Id</code>.</li>
+</ol>
+<p>
+    Once the cells are edited, you can process the changes or discard them. To switch the edit mode foe a cell, click on a cell. To process or discard all changes at once, use the <strong>Save changes</strong> or <strong>Cancel changes</strong> buttons.
+</p>
+<p>
+  For more information about the editing capabilities, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/editing/batch" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available batch editing approaches</a>.
+</p>

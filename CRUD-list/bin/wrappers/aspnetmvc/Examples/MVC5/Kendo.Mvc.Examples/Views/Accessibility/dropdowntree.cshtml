@@ -1,0 +1,45 @@
+
+        <input id="single" style="width: 220px" />
+        <input id="checkboxes" style="width: 220px" />
+        <script type="module">
+            $(document).ready(function() {
+
+                var myDataSource = new kendo.data.HierarchicalDataSource({
+                    data: [
+                        {
+                            text: "Furniture", expanded: true, items: [
+                                { text: "Tables & Chairs" },
+                                { text: "Sofas" },
+                                { text: "Occasional Furniture" }
+                            ]
+                        },
+                        {
+                            text: "Decor", value: 1, items: [
+                                { text: "Bed Linen" },
+                                { text: "Curtains & Blinds" },
+                                { text: "Carpets" }
+                            ]
+                        }
+                    ]
+                });
+
+                $("#single").kendoDropDownTree({
+                    placeholder: "Select ...",
+                    height: "auto",
+                    dataSource: myDataSource,
+                    label: "Select item"
+                });
+
+                $("#checkboxes").kendoDropDownTree({
+                    placeholder: "Select ...",
+                    checkboxes: true,
+                    checkAll: true,
+                    autoClose: false,
+                    dataSource: myDataSource,
+                    label: "Select item",
+                    value: [1],
+                    valuePrimitive: true
+                });
+            });
+        </script>
+    

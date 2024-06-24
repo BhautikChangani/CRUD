@@ -1,0 +1,348 @@
+﻿<div id="commonFilter">
+    <select id="columnSelect"></select>
+    <input type="text" id="searchText" />
+    <button id="searchButton">Search</button>
+</div>
+<div id="grid"></div>
+
+<script>
+    $(document).ready(function () {
+        $.get("/User/GetColumnNames", function (data) {
+            var columnSelect = $("#columnSelect");
+            data.forEach(function (column) {
+                columnSelect.append(new Option(column, column));
+            });
+        });
+
+        $("#searchButton").click(function () {
+            var selectedColumn = $("#columnSelect").val();
+            var searchText = $("#searchText").val();
+
+            if (selectedColumn && searchText) {
+                var filter = { logic: "and", filters: [] };
+                var grid = $("#grid").data("kendoGrid");
+                var dataSource = grid.dataSource;
+                filter.filters.push({
+                    field: selectedColumn,
+                    operator: "contains",
+                    value: searchText
+                });
+
+                dataSource.filter(filter);
+            } else {
+                alert("Please select a column and enter search text.");
+            }
+        });
+
+        $("#grid").kendoGrid({
+            sortable: true,
+            filterable: true,
+            pageable: {
+                pageSizes: [10, 20, 50],
+                buttonCount: 5
+            },
+            dataSource: {
+                transport: {
+                    read: "/User/GetUsersData",
+                    update: {
+                        url: "/User/UpdateUsersData",
+                        type: "Post"
+                    },
+                    create: {
+                        url: "/User/UpdateUsersData",
+                        type: "Post"
+                    },
+                    destroy: {
+                        url: "/User/DeleteUsersData",
+                        type: "Post"
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "EmpId",
+                        fields: {
+                            EmpId: { editable: false, nullable: true },
+                            DeptName: { validation: { required: true } },
+                            MngrName: { validation: { required: true } },
+                            EmpName: { validation: { required: true } },
+                            Salary: { validation: { required: true }, type: "number" }
+                        }
+                    }
+                },
+                pageSize: 10,
+            },
+            events: {
+                edit: "onEdit"
+            },
+            toolbar: [
+                { name: "create", text: "Add New Record" },
+                { name: "delete", text: "Delete All", iconClass: "k-icon k-i-trash" }
+            ],
+            columns: [
+                {
+                    selectable: true,
+                    width: 75,
+                    attributes: {
+                        "class": "row-checkbox",
+                    }
+                },
+
+                { field: "EmpId", title: "Employee Id", width: "120px", filterable: false },
+                {
+                    field: "DeptName",
+                    title: "Department",
+                    width: "200px",
+                    editor: departmentDropDownEditor,
+                    filterable: {
+                        multi: true,
+                        dataSource: {
+                            transport: {
+                                read: "/User/GetDepartment",
+                            },
+                            schema: {
+                                model: {
+                                    id: "DeptId",
+                                    fields: {
+                                        DeptId: { type: "number" },
+                                        DeptName: { type: "string" }
+                                    }
+                                }
+                            }
+                        },
+
+                        template: function (dataItem) {
+                            return '<input type="checkbox" name="deptFilter" value="' + dataItem.DeptId + '"> ' + dataItem.DeptName;
+                        },
+                        checkAll: true,
+                        messages: {
+                            checkAll: "Select All",
+                            clear: "Clear",
+                            filter: "Apply"
+                        },
+                        operators: {
+                            string: {
+                                contains: "Contains"
+                            }
+                        },
+                        ui: "checkbox"
+                    }
+                },
+                {
+                    field: "MngrName",
+                    title: "Manager",
+                    width: "200px",
+                    editor: managerDropDownEditor,
+                    filterable: {
+                        multi: true,
+                        dataSource: {
+                            transport: {
+                                read: '/User/GetManagerList'
+                            },
+                            schema: {
+                                model: {
+                                    id: "MngrId",
+                                    fields: {
+                                        MngrId: { type: "number" },
+                                        MngrName: { type: "string" }
+                                    }
+                                }
+                            }
+                        },
+
+                        template: function (dataItem) {
+                            return '<input type="checkbox" name="mngrFilter" value="' + dataItem.MngrId + '"> ' + dataItem.MngrName;
+                        },
+                        checkAll: true,
+                        message: {
+                            checkAll: "Select All",
+                            clear: "Clear",
+                            filter: "Apply"
+                        },
+                        operators: {
+                            string: {
+                                contains: "Contains"
+                            }
+                        },
+                        ui: "checkbox"
+                    }
+                },
+                {
+                    field: "EmpName",
+                    title: "Employee Name",
+                    width: "200px",
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            suggestionOperator: "contains"
+                        },
+                        operators: {
+                            string: {
+                                contains: "Contains",
+                                eq: "Equal to",
+                                startswith: "Starts with",
+                                endswith: "Ends with"
+                            }
+                        },
+                    }
+                },
+                {
+                    field: "Salary",
+                    title: "Salary",
+                    width: "200px",
+                    sortable: true,
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            suggestionOperator: "contains",
+                            template: function (args) {
+                                args.element.kendoNumericTextBox({
+                                    format: "n0"
+                                });
+                            }
+                        },
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                lt: "Less than",
+                                lte: "Less than or equal to",
+                                gt: "Greater than",
+                                gte: "Greater than or equal to"
+                            }
+                        }
+                    }
+                },
+                { command: ["edit", "destroy"], title: "Action", width: "250px" }
+            ],
+
+            editable: {
+                mode: "popup",
+            },
+
+            save: function (e) {
+                setTimeout(function () {
+                    $("#grid").data("kendoGrid").dataSource.read();
+                }, 400);
+            },
+
+        });
+
+        $("#grid").on("click", ".k-grid-delete", function () {
+            deleteSelectedRows();
+        });
+
+    });
+</script>
+<script>
+
+    function departmentDropDownEditor(container, options) {
+        $('<input required name="' + options.field + '"/>')
+            .appendTo(container)
+            .kendoMultiColumnComboBox({
+                dataTextField: "DeptName",
+                dataValueField: "DeptName",
+                height: 400,
+                width: 400,
+                columns: [
+                    { field: "DeptId", title: "Department Id", width: 200 },
+                    { field: "DeptName", title: "Department Name", width: 200 }
+                ],
+                footerTemplate: 'Total #: instance.dataSource.total() # items found',
+                filter: "contains",
+                filterFields: ["DeptName"],
+                dataSource: {
+                    transport: {
+                        read: "/User/GetDepartment",
+                    },
+                    schema: {
+                        model: {
+                            id: "DeptId",
+                            fields: {
+                                DeptId: { type: "number" },
+                                DeptName: { type: "string" }
+                            }
+                        }
+                    }
+                },
+                change: function (e) {
+                    var widget = e.sender;
+
+                    if (widget.value() && widget.select() === -1) {
+                        widget.value("");
+                    }
+                }
+            });
+    }
+
+    function managerDropDownEditor(container, options) {
+        $('<input required name="' + options.field + '"/>')
+            .appendTo(container)
+            .kendoMultiColumnComboBox({
+                dataTextField: "MngrName",
+                dataValueField: "MngrName",
+                height: 400,
+                width: 400,
+                columns: [
+                    { field: "MngrId", title: "Manager Id", width: 200 },
+                    { field: "MngrName", title: "Manager Name", width: 200 }
+                ],
+                footerTemplate: 'Total #: instance.dataSource.total() # items found',
+                filter: "contains",
+                filterFields: ["MngrName"],
+                dataSource: {
+                    transport: {
+                        read: "/User/GetManagerList",
+                    },
+                    schema: {
+                        model: {
+                            id: "MngrId",
+                            fields: {
+                                MngrId: { type: "number" },
+                                MngrName: { type: "string" }
+                            }
+                        }
+                    }
+                },
+                change: function (e) {
+                    var widget = e.sender;
+
+                    if (widget.value() && widget.select() === -1) {
+                        widget.value("");
+                    }
+                }
+            });
+    }
+
+    function deleteSelectedRows() {
+        var grid = $("#grid").data("kendoGrid");
+        var selectedRows = grid.select();
+        var dataItems = selectedRows.map(function (index, row) {
+            return grid.dataItem(row);
+        }).toArray();
+        if (dataItems.length === 0) {
+            alert("Please select at least one row to delete.");
+            return;
+        }
+
+        if (confirm("Are you sure you want to delete the selected rows?")) {
+            var dataToSend = {
+                selectedItems: dataItems
+            };
+
+            $.ajax({
+                url: '/User/DeleteAll',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dataToSend),
+                success: function (response) {
+                    console.log('Deleted successfully:', response);
+                    grid.dataSource.read();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error deleting:', error);
+                }
+            });
+
+        }
+    }
+
+</script>

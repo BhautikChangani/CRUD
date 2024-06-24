@@ -1,0 +1,14 @@
+
+          <textarea id="description" style="width: 200px" ></textarea>
+          <script type="module">
+              $(document).ready(function () {
+                  $("#description").kendoTextArea({
+                      label: {
+                          content: "Description"
+                      },
+                      maxLength:200,
+                      rows: 5
+                  });
+              });
+          </script>
+        

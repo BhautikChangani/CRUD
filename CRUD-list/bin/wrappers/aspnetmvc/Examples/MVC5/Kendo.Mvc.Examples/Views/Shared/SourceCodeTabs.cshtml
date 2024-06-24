@@ -1,0 +1,24 @@
+@using System.Text.RegularExpressions;
+@{
+    var ExampleFiles = ViewBag.ExampleFiles;
+    var ReplaceRegex = @"[^a-zA-Z0-9]";
+    var ReplaceChar = "-";
+
+}
+
+    <div class="source-code tabstrip-container">
+        <div class="tabstrip">
+            <div class="tabstrip-items">
+                @foreach (var item in ExampleFiles)
+                {
+                    <div role="button" tabindex="0" class="tabstrip-item tabstrip-tab" data-container="@Regex.Replace(item.Name, ReplaceRegex, ReplaceChar).ToLower()" data-url="@Url.Action("Index", "Source", new { path = item.Url })">
+                        <span class="tabstrip-link">@item.Name</span>
+                    </div>
+                }
+            </div>
+        </div>
+        @foreach (var item in ExampleFiles)
+        {
+            <div id="@Regex.Replace(item.Name, ReplaceRegex, ReplaceChar).ToLower()" class="tabstrip-pane"></div>
+        }
+    </div>

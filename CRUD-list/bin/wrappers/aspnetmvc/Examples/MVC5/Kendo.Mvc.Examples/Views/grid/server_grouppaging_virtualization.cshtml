@@ -1,0 +1,36 @@
+@(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.CustomerViewModel>()
+        .Name("grid")
+        .Groupable()
+        .Columns(columns =>
+        {
+            columns.Bound("customerID").Width(100);
+            columns.Bound("country").Width(100);
+            columns.Bound("companyName").Width(100);
+            columns.Bound("city").Width(100);
+            columns.Bound("postalCode").Width(100);
+        })
+        .Scrollable(s => s.Virtual(true))
+        .HtmlAttributes(new { style = "height:430px;" })
+        .DataSource(dataSource => dataSource
+            .Custom()
+            .Type("aspnetmvc-ajax")
+            .GroupPaging(true)
+            .PageSize(50)
+            .Transport(t=> t.Read(r=> r.Url("https://demos.telerik.com/aspnet-core/service/api/customers").Type(HttpVerbs.Post)))
+            .Group(x =>
+            {
+                x.Add(y => y.City);
+                x.Add(y => y.CompanyName);
+
+            })
+            .Schema( s=> {
+                s.Data("data");
+                s.Total("total");
+                s.Errors("errors");
+            })
+            .ServerFiltering(true)
+            .ServerGrouping(true)
+            .ServerPaging(true)
+            .ServerSorting(true)
+         )
+)

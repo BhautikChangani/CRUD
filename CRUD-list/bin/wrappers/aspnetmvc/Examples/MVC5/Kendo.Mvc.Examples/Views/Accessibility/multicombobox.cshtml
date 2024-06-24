@@ -1,0 +1,28 @@
+
+
+          <label for="multicolumncombo1" id="employees">Select size: </label>
+          <input id="multicolumncombo1" alt="test" title="multicombo"  style="width: 300px" />
+
+          <script type="module">
+              $(document).ready(function () {
+
+                  $("#multicolumncombo1").kendoMultiColumnComboBox({
+                      dataTextField: "text",
+                      dataValueField: "value",
+                      dataSource: [
+                          { text: "X-Small", size: "XS" },
+                          { text: "Small", size: "S" },
+                          { text: "Medium", size: "M" },
+                          { text: "Large", size: "L" },
+                          { text: "X-Large", size: "XL" },
+                          { text: "2X-Large", size: "XXL" }
+                      ],
+                      columns: [
+                          { field: "text", title: "Text" },
+                          { field: "size", title: "Size" }
+                      ],
+                      filter: "contains"
+                  });
+              });
+          </script>
+        

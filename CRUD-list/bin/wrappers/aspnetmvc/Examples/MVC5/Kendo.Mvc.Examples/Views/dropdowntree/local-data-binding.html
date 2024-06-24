@@ -1,0 +1,16 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+    <p>
+        The <a href="https://www.telerik.com/aspnet-mvc/dropdowntree" target="_blank">Telerik UI for ASP.NET MVC DropDownTree</a> supports <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/editors/dropdowntree/binding/server-binding" target="_blank">local data binding</a> and you can display local data in the component. 
+    </p>
+    <p>
+        To implement local data binding, you need to return a collection (list) of objects from the <code>Controller</code> to the <code>View</code>, for example, by saving that collection in a <code>Model</code> field, and then load the data in the DropDownTree.
+    </p>
+    <p>
+        The current example demonstrates two approaches for binding the DropDownTree to local data:
+    </p>
+    <ul>
+        <li>(Default) Using inline data&#8212;An <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.ienumerable?view=net-7.0" target="_blank"><code>IEnumerable</code></a> of <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui/dropdowntreeitemmodel" target="_blank"><code>DropDownTreeItemModel</code></a> is stored in a <code>ViewBag</code> and passed to the <code>BindTo()</code> method. The <code>DropDownTreeItemModel</code> has an <code>Items</code> field that holds the child nodes (it is a <code>List</code> property). If a given node has items, the <strong>Expand</strong> icon will be visible.</li>
+        <li>Mapping <code>Model</code> properties&#8212;An <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.ienumerable?view=net-7.0" target="_blank"><code>IEnumerable</code></a> of a specified <code>Model</code>, for example, <strong>CategoryItem</strong>, is stored in a <code>ViewBag</code> and passed to another overload of the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/dropdowntreebuilder#bindtosystemcollectionsienumerablesystemaction" target="_blank"><code>BindTo()</code></a> method: the first argument is an <code>IEnumerable</code> of a <code>Model</code>, and the second is the action, which creates a hierarchy of items by using the specified mappings. For example, the child nodes will be bound to the <strong>SubCategories</strong> property, and the <code>CategoryItem</code> <code>Model</code> properties will be mapped to <code>DropDownTreeItem</code> properties.</li>
+    </ul>
+</div>

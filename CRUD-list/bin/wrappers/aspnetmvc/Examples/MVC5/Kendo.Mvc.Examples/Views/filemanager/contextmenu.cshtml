@@ -1,0 +1,52 @@
+<div id="example">
+    @(Html.Kendo().FileManager()
+        .Name("filemanager")
+        .DataSource(ds =>
+        {
+            ds.Read(operation => operation
+                .Type(HttpVerbs.Post)
+                .Action("Read", "FileManagerData")
+            );
+            ds.Destroy(operation => operation
+                .Type(HttpVerbs.Post)
+                .Action("Destroy", "FileManagerData")
+            );
+            ds.Create(operation => operation
+                .Type(HttpVerbs.Post)
+                .Action("Create", "FileManagerData")
+            );
+            ds.Update(operation => operation
+                .Type(HttpVerbs.Post)
+                .Action("Update", "FileManagerData")
+            );
+        })
+        .UploadUrl("Upload", "FileManagerData")
+        .ContextMenu(context =>
+        {
+            context.Items(items =>
+            {
+                items.Add("rename");
+                items.Add("delete").Text("Delete").Command("DeleteCommand").Icon("x");
+                items.Add("custom").Text("Selected Files/Folders").Command("CustomCommand").Icon("info-circle");
+            });
+        })
+    )
+</div>
+
+@section scripts{
+    <script>
+        $(document).on("kendoReady", function () {
+            var filemanagerNS = kendo.ui.filemanager;
+            filemanagerNS.commands.CustomCommand = filemanagerNS.FileManagerCommand.extend({
+                exec: function (e) {
+                    var fileManager = $("#filemanager").getKendoFileManager(),
+                        selectedFiles = fileManager.getSelected(),
+                        treeView = $(fileManager.treeView.element).getKendoTreeView();
+
+                    selectedFiles = selectedFiles == undefined ? treeView._current : selectedFiles;
+                    alert("Selected Files/Folders: " + selectedFiles.length);
+                }
+            });
+        })
+    </script>
+}

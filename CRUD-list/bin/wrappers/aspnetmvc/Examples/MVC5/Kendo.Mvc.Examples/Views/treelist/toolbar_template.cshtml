@@ -1,0 +1,127 @@
+
+
+@section scripts {
+
+    <script id="toolbar-template" type="text/x-kendo-template">
+         <button id="refresh"></button>
+         <span class="k-spacer"></span>
+         <div class="toolbar">
+            <label class="position-label" for="position">Filter by position:</label>
+              <input type="search" id="position" style="width: 150px"/>
+            </div>
+        </div>
+    </script>
+
+    <script>
+
+        $(document).on("kendoReady", function () {
+
+            var treelist = $("#treelist").data("kendoTreeList");
+            var treelist2 = $("#treelist2").data("kendoTreeList");
+
+            $("#refresh").kendoButton({
+                icon: "arrow-rotate-cw",
+                click: function () {
+                    treelist.dataSource.read();
+                }
+            });
+
+            var dropDown = $("#position").kendoDropDownList({
+                optionLabel: "All",
+                dataSource: ['CEO', 'Chief Technical Officer', 'Chief Product Officer', 'VP, Engineering', 'Chief Process Officer', 'Team Lead', 'Director, Engineering', 'Junior Software Developer', 'Software Developer', 'Technical Lead', 'QA Engineer', 'Junior QA Engineer', 'Support Officer', 'Senior Enterprise Support Officer'],
+                change: function () {
+                    var value = this.value();
+                    if (value) {
+                        treelist.dataSource.filter({ field: "Position", operator: "eq", value: value });
+                    } else {
+                        treelist.dataSource.filter({});
+                    }
+                }
+            });
+
+            $("#refresh-button").kendoButton({
+                icon: "arrow-rotate-cw",
+                click: function () {
+                    treelist2.dataSource.read();
+                }
+            });
+        })
+
+        function toolbarTemplate() {
+            return $("#toolbar-template").html();
+        }
+
+        function toolbarTemplateBtn() {
+            return "<button id='refresh-button'>Refresh</button>";
+        }
+    </script>
+}
+
+<h4>Toolbar Template as a Function</h4>
+
+@(Html.Kendo().TreeList<Kendo.Mvc.Examples.Models.TreeList.EmployeeDirectoryModel>()
+    .Name("treelist")
+    .ToolbarTemplateHandler("toolbarTemplate")
+    .Columns(columns =>
+    {
+        columns.Add().Field(f => f.FirstName).Width(250).Title("First Name");
+        columns.Add().Field(e => e.LastName).Title("Last Name");
+        columns.Add().Field(e => e.Position);
+        columns.Add().Field(e => e.Extension).Title("Ext").Format("{0:#}").Filterable(false);
+    })
+    .Height(540)
+    .DataSource(dataSource => dataSource
+        .ServerOperation(false)
+        .Read(read => read.Action("All", "EmployeeDirectory"))
+        .Model(m => {
+            m.Id(f => f.EmployeeId);
+            m.ParentId(f => f.ReportsTo);
+            m.Field(f => f.FirstName);
+            m.Field(f => f.LastName);
+            m.Field(f => f.ReportsTo);
+            m.Expanded(true);
+        })
+    )
+)
+
+<h4>Toolbar Template as a String</h4>
+
+@(Html.Kendo().TreeList<Kendo.Mvc.Examples.Models.TreeList.EmployeeDirectoryModel>()
+    .Name("treelist2")
+    .ToolbarTemplateHandler("toolbarTemplateBtn")
+    .Columns(columns =>
+    {
+        columns.Add().Field(f => f.FirstName).Width(250).Title("First Name");
+        columns.Add().Field(e => e.LastName).Title("Last Name");
+        columns.Add().Field(e => e.Position);
+        columns.Add().Field(e => e.Extension).Title("Ext").Format("{0:#}").Filterable(false);
+    })
+    .Height(540)
+    .DataSource(dataSource => dataSource
+        .ServerOperation(false)
+        .Read(read => read.Action("All", "EmployeeDirectory"))
+        .Model(m => {
+            m.Id(f => f.EmployeeId);
+            m.ParentId(f => f.ReportsTo);
+            m.Field(f => f.FirstName);
+            m.Field(f => f.LastName);
+            m.Field(f => f.ReportsTo);
+            m.Expanded(true);
+        })
+    )
+)
+
+
+<style>
+    .k-toolbar-item {
+        width: 100%;
+    }
+
+    .toolbar {
+        padding: 10px;
+    }
+
+    button {
+        margin: 10px;
+    }
+</style>

@@ -1,0 +1,143 @@
+@using Kendo.Mvc.Examples.Models.GridLayout
+@using System.Text;
+
+@model GridLayoutData
+<div class="grid-layout-container">
+    @(Html.Kendo().GridLayout()
+        .HtmlAttributes(new { @class = "grid-layout" })
+        .Name("gridlayout")
+        .RowSpacing("6px")
+        .ColumnSpacing("10px")
+        .Rows(c=>{
+            c.Add().Height("20px");
+            c.Add().Height("100px");
+            c.Add().Height("100px");
+        })
+        .Columns(c=>{
+            c.Add();
+            c.Add();
+            c.Add();
+        })
+        .Items(i=>{
+        i.Add().Row(1).Column(1).ColumnSpan(3)
+            .Content("<div class='grid-layout-heading k-text-uppercase k-font-weight-bold k-text-inverse'>Trending articles</div>");
+        for (var j = 0; j < 6; j++)
+        {
+            var current = j;
+            var position = j + 1;
+            i.Add().Row((current / 3) + 2).Column((current % 3) + 1)
+                .Content(
+                        "<div class='article k-d-flex'>"+
+                        "<div class='article-position k-d-inline-flex'>0"+ position + "</div>"+
+                        "<div class='article-description k-d-flex-col'>"+
+                            "<div class='author k-text-inverse'>" + Model.Articles[current].Author +"</div>"+
+                            "<div class='title k-text-inverse'>" + Model.Articles[current].Title + "</div>" +
+                            "<div class='date-container k-d-flex'>"+
+                                "<div class='date k-text-inverse'>" + Model.Articles[current].FormattedDate + "</div>" +
+                                "<div class='separator'>|</div>"+
+                                "<div class='length k-text-inverse'>" + Model.Articles[current].MinsLength + " min read</div>" +
+                            "</div>"+
+                        "</div>"+
+                    "</div>");
+        }
+        })
+        )
+</div>
+
+@section scripts {
+    <script>
+        function updateLayout(rowCount, columnCount) {
+            $(".k-grid-layout").css("grid-template-rows", `20px repeat(${rowCount},100px)`)
+            $(".grid-layout-heading").css("column-span", columnCount + 1);
+            var articles = $(".article").parent();
+            var articleIndex = 0;
+            for (let r = 0; r < rowCount; r++) {
+                for (let c = 0; c < columnCount; c++) {
+                    var rowIndex = r + 2;
+                    var colIndex = c + 1;
+                    var newStyle = `grid-row: ${rowIndex}; grid-column: ${colIndex}`;
+
+                    $(articles[articleIndex]).attr("style", newStyle)
+                    articleIndex++;
+                }
+            }
+        }
+
+        function checkScreenSize() {
+            const checkSmallScreen = window.matchMedia('screen and (max-width: 500px)')
+            const checkMediumScreen = window.matchMedia('(min-width: 500px) and (max-width: 768px)')
+            const checkLargeScreen = window.matchMedia('(min-width: 768px)')
+
+            checkSmallScreen.addListener(function (e) {
+                if (e.matches) {
+                    updateLayout(6, 1)
+                }
+            })
+            checkMediumScreen.addListener(function (e) {
+                if (e.matches) {
+                    updateLayout(3, 2)
+                }
+            })
+
+            checkLargeScreen.addListener(function (e) {
+                if (e.matches) {
+                    updateLayout(2, 3)
+                }
+            })
+        }
+
+        $("document").ready(function () {
+            checkScreenSize()
+        })
+    </script>
+}
+<style>
+    .grid-layout {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .grid-layout-heading {
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #424242;
+        line-height: 20px;
+        font-weight: bold;
+    }
+
+    .article {
+        gap: 10px;
+        color: #656565;
+    }
+
+    .article-description {
+        gap: 6px;
+    }
+
+    .article-position {
+        margin-right: 10px;
+        font-size: 32px;
+        font-weight: bold;
+        color: #ff6358;
+    }
+
+    .article-description .title {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: bold;
+    }
+
+    .article-description .author {
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .article-description .date {
+        font-size: 10px;
+        line-height: 20px;
+    }
+
+    .article-description .separator {
+        padding: 0 5px;
+    }
+</style>

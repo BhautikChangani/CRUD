@@ -1,0 +1,58 @@
+
+        <div id="taskBoard"></div>
+        <script type="module">
+            var cardsData = [
+                { id: 1, title: "Campaigns", order: 1, description: "Create a new landing page for campaign", status: "todo", color: "orange" },
+                { id: 2, title: "Newsletters", order: 2, description: "Send newsletter", status: "todo", color: "orange" },
+                { id: 3, title: "Ads Analytics", order: 3, description: "Review ads performance", status: "todo", color: "orange" },
+                { id: 4, title: "SEO Analytics", order: 4, description: "Review SEO results", status: "todo", color: "orange" },
+                { id: 5, title: "Customer Research", order: 5, description: "Interview focus groups", status: "todo", color: "orange" },
+                { id: 6, title: "Testimonials & Case Studies", order: 6, description: "Publish new case study", status: "todo", color: "orange" },
+                { id: 7, title: "Content", order: 7, description: "Plan content for podcasts", status: "todo", color: "orange" },
+                { id: 8, title: "Customer Journey", order: 8, description: "Update virtual classrooms' experience", status: "todo", color: "orange" },
+                { id: 9, title: "Funnel Analytics", order: 9, description: "Funnel analysis", status: "inProgress", color: "blue" },
+                { id: 10, title: "Customer Research", order: 10, description: "Refine feedback from user interviews", status: "inProgress", color: "blue" },
+                { id: 11, title: "Campaigns", order: 11, description: "Collaborate with designers on new banners", status: "inProgress", color: "blue" },
+                { id: 12, title: "Campaigns", order: 12, description: "Schedule social media for release", status: "inProgress", color: "blue" },
+                { id: 13, title: "Customer Journey", order: 13, description: "Review shopping cart experience", status: "done", color: "green" },
+                { id: 14, title: "Content", order: 14, description: "Publish new blogpost", status: "done", color: "green" },
+                { id: 15, title: "Post-Release Party", order: 15, description: "Plan new release celebration", status: "done", color: "green" }
+            ];
+
+            $("#taskBoard").kendoTaskBoard({
+                columns: [
+                    { text: "To-Do", status: "todo" },
+                    { text: "In Progress", status: "inProgress" },
+                    { text: "Done", status: "done" }
+                ],
+                dataSource: {
+                    data: cardsData,
+                    schema: {
+                        model: {
+                            id: "id",
+                            fields: {
+                                id: { type: "number" },
+                                order: { type: "number", defaultValue: 0 },
+                                title: { field: "title", defaultValue: "No title" },
+                                description: { field: "description", validation: { required: true } },
+                            }
+                        }
+                    }
+                },
+                dataStatusField: "status",
+                dataOrderField: "order",
+                dataCategoryField: "color",
+                height: 750,
+                resources: [
+                    {
+                        field: "color",
+                        dataSource: [
+                            { value: "orange", color: "#ffa500" },
+                            { value: "green", color: "#008000" },
+                            { value: "blue", color: "#0000ff" }
+                        ]
+                    }
+                ]
+            });
+        </script>
+    

@@ -1,0 +1,118 @@
+@using Kendo.Mvc.Examples.Models.Gantt;
+
+@section HeadContent {
+    <style>
+        /*
+            Use the DejaVu Sans font for display and embedding in the PDF file.
+            The standard PDF fonts have no support for Unicode characters.
+        */
+        .k-gantt {
+            font-family: "DejaVu Sans", "Arial", sans-serif;
+        }
+
+        /* Hide toolbars during export */
+        .k-pdf-export .k-gantt-toolbar {
+            display: none;
+        }
+    </style>
+
+    <!-- Load Pako ZLIB library to enable PDF compression -->
+    <script src="https://unpkg.com/pako/dist/pako_deflate.min.js"></script>
+}
+
+@(Html.Kendo().Gantt<TaskViewModel, DependencyViewModel>()
+    .Name("gantt")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Title).Title("Task").Editable(true).Sortable(true).Width(255);
+        columns.Bound(c => c.Start).Title("Actual Start Date").Editable(true).Format("{0:M/d/yyyy}").Width(130);
+        columns.Bound(c => c.End).Title("Actual End Date").Editable(true).Format("{0:M/d/yyyy}").Width(130);
+        columns.Bound(c => c.PercentComplete).Title("% Complete").Editable(true).Width(100);
+    })
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(weekView => weekView.Selected(true));
+        views.MonthView();
+    })
+    .Toolbar(tb =>
+    {
+        tb.Add().Name("append");
+        tb.Add().Name("pdf");
+    })
+    .Pdf(pdf => pdf
+        .FileName("Kendo UI Gantt Export.pdf")
+        .ProxyURL(Url.Action("Pdf_Export_Save", "Gantt"))
+    )
+    .ListWidth("50%")
+    .Height(700)
+    .ShowWorkHours(false)
+    .ShowWorkDays(false)
+    .Snap(false)
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskID);
+            m.ParentId(f => f.ParentID);
+            m.OrderId(f => f.OrderId);
+            m.Field(f => f.Expanded).DefaultValue(true);
+        })
+        .Read("Read_Tasks", "Gantt")
+        .Destroy("Destroy_Task", "Gantt")
+        .Update(update => update.Action("Update_Task", "Gantt").Data("onUpdateCreate"))
+        .Create(create => create.Action("Create_Task", "Gantt").Data("onUpdateCreate"))
+    )
+    .DependenciesDataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.DependencyID);
+            m.PredecessorId(f => f.PredecessorID);
+            m.SuccessorId(f => f.SuccessorID);
+            m.Type(f => f.Type);
+        })
+        .Read("Read_Dependencies", "Gantt")
+        .Create("Create_Dependency", "Gantt")
+        .Destroy("Destroy_Dependency", "Gantt")
+    )
+    .Resources(r => r
+        .Field("resources")
+        .DataColorField("Color")
+        .DataTextField("Name")
+        .DataSource(d => d
+            .Custom()
+            .Schema(s => s
+                .Model(m => m.Id("ID"))
+                .Data("Data")
+            )
+            .Transport(t =>
+            {
+                t.Read("Read_Resources", "Gantt");
+            })
+        )
+    )
+    .Assignments<ResourceAssignmentViewModel>(a => a
+        .DataTaskIdField("TaskID")
+        .DataResourceIdField("ResourceID")
+        .DataValueField("Units")
+        .DataSource(d => d
+            .Model(m =>
+            {
+                m.Id(f => f.ID);
+            })
+            .Read("Read_Assignments", "Gantt")
+            .Create("Create_Assignment", "Gantt")
+            .Destroy("Destroy_Assignment", "Gantt")
+            .Update("Update_Assignment", "Gantt")
+        )
+    )
+)
+
+@section scripts {
+    <script>
+        // Send the dates for the newly creted/updated tasks as UTC strings
+        function onUpdateCreate(e) {
+            e.End = e.End.toISOString();
+            e.Start = e.Start.toISOString();
+        }
+    </script>
+}

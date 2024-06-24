@@ -1,0 +1,80 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <h4>SIZE</h4>
+        <ul class="options">
+            <li>
+                <input id="size" />
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>BORDER RADIUS</h4>
+        <ul class="options">
+            <li>
+                <input id="rounded" />
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>FILL MODE</h4>
+        <ul class="options">
+            <li>
+                <input id="fillMode" />
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="datepicker">Select date:</label>
+        @(Html.Kendo().DatePicker()
+          .Name("datepicker")
+          .Size(ComponentSize.Medium)
+          .FillMode(FillMode.Solid)
+          .Rounded(Rounded.Medium)
+          .Value("10/10/2011")
+          .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+        )
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function () {
+            var datepicker = $("#datepicker").data("kendoDatePicker");
+
+            $("#size").kendoDropDownList({
+                dataSource: ["small", "medium", "large", "none"],
+                value: "medium",
+                change: function () {
+                    let value = this.value();
+                    datepicker.setOptions({ size: value });
+                }
+            });
+
+            $("#rounded").kendoDropDownList({
+                dataSource: ["small", "medium", "large", "full", "none"],
+                value: "medium",
+                change: function () {
+                    let value = this.value();
+                    datepicker.setOptions({ rounded: value });
+                }
+            });
+
+            $("#fillMode").kendoDropDownList({
+                dataSource: ["solid", "flat", "outline", "none"],
+                value: "solid",
+                change: function () {
+                    let value = this.value();
+                    datepicker.setOptions({ fillMode: value });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .k-picker.k-dropdownlist {
+            width: 140px;
+        }
+    </style>

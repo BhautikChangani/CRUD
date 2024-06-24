@@ -1,0 +1,12 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().TimePicker()
+            .Name("timepicker")
+            .Label(label => {
+                label.Content("Set alarm for:");
+                label.Floating(true);
+            })
+            .HtmlAttributes(new { style = "width: 100%", title = "timepicker" })
+        )
+    </div>
+</div>

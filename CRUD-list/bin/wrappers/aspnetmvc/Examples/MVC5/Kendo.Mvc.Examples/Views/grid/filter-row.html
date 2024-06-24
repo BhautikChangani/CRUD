@@ -1,0 +1,13 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The <a href="https://www.telerik.com/aspnet-mvc/grid">Telerik UI for ASP.NET MVC Grid</a> supports a row filter feature, which allows you to configure a row that will be used for filtering by the contained content in the respective column.
+</p>
+<p>
+  This demo shows how to implement a filter row in the header by setting the <code>Filterable</code> <code>Mode</code> property of the Data Grid to <code>Row</code>&#8212;<code>.Filterable(ftb => ftb.Mode(GridFilterMode.Row))</code>. Then, based on the data type of the underlying columns data, the Grid will render textboxes for string values, and numeric text boxes or date-pickers for filtering in its column headers.
+</p>
+<p>
+  Additionally, you can specify a default filter operator that will be applied when the user enters some value in the filter textbox and presses <code>Tab</code> or <code>Enter</code>. To achieve this scenario, use the <code>.Filterable(ftb => ftb.Cell(cell => cell.Operator("contains")</code> attribute of the corresponding column, as shown for the <strong>Ship Name</strong> and <strong>Freight</strong> columns.
+</p>
+<p>
+  For more information about the filtering capabilities, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/filtering" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available fltering approaches</a>.
+</p>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Numerictextbox Accessibility Page</title>
+
+  <link rel="stylesheet" href="../../dist/styles/web/default-ocean-blue-a11y.css">
+
+  <script src="../content/js/jquery.min.js" type="module"></script>
+  <script src="../../dist/mjs/kendo.numerictextbox.js" type="module"></script>
+<script type="module">kendo.setDefaults('iconType', 'svg');</script>
+</head>
+<body class="k-content">
+        <header><h1> Numerictextbox Accessibility Test Page</h1></header>
+        <main >
+          <input id="numeric" type="number" title="Numerictextbox" min="0" max="100" style="width: 200px"/>
+        <script type="module">
+              $(document).ready(function () {
+                  $("#numeric").kendoNumericTextBox({
+                    label: {
+                          content: "Enter value"
+                      }
+                  });
+        });
+          </script>
+        </main>
+</body>
+</html>

@@ -1,0 +1,43 @@
+
+            <div>
+                <h2>Slider</h2>
+                <input id="slider" class="temperature" />
+            </div>
+            <div>
+                <h2>RangeSlider</h2>
+                <div id="rangeslider" class="humidity">
+                    <input />
+                    <input />
+                </div>
+            </div>
+
+
+            <script type="module">
+                $(document).ready(function () {
+                    $("#slider").kendoSlider({
+                        min: 0,
+                        max: 30,
+                        smallStep: 1,
+                        largeStep: 10,
+                        value: 18
+                    });
+
+                    $("#rangeslider").kendoRangeSlider({
+                        min: 0,
+                        max: 10,
+                        smallStep: 1,
+                        largeStep: 2,
+                        tickPlacement: "both"
+                    });
+                });
+
+                $(document.body).keydown(function (e) {
+                    if (e.altKey && e.keyCode == 87) {
+                        $(".temperature .k-draghandle")[0].focus();
+                    } else if (e.altKey && e.keyCode == 81) {
+                        $(".humidity .k-draghandle").first()[0].focus();
+                    }
+                });
+
+            </script>
+        

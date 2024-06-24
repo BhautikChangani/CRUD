@@ -1,0 +1,38 @@
+<div class='note' style="text-align: center;">
+    <p>
+        Resize the browser to see how the MultiSelect popup adapts to different resolutions.
+    </p>
+</div>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="products">Products</label>
+        @(Html.Kendo().MultiSelect()
+            .Name("products")
+            .HtmlAttributes(new {style = "width:100%;"})
+            .DataTextField("ProductName")
+            .DataValueField("ProductID")
+            .AdaptiveMode(AdaptiveMode.Auto)
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("AdaptiveMode_GetProducts", "MultiSelect");
+                });
+            })
+        )
+    </div>
+</div>
+
+<style>
+    .note {
+        font: normal 18px "Metric";
+        border-radius: 2px;
+        margin: 20px auto 40px auto;
+        padding: 20px;
+        border-left: 4px solid;
+        border-left-color: #5392e4;
+        background: rgba(83,146,228,0.1);
+        text-align: center;
+    }
+</style>

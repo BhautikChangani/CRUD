@@ -1,0 +1,119 @@
+<script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+
+<div id="example">
+    <div class="k-d-flex gap shrink">
+        <div class="grid-container">
+            @(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.StockDataPoint>()
+               .Name("compact-grid")
+               .Columns(columns => {
+                   columns.Bound(p => p.Date).Format("{0:dd MMM}").Width("70px");
+                   columns.Bound(p => p.Open).Format("{0:n2}").Width("70px");
+                   columns.Bound("").Title("Chng").ClientTemplate("#= getChangeTemplate(data) #");
+                   columns.Bound("").Title("%Chng").ClientTemplate("#= getPercentTemplate(data) #");
+                   columns.Bound(p => p.High).Format("{0:n2}").Width("70px");
+                   columns.Bound(p => p.Low).Format("{0:n2}").Width("70px");
+                   columns.Bound(p => p.Close).Format("{0:n2}").Width("70px");
+                   columns.Bound(p => p.Volume).Width("80px");
+               })
+               .Pageable(p=>p.ButtonCount(4))
+               .Scrollable()
+               .Size(ComponentSize.Small) // Enable compact Grid.
+               .ToolBar(toolBar =>
+               {
+                   toolBar.Template("<span>High Density Size Grid</span>" +
+                       "<button data-role=\"button\" class=\"k-button k-button-sm k-rounded-md k-button-solid k-button-solid-base k-toolbar-button k-grid-excel k-toolbar-tool\" type=\"button\" role=\"button\" aria-disabled=\"false\" tabindex=\"0\"><span class=\"k-icon k-font-icon k-i-file-excel k-button-icon\"></span><span class=\"k-button-text\">Export to Excel</span></button>");
+               }
+               )
+               .HtmlAttributes(new { style = "height:437px;" })
+               .DataSource(dataSource => dataSource
+                   .Ajax()
+                   .PageSize(12)
+                   .Read(read => read.Action("BoeingStockDataRead", "Grid"))
+                   .Model(model =>
+                   {
+                       model.Field("Date", typeof(DateTime));
+                       model.Field("Open", typeof(decimal));
+                       model.Field("High", typeof(decimal));
+                       model.Field("Low", typeof(decimal));
+                       model.Field("Close", typeof(decimal));
+                       model.Field("Volume", typeof(long));
+                   })
+                )
+              )
+        </div>
+        <div class="grid-container">
+            @(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.StockDataPoint>()
+               .Name("regular-grid")
+               .Columns(columns => {
+                   columns.Bound(p => p.Date).Format("{0:dd MMM}").Width("100px");
+                   columns.Bound(p => p.Open).Format("{0:n2}").Width("100px");
+                   columns.Bound("").Title("Chng").ClientTemplate("#= getChangeTemplate(data) #").Width("85px");
+                   columns.Bound("").Title("%Chng").ClientTemplate("#= getPercentTemplate(data) #").Width("85px");
+                   columns.Bound(p => p.High).Format("{0:n2}").Width("100px");
+                   columns.Bound(p => p.Low).Format("{0:n2}").Width("100px");
+                   columns.Bound(p => p.Close).Format("{0:n2}").Width("100px");
+                   columns.Bound(p => p.Volume).Width("112px");
+               })
+               .Pageable(p=>p.ButtonCount(4))
+               .Scrollable()
+               .ToolBar(toolBar =>
+               {
+                   toolBar.Template("<span>Default Size Grid</span>" +
+                       "<button data-role=\"button\" class=\"k-button k-button-sm k-rounded-md k-button-solid k-button-solid-base k-toolbar-button k-grid-excel k-toolbar-tool\" type=\"button\" role=\"button\" aria-disabled=\"false\" tabindex=\"0\"><span class=\"k-icon k-font-icon k-i- k-i-file-excel k-button-icon\"></span><span class=\"k-button-text\">Export to Excel</span></button>");
+               }
+               )
+               .HtmlAttributes(new { style = "height:437px;" })
+               .DataSource(dataSource => dataSource
+                   .Ajax()
+                   .PageSize(12)
+                   .Read(read => read.Action("BoeingStockDataRead", "Grid"))
+                   .Model(model =>
+                   {
+                       model.Field("Date", typeof(DateTime));
+                       model.Field("Open", typeof(decimal));
+                       model.Field("High", typeof(decimal));
+                       model.Field("Low", typeof(decimal));
+                       model.Field("Close", typeof(decimal));
+                       model.Field("Volume", typeof(long));
+                   })
+                )
+              )
+        </div>
+    </div>
+
+    <script>
+        function getChangeTemplate(data) {
+            let change = data.Close - data.Open;
+            return `<span style='color: ${change < 0 ? "red" : "blue"}'>${kendo.format("{0:n2}", change)}</span>`;
+        }
+
+        function getPercentTemplate(data) {
+            let changeP = (data.Close - data.Open) / data.Open;
+            return `<span style='color: ${changeP < 0 ? "red" : ""}'>${kendo.format("{0:p2}", changeP)}</span>`;
+        }
+    </script>
+</div>
+<style>
+    .k-grid-excel {
+        margin-left: auto;
+        order: 1;
+    }
+
+    .grid-container {
+        width: 49%;
+    }
+
+    .gap {
+        gap: 1.5em;
+    }
+
+    @@media only screen and (max-width: 1024px) {
+        .shrink {
+            flex-direction: column;
+        }
+
+        .grid-container {
+            width: 100%;
+        }
+    }
+</style>

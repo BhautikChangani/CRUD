@@ -1,0 +1,35 @@
+<div class="k-d-flex k-align-items-center k-justify-content-evenly" style="padding-top: 54px;">
+    <div class="box-col">
+        <label for="basic">Simple (palette-based) picker:</label>
+        @(Html.Kendo().ColorPicker()
+            .Name("basic")
+            .Palette(ColorPickerPalette.WebSafe)
+            .Value("#cc2222")
+            .HtmlAttributes(new { accessKey = "s" })
+            .Input(false)
+            .Preview(false)
+            .Views(new string[] { "gradient" })
+        )
+    </div>
+    <div class="box-col">
+        <label for="hsv">HSV picker:</label>
+        @(Html.Kendo().ColorPicker()
+            .Name("hsv")
+            .Value("#22cc22")
+            .Opacity(true)
+            .HtmlAttributes(new { accessKey = "h" })
+            .Input(false)
+            .Preview(false)
+            .Views(new string[] { "gradient" })
+        )
+    </div>
+</div>
+
+<style>
+    .box-col {
+        text-align: center;
+    }
+        .box-col label {
+            display: block;
+        }
+</style>

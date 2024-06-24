@@ -1,0 +1,21 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+   <p>The <a href="https://www.telerik.com/aspnet-mvc/mvc-multiviewcalendar" target="_blank">Telerik UI for ASP.NET MVC MultiViewCalendar component</a> allows the user to select multiple dates or a range of dates by delivering different the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/scheduling/multiviewcalendar/selection" target="_blank">selection modes</a>. To control the selection mode feature, configure the <code>Selectable()</code> configuration method with the following option values:</p>
+   <ul>
+       <li>Multiple&#8212;The user is able to select multiple dates. The multiple selection functionality of the MultiViewCalendar component can be performed with the <code>Ctrl</code> or <code>Shift</code> keys.</li>
+       <br>
+       <p>The <code>Ctrl</code> key allows the user to perform multiple selection:</p>
+       <ol>
+            <li><code>Ctrl</code> + mouse-clicking on a specific date will mark the date as selected, and other previously selected dates will remain selected as well.</li>
+            <li>Selecting a date from a specific view without using the <code>Ctrl</code> key will deselect all previously selected dates (including previously selected dates from other views or months), and select the date of the clicked cell.</li>
+            <li>Selecting a date that is already selected while holding the <code>Ctrl</code> key will remove the date from the selection.</li>
+       </ol>
+            <p>The <code>Shift</code> key allows the user to select a range of dates in the same month or between different months:</p>
+       <ol>
+            <li><code>Shift</code> + mouse-clicking selects all dates between the last selected one (with <code>Space</code> or mouse click) and the clicked cell.</li>
+            <li><code>Shift</code> + mouse click when there is no previous selection will select all dates from the beginning to the clicked cell.</li>
+       </ol>
+      <li>Range&#8212;Each subsequent mouse click sets respectively the <code>start</code> and <code>end</code> of the range that will be selected. If the end is before the start, it becomes the start of the range.</li>
+  </ul>
+  <p>This example demonstrates how to use both the <code>Range</code> and <code>Multiple</code> selection modes on two separate MultiViewCalendar components.</p>
+</div>    

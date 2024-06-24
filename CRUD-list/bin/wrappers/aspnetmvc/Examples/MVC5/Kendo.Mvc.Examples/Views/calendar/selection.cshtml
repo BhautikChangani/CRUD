@@ -1,0 +1,25 @@
+<div class="k-d-flex k-justify-content-center">
+    <div class="k-w-300">
+        <h4>Multiple Date Selection</h4>
+        @(Html.Kendo().Calendar()
+            .Name("calendarMultiple")
+            .Selectable("multiple")
+            .WeekNumber(true)
+        )
+    </div>
+
+    <div class="k-w-300">
+        <h4>Range Date Selection</h4>
+        @(Html.Kendo().Calendar()
+            .Name("calendarRange")
+            .Selectable("range")
+            .WeekNumber(true)
+        )
+    </div>
+</div>
+
+<style>
+    .k-d-flex {
+        text-align: center;
+    }
+</style>

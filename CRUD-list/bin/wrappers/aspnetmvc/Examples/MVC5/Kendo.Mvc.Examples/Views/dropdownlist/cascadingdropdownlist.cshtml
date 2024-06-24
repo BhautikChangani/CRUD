@@ -1,0 +1,102 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+
+         <label for="categories">Categories:</label>
+        @(Html.Kendo().DropDownList()
+          .Name("categories")
+          .HtmlAttributes(new { style = "width:100%" })
+          .OptionLabel("Select category...")
+          .DataTextField("CategoryName")
+          .DataValueField("CategoryId")
+          .DataSource(source =>
+                  {
+               source.Read(read =>
+                      {
+                   read.Action("Cascading_Get_Categories", "DropDownList");
+               });
+          })
+        )
+        <br />
+        <br />
+        <br />
+        <label for="products">Products:</label>
+        @(Html.Kendo().DropDownList()
+          .Name("products")
+          .HtmlAttributes(new { style = "width:100%" })
+          .OptionLabel("Select product...")
+          .DataTextField("ProductName")
+          .DataValueField("ProductID")
+          .DataSource(source =>
+                  {
+              source.Read(read =>
+              {
+                  read.Action("Cascading_Get_Products", "DropDownList")
+                      .Data("filterProducts");
+              })
+              .ServerFiltering(true);
+          })
+          .Enable(false)
+          .AutoBind(false)
+          .CascadeFrom("categories")
+        )
+        <br />
+        <br />
+        <br />
+        <label for="orders">Orders:</label>
+        @(Html.Kendo().DropDownList()
+          .Name("orders")
+          .HtmlAttributes(new { style = "width:100%" })
+          .OptionLabel("Select order...")
+          .DataTextField("ShipCity")
+          .DataValueField("OrderID")
+          .DataSource(source =>
+                  {
+              source.Read(read =>
+              {
+                  read.Action("Cascading_Get_Orders", "DropDownList")
+                      .Data("filterOrders");
+              })
+              .ServerFiltering(true);
+          })
+          .Enable(false)
+          .AutoBind(false)
+          .CascadeFrom("products")
+        )
+
+        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" id="get" style="margin-top: 2em; float: right;">View Order</button>
+    </div>
+</div>
+@section scripts {
+    <script>
+        function filterOrders() {
+            return {
+                products: $("#products").val()
+            };
+        }
+
+        function filterProducts() {
+            return {
+                categories: $("#categories").val()
+            };
+        }
+
+        $(document).on("kendoReady", function () {
+            var categories = $("#categories").data("kendoDropDownList"),
+                products = $("#products").data("kendoDropDownList"),
+                orders = $("#orders").data("kendoDropDownList");
+
+            $("#get").click(function () {
+                var categoryInfo = "\nCategory: { id: " + categories.value() + ", name: " + categories.text() + " }",
+                    productInfo = "\nProduct: { id: " + products.value() + ", name: " + products.text() + " }",
+                    orderInfo = "\nOrder: { id: " + orders.value() + ", name: " + orders.text() + " }";
+
+                alert("Order details:\n" + categoryInfo + productInfo + orderInfo);
+            });
+        });
+    </script>
+}
+<style>
+    .k-readonly {
+        color: gray;
+    }
+</style>

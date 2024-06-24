@@ -1,0 +1,14 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The <a href="https://www.telerik.com/aspnet-mvc/grid">Telerik UI for ASP.NET MVC Grid</a> enables you to modify its <strong>Filter Menu</strong>.
+</p>
+<p>
+  This demo shows how to apply common settings to the filter menu configuration of the Data Grid and customize its user interface. To achieve the desired scenario: 
+</p>
+<ol>
+    <li>Specify a single filter criterion by using the <code>Filterable=>Extra(false)</code> setting and limit the filter operators for string columns to <code>Starts with</code>, <code>Is equal to</code>, and <code>Is not equal to</code>.</li>
+    <li>After that, provide the custom filterable UI by referencing the name of the JavaScript function which initializes it. The demo uses a Kendo UI AutoComplete and a DropDownList for the <strong>Title</strong> and <strong>City</strong> columns respectively&#8212;<code>.Filterable(filterable => filterable.UI("cityFilter"))</code>.</li>
+  </ol>
+<p>
+  For more information about the filtering capabilities, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/filtering" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available fltering approaches</a>.
+</p>

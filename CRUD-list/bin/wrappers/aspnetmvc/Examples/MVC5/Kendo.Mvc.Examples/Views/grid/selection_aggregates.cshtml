@@ -1,0 +1,122 @@
+
+<div class="demo-section wide">
+    <h4>Displaying Selection Aggregates in Status Bar</h4>
+    @(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.OrderViewModel>()
+        .Name("rowSelection")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.ShipCountry).Width(200);
+            columns.Bound(p => p.Freight).Width(200);
+            columns.Bound(p => p.OrderDate).Format("{0:dd/MM/yyyy}");
+        })
+        .Pageable(pageable => pageable.ButtonCount(5))
+        .Selectable(selectable => selectable
+        .Mode(GridSelectionMode.Multiple)
+            .CellAggregates(true)
+        )
+        .StatusBarTemplate(Html.Kendo().Template()
+            .AddHtml("${data.aggregates.count>0?`<div>Cells count: ${data.aggregates['count']} Min: ${data.aggregates['min']} Max: ${data.aggregates['max']} Sum: ${data.aggregates['sum']} Average: ${formatAggregate(data.aggregates['average'], 'average')} Earliest Date: ${formatAggregate(data.aggregates['earliest'], 'earliest')} Latest Date: ${formatAggregate(data.aggregates['latest'], 'latest')}</div>`:'No rows are selected'}")
+        )
+        .Navigatable()
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(5)
+        .Model(model => model.Id(p => p.OrderID))
+        .Read(read => read.Action("Selection_Orders_Read", "Grid"))
+        )
+        )
+</div>
+
+<div class="demo-section wide">
+    <h4>Displaying Selection Aggregates Externally</h4>
+    @(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.OrderViewModel>()
+        .Name("cellSelection")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.ShipCountry).Width(200);
+            columns.Bound(p => p.Freight).Width(200);
+            columns.Bound(p => p.OrderDate).Format("{0:dd/MM/yyyy}");
+        })
+        .ToolBar(toolbar => toolbar.Custom()
+            .ClientTemplate(Html.Kendo().Template()
+                .AddComponent(component=>component.Button()
+                    .Name("display-aggregates")
+                    .Content("Dislay Aggregates")
+                    .Enable(false)
+                    .Events(e=>e.Click("onDisplayAggregatesBttn"))
+                )
+            )
+        )
+        .Pageable(pageable => pageable.ButtonCount(5))
+        .Selectable(selectable => selectable
+        .Mode(GridSelectionMode.Multiple)
+           .Type(GridSelectionType.Cell)
+           .CellAggregates(true)
+        )
+        .Navigatable()
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(5)
+        .Model(m => m.Id(f => f.OrderID))
+        .Read(read => read.Action("Selection_Orders_Read", "Grid"))
+        )
+        .Events(e => e.Change("onChange"))
+    )
+</div>
+
+@(Html.Kendo().Dialog()
+    .Name("dialog")
+    .Title("Selection Aggregates")
+    .Visible(false)
+    .Width(450)
+    .Modal(false)
+    .Actions(actions =>
+    {
+        actions.Add().Text("Close").Primary(true);
+    })
+)
+
+
+@section scripts {
+    <script>
+        let aggregates;
+        function onChange(e) {
+            let displayAggregatesBttn = $("#display-aggregates").data("kendoButton");
+            displayAggregatesBttn.enable(true);
+            aggregates = e.cellAggregates;
+        }
+        function onDisplayAggregatesBttn(e) {
+            let dialogContent = aggregatesTemplate(aggregates);
+            let dialog = $("#dialog").data("kendoDialog");
+            dialog.content(dialogContent);
+            dialog.open();
+        }
+        function aggregatesTemplate(aggregates) {
+            var result = '<div class="k-d-flex k-gap-sm">';
+            for (const aggregate in aggregates) {
+                const value = aggregates[aggregate];
+                if (value || value === 0) {
+                    result += `<div class="k-selection-aggregates-item"><span class="k-selection-aggregates-item-text">${aggregate}: </span><span class="k-selection-aggregates-item-value">${formatAggregate(aggregates[aggregate], aggregate)}</span></div>`;
+                }
+            }
+            result += '</div>';
+
+            return result;
+        }
+        function formatAggregate(aggregate, key) {
+            if (key === "average" || key === "sum" || key === "max" || key === "min") {
+                return kendo.toString(aggregate, "n");
+            }
+            if (key === "earliest" || key === "latest") {
+                return kendo.toString(aggregate, "dd/MM/yyyy");
+            }
+            return aggregate;
+        }
+    </script>
+}
+<style>
+    .demo-section h3 {
+        margin: 5px 0 15px 0;
+        text-align: center;
+    }
+</style>

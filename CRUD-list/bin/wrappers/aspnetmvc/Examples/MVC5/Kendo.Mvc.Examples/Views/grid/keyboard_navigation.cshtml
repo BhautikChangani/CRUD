@@ -1,0 +1,38 @@
+@(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.EmployeeViewModel>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(e => e.FirstName).Width(150).Title("First Name");
+        columns.Bound(e => e.LastName).Width(150).Title("Last Name");
+        columns.Bound(e => e.City).Width(150);
+        columns.Bound(e => e.Address);
+        columns.Bound(e => e.HomePhone).Width(150).Title("Home phone");
+    })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("Keyboard_Read", "Grid"))
+        .Group(grouping =>
+        {
+            grouping.Add(employee => employee.FirstName);
+        })
+        .PageSize(10)
+     )
+     .Selectable(select => select.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+     .Navigatable()
+     .Groupable()
+     .Filterable()
+     .Sortable()
+     .Pageable()
+     .Reorderable(reordering => reordering.Columns(true))
+)
+
+@section scripts {
+<script>
+    $(document.body).keydown(function(e) {
+        if (e.altKey && e.keyCode == 87) {
+            $("#grid").data("kendoGrid").table.focus();
+        }
+    });
+</script>
+}
+

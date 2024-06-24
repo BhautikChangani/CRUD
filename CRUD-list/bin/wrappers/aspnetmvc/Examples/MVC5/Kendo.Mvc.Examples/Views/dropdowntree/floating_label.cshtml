@@ -1,0 +1,19 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+     @(Html.Kendo().DropDownTree()
+        .Name("dropdowntree")
+        .DataTextField("Name")
+        .Label(label =>
+        {
+            label.Content("Select an employee...");
+            label.Floating(true);
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .DataSource(dataSource => dataSource
+            .Read(read => read
+                .Action("Remote_Data_Binding_Get_Employees", "DropDownTree")
+            )
+        )
+    )
+    </div>
+</div>

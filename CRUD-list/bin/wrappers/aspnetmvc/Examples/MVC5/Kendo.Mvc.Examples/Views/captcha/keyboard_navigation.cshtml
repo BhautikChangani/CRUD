@@ -1,0 +1,44 @@
+
+<div class="demo-section auto">
+    <form id="form">
+        @(Html.Kendo().Captcha()
+        .Name("captcha")
+        .CaptchaImage((string)ViewData["Captcha"])
+        .CaptchaId((string)ViewData["CaptchaID"])
+        .DataCaptchaField("Captcha")
+        .DataCaptchaIdField("CaptchaID")
+        .Handler(handler => handler.Action("Reset", "Captcha"))
+        .AudioHandlerFunction("audioHandler")
+        .Events(e => e.Error("captchaError"))
+        .ValidationHandler(handler => handler.Action("Validate", "Captcha"))
+)
+    </form>
+</div>
+
+@section scripts {
+    <script>
+        $(document).on("keydown", function (e) {
+            if (e.altKey && e.keyCode === 87 /* w */) {
+                $("#captcha").focus();
+            }
+        });
+
+        $(document).on("kendoReady", function () {
+            $("#form").kendoValidator();
+        });
+
+         function audioHandler(args) {
+             args.success("@Url.Content("~/Content/UserFiles/Captcha/")" + args.data.CaptchaID + ".wav");
+         }
+
+        function captchaError(e) {
+            e.sender.reset();
+        }
+    </script>
+}
+
+<style>
+    #demo-runner {
+        text-align: center;
+    }
+</style>

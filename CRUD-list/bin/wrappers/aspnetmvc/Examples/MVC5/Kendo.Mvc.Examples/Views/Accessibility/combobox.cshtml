@@ -1,0 +1,22 @@
+
+<script type="module">
+    // initialize widgets
+    kendo.init($("#example"));
+</script>
+        <!-- <label for="size" >Combobox</label> -->
+          <select id="size" title="combo" alt="Select size" value="test" placeholder="Select size..." style="width: 200px;">
+              <option>X-Small</option>
+              <option>Small</option>
+              <option>Medium</option>
+              <option selected>Large</option>
+              <option>X-Large</option>
+              <option>2X-Large</option>
+          </select>
+          <script type="module">
+              $(document).ready(function () {
+                  $("#size").kendoComboBox({
+                    label: "Combobox"
+                  });
+              });
+          </script>
+        

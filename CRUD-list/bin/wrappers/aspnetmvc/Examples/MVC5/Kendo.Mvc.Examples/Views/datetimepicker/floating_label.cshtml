@@ -1,0 +1,12 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().DateTimePicker()
+            .Name("datetimepicker")
+            .Label(label => {
+                label.Content("Remind me on");
+                label.Floating(true);
+            })
+            .HtmlAttributes(new { style = "width: 100%", title = "datetimepicker" })
+        )
+    </div>
+</div>

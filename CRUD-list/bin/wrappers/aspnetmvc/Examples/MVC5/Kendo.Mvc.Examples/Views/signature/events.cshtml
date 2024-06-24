@@ -1,0 +1,56 @@
+<script>
+    function onPopupOpen() {
+        kendoConsole.log("Signature popup has been opened.");
+    }
+
+    function onPopupClose() {
+        kendoConsole.log("Signature popup has been closed.");
+    }
+
+    function onChange() {
+        kendoConsole.log("Signature value has been changed to: " + this.value());
+    }
+</script>
+
+<div class="k-d-flex k-justify-content-center">
+    <div class="signature-container">
+        <div class="signature-wrapper">
+            @(Html.Kendo().Signature()
+                    .Name("signature")
+                    .Width(600)
+                    .Height(340)
+                    .PopupScale(1)
+                    .Events(e=>e.Open("onPopupOpen")
+                                .Close("onPopupClose")
+                                .Change("onChange")))
+        </div>
+        <div class="notes">
+            By using the Telerik UI for ASP.NET MVC Signature component,
+            you can enable your end-users to draw handwritten signatures
+            using touch or pointer devices.
+        </div>
+    </div>
+</div>
+
+<style>
+    .signature-container {
+        width: 602px;
+    }
+
+    .signature-wrapper {
+        height: 341px;
+    }
+
+    div.notes {
+        font-style: italic;
+        border-width: 1px;
+        border-style: solid;
+        padding: 1em;
+    }
+
+    #signature, .notes {
+        border-color: rgba(0, 0, 0, 0.08);
+        border-width: 1px 1px 0 1px;
+        border-radius: 0;
+    }
+</style>

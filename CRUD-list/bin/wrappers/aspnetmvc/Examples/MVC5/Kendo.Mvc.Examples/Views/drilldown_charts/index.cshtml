@@ -1,0 +1,32 @@
+<div id="example">
+    <div class="demo-section wide">
+        @(Html.Kendo().ChartBreadcrumb()
+            .Name("cb")
+            .Chart("chart")
+        )
+        @(Html.Kendo().Chart<Kendo.Mvc.Examples.Models.CompanyModel>()
+            .Name("chart")
+            .Series(series =>
+            {
+                series.Column(model => model.Sales)
+                .Name("Total Sales By Company")
+                .CategoryField("CompanyName")
+                .DrilldownField("Products").DrilldownSeriesFactory("drillDownHandler");
+            })
+            .DataSource(dataSource => dataSource.Read(read => read.Action("Get_Companies", "Drilldown_Charts")))
+            .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+        )
+    </div>
+</div>
+
+@section scripts {
+    <script>function drillDownHandler(chartPoint) {
+            return {
+                type: 'column',
+                name: chartPoint.parent().CompanyName + ' Sales By Product',
+                data: chartPoint,
+                field: 'Sales',
+                categoryField: 'ProductName',
+            };
+        }</script>
+}

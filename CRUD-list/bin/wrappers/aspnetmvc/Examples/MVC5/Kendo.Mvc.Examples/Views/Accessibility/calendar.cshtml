@@ -1,0 +1,14 @@
+
+    <div id="calendar"></div>
+    <script type="module">
+      $(document).ready(function () {
+        $("#calendar").kendoCalendar();
+      });
+      //focus the widget
+      $(document.body).keydown(function (e) {
+        if (e.altKey && e.keyCode === 87 /* w */) {
+          $("#calendar").data("kendoCalendar").focus();
+        }
+      });
+    </script>
+  

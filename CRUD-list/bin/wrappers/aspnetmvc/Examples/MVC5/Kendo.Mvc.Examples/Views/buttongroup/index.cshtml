@@ -1,0 +1,17 @@
+<div class="demo-section">
+   @(Html.Kendo().ButtonGroup()
+       .Name("select-period")
+       .Items(t =>
+       {
+           t.Add().Text("Month");
+           t.Add().Text("Quarter");
+           t.Add().Text("Year");
+       })
+    )
+</div>
+
+<style>
+    .demo-section {
+        text-align: center;
+    }
+</style>

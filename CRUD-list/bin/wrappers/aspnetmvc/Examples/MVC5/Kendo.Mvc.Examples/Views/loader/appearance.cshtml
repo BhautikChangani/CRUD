@@ -1,0 +1,53 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <ul class="options">
+            <li>
+                <h4>Size</h4>
+                @(Html.Kendo().DropDownList()
+                    .Name("size")
+                    .BindTo(new[] { "small", "medium", "large" })
+                    .Value("medium")
+                    .Events(e => e.Change("onSizeChange"))
+                )
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <ul class="options">
+            <li>
+                <h4>Theme Color</h4>
+                @(Html.Kendo().DropDownList()
+                    .Name("themeColor")
+                    .BindTo(new[] { "primary", "secondary", "tertiary", "info", "success", "warning", "error", "dark", "light", "inverse" })
+                    .Value("primary")
+                    .Events(e => e.Change("onThemeColorChange"))
+                )
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="k-d-flex k-align-items-center">
+    <div class="k-flex-1 k-text-center">
+        @(Html.Kendo().Loader()
+            .Name("loader")
+            .Size(LoaderSize.Medium)
+            .ThemeColor(LoaderThemeColor.Primary)
+        )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function onSizeChange(e) {
+            var loader = $("#loader").data("kendoLoader");
+            loader.setOptions({ size: e.sender.value() });
+        }
+
+        function onThemeColorChange(e) {
+            var loader = $("#loader").data("kendoLoader");
+            loader.setOptions({ themeColor: e.sender.value() });
+        }
+    </script>
+}

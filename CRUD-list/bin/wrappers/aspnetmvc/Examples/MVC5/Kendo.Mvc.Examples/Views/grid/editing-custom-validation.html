@@ -1,0 +1,13 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  Some scenarios require the <a href="https://www.telerik.com/aspnet-mvc/grid" target="_blank">Telerik UI for ASP.NET MVC Data Grid</a> not only to visualize data in a table structure, but also to support editing and validation before users save changes.
+</p>
+<p>
+  By design, the Grid has a built-in Validator that is initialized when a specified row is in edit mode. Each property that binds to an editable Grid column is validated based on how it is defined in the Model. For example, if the field is required, if its data type is correct, and more. You can extend the default validation rules of the Grid's Validator and perform additional client-side validations.
+</p>
+<p> 
+  This demo shows how to extend the Grid built-in Validator and define a custom validation rule by using the jQuery <a href="https://api.jquery.com/jQuery.extend/" target="_blank">extend()</a> method. The <code>productnamevalidation()</code> function checks for a first capital letter of the <strong>ProductName</strong> field column when editing.
+</p>
+<p>
+  For more information about the editing capabilities, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/editing/overview" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available data-editing approaches</a>.
+</p>

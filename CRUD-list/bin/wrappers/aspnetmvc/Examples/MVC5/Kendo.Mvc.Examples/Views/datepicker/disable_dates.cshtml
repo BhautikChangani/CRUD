@@ -1,0 +1,57 @@
+@{
+    ViewBag.Title = "DisableDates";
+}
+
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="weekend-date-picker">Disable weekends:</label>
+        @(Html.Kendo().DatePicker()
+                .Name("weekend-date-picker")
+                .DisableDates(DayOfWeek.Saturday, DayOfWeek.Sunday)
+            )
+        <br/>
+        <br/>
+        <br/>
+        <label for="national-date-picker">Disable Federal Holidays in USA in 2019:</label>
+        @(Html.Kendo().DatePicker()
+                .Name("national-date-picker")
+                .DisableDates("disableDates")
+                .Value("1/2/2019")
+            )
+    </div>
+</div>
+    @section scripts {
+        <script>
+            function disableDates(date) {
+                var dates = [
+                    new Date("1/1/2019"),
+                    new Date("1/21/2019"),
+                    new Date("2/18/2019"),
+                    new Date("5/27/2019"),
+                    new Date("7/4/2019"),
+                    new Date("9/2/2019"),
+                    new Date("10/14/2019"),
+                    new Date("11/11/2019"),
+                    new Date("11/28/2019"),
+                    new Date("12/25/2019")
+                ];
+
+                if (date && compareDates(date, dates)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            function compareDates(date, dates) {
+                for (var i = 0; i < dates.length; i++) {
+                    if (dates[i].getDate() == date.getDate() &&
+                        dates[i].getMonth() == date.getMonth() &&
+                        dates[i].getYear() == date.getYear()) {
+                        return true
+                    }
+                }
+            }
+        </script>
+    }

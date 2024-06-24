@@ -1,0 +1,51 @@
+<div class="demo-section">
+    @(Html.Kendo().ToolBar()
+        .Name("toolbar")
+        .Items(items =>
+        {
+            items.Add().Template(@"
+                <a ><span class='k-icon k-font-icon k-i-user'></span> " +
+                    Html.Kendo().Badge()
+                        .Name("badge-overlay")
+                        .Text("2")
+                        .ThemeColor(BadgeColor.Primary)
+                        .Rounded(Rounded.Small)
+                        .ToHtmlString() +
+                "</a>"
+            );
+
+            items.Add().Template(@"
+                <a ><span class='k-icon k-font-icon k-i-email'></span> " +
+                    Html.Kendo().Badge()
+                        .Name("badge-inbox")
+                        .Text("5")
+                        .ThemeColor(BadgeColor.Info)
+                        .Rounded(Rounded.Medium)
+                        .ToHtmlString() +
+                "</a>"
+            );
+
+            items.Add().Template(@"
+                <a >See later " +
+                    Html.Kendo().Badge()
+                        .Name("badge-sent")
+                        .Text("15")
+                        .ThemeColor(BadgeColor.Success)
+                        .Rounded(Rounded.Large)
+                        .ToHtmlString() +
+                "</a>"
+            );
+
+            items.Add().Template(@"
+                <a >News " +
+                    Html.Kendo().Badge()
+                        .Name("badge-missed")
+                        .Text("99+")
+                        .ThemeColor(BadgeColor.Warning)
+                        .Rounded(Rounded.Full)
+                        .ToHtmlString() +
+                "</a>"
+            );
+        })
+    )
+</div>

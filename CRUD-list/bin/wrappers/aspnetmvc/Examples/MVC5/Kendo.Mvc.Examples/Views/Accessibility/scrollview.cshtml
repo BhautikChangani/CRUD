@@ -1,0 +1,54 @@
+
+            <div id="example">
+                <div style="margin:auto; width:70%">
+                    <div id="scrollView" style="width: 1022px; height: 515px; max-width: 100%;">
+                        <div class="photo photo1" data-role="page">
+                        </div><div class="photo photo2" data-role="page">
+                        </div><div class="photo photo3" data-role="page">
+                        </div>
+                    </div>
+                </div>
+                <script type="module">
+                    $(document).ready(function () {
+                        $("#scrollView").kendoScrollView({
+                            enablePager: true,
+                            navigatable: true,
+                            contentHeight: "100%"
+                        });
+
+                        $(document.body).keydown(function (e) {
+                            if (e.altKey && e.keyCode == 87) {
+                                $("#scrollView").getKendoScrollView().element.focus();
+                            }
+                        });
+                    });
+                </script>
+                <style>
+
+                    #scrollview-home .photo {
+                        display: inline-block;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                    }
+
+                    .photo1 {
+                        background-image: url("/playground/accessibility/images/image1.jpg");
+                        background-size: 882px 513px;
+                    }
+
+                    .photo2 {
+                        background-image: url("/playground/accessibility/images/image2.jpg");
+                        background-size: 882px 513px;
+                    }
+
+                    .photo3 {
+                        background-image: url("/playground/accessibility/images/image3.jpg");
+                        background-size: 882px 513px;
+                    }
+                </style>
+            </div>
+
+
+
+        

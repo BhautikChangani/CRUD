@@ -1,0 +1,216 @@
+@using Kendo.Mvc.Examples.Models.GridLayout
+@using System.Text;
+
+@model GridLayoutData
+<div class="grid-layout-container">
+    @(Html.Kendo().GridLayout()
+        .HtmlAttributes(new { @class = "grid-layout" })
+        .Name("gridlayout")
+        .RowSpacing("6px")
+        .ColumnSpacing("10px")
+        .Rows(c=>{
+            c.Add().Height("20px");
+            c.Add().Height("100px");
+            c.Add().Height("100px");
+            c.Add().Height("20px");
+            c.Add().Height("280px");
+            c.Add().Height("320px");
+        })
+        .Columns(c=>{
+            c.Add().Width("270px");
+            c.Add().Width("270px");
+            c.Add().Width("300px");
+        })
+        .Items(i=>{
+        i.Add().Row(1).Column(1).ColumnSpan(3)
+            .Content("<div class='grid-layout-heading k-text-uppercase k-font-weight-bold k-text-inverse'>Trending articles</div>");
+        for (var j = 0; j < 6; j++)
+        {
+            var current = j;
+            var position = j + 1;
+            i.Add().Row((current / 3) + 2).Column((current % 3) + 1)
+                .Content(
+                        "<div class='article k-d-flex'>"+
+                        "<div class='article-position k-d-inline-flex'>0"+ position + "</div>"+
+                        "<div class='article-description k-d-flex-col'>"+
+                            "<div class='author k-text-inverse'>" + Model.Articles[current].Author +"</div>"+
+                            "<div class='title k-text-inverse'>" + Model.Articles[current].Title + "</div>" +
+                            "<div class='date-container k-d-flex'>"+
+                                "<div class='date k-text-inverse'>" + Model.Articles[current].FormattedDate + "</div>" +
+                                "<div class='separator'>|</div>"+
+                                "<div class='length k-text-inverse'>" + Model.Articles[current].MinsLength + " min read</div>" +
+                            "</div>"+
+                        "</div>"+
+                    "</div>");
+        }
+        i.Add().Row(5).Column(1).ColumnSpan(2).RowSpan(2).Content(Model.RenderRecomendedArticles());
+    i.Add().Row(4).Column(1)
+        .Content("<div class='grid-layout-heading k-text-uppercase k-font-weight-bold k-text-inverse'>Recommended for you</div>");
+    i.Add().Row(4).Column(3)
+        .Content("<div class='grid-layout-heading k-text-uppercase k-font-weight-bold k-text-inverse'>Events this month</div>");
+    i.Add().Row(5).Column(3).Content(
+        Html.Kendo().Calendar()
+        .Name("calendar")
+        .HtmlAttributes(new {@class="event-calendar"})
+        .Value(Model.SelectedDate)
+        .ComponentType("modern")
+        .Start(CalendarView.Year)
+        .Depth(CalendarView.Year)
+        .Events(ev=>ev.Change("onChange"))
+        .ToHtmlString());
+    i.Add().Row(6).Column(3).Content(
+                @<text>
+                    <div class="grid-layout-heading k-text-uppercase k-font-weight-bold mt-sm k-text-inverse"> Discover more </div>
+
+                    <div class="k-chip-list k-chip-list-md">
+                        @foreach (var tag in Model.Tags)
+                            {
+                                <div class="k-chip k-chip-md k-rounded-full k-chip-solid k-chip-solid-base">
+                                    <span class="k-chip-content">
+                                        <span class="k-chip-label k-text-inverse">@tag</span>
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                </text>);
+        })
+        )
+</div>
+
+@section scripts {
+    <script>
+    function updateCards(selector, articles, isRecommended) {
+        $(selector).each((idx, element) => {
+            $(element).find(".author").text(articles[idx].Author);
+            $(element).find(".title").text(articles[idx].Title);
+            $(element).find(".subtitle").text(articles[idx].SubTitle);
+            $(element).find(".date").text(articles[idx].FormattedDate);
+            $(element).find(".length").text(`${articles[idx].MinsLength} mins read`);
+            if(isRecommended){
+                $(element).find(".card-article-image").attr("src", articles[idx].ImageUrl).attr("alt", articles[idx].Title);
+                $(element).find(".photo-text").text(articles[idx].ImageRight);
+            }
+        })
+    }
+    function onChange(e) {
+        $.get({
+            url: '@Url.Action("GetData","GridLayout")',
+            data: {
+                selectedDate: e.sender.current().toISOString()
+            },
+            success: function (response) {
+                    updateCards(".article", response.Articles, false);
+                    updateCards(".card-article", response.RecommendedArticles, true);
+            }
+        })
+    }
+    </script>
+}
+<style>
+    .grid-layout-container {
+        overflow-x: auto;
+    }
+
+    .grid-layout {
+        width: 860px;
+        margin: auto;
+    }
+
+    .grid-layout-heading {
+        font-size: 14px;
+        color: #424242;
+        line-height: 20px;
+    }
+
+    .article, .card-article {
+        gap: 10px;
+        color: #656565;
+    }
+
+    .card-article {
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 3px;
+    }
+
+    .article-description,
+    .card-article-description {
+        gap: 6px;
+    }
+
+    .article-position {
+        margin-right: 10px;
+        font-size: 32px;
+        font-weight: bold;
+        color: #ff6358;
+    }
+
+    .article-description .title {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: bold;
+    }
+
+    .card-article-description .title {
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: bold;
+    }
+
+    .card-article-description .sub-title {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .article-description .author {
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .card-article-description .author {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 20px;
+        padding-bottom: 4px;
+    }
+
+    .article-description .date-container,
+    .card-article-description .date-container {
+        font-size: 10px;
+        line-height: 20px;
+    }
+
+    .article-description .separator,
+    .card-article-description .separator {
+        padding: 0 5px;
+    }
+
+    .card-article-image {
+        width: 225px;
+    }
+
+    .card-article .photo-text {
+        text-align: right;
+        font-style: italic;
+        font-size: 10px;
+        opacity: 0.7;
+    }
+
+    .k-chip-list {
+        padding: 5px 0px;
+        grid-gap: 6px;
+        margin-top: 8px;
+    }
+
+    .k-chip {
+        color: #656565;
+        margin: 0px;
+        border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .event-calendar {
+        width: 100%;
+        height: 100%;
+    }
+</style>

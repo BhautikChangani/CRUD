@@ -1,0 +1,17 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="products">Select Products:</label>
+        @(Html.Kendo().MultiSelect()
+          .Name("products")
+          .DataTextField("ProductName")
+          .DataValueField("ProductID")
+          .DataSource(source => {
+              source.Read(read =>
+              {
+                  read.Action("ClientFiltering_GetProducts", "MultiSelect");
+              })
+              .ServerFiltering(false);
+          })
+        )
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="products">Find a product:</label>
+
+        @(Html.Kendo().MultiColumnComboBox()
+          .Name("products")
+          .Placeholder("Select product")
+          .DataTextField("ProductName")
+          .DataValueField("ProductID")
+          .Columns(columns =>
+          {
+              columns.Add().Field("ProductName").Title("Name");
+              columns.Add().Field("ProductID").Title("ID");
+          })
+          .HtmlAttributes(new { style = "width:100%;" })
+          .Filter("contains")
+          .AutoBind(false)
+          .MinLength(3)
+          .DataSource(source => {
+              source.Read(read =>
+              {
+                  read.Action("ServerFiltering_GetProducts", "MultiColumnComboBox");
+              })
+              .ServerFiltering(true);
+          })
+        )
+        <div class="demo-hint">Hint: type at least three characters. For example "che".</div>
+    </div>
+</div>

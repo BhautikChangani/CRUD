@@ -1,0 +1,53 @@
+@section scripts {
+        <!-- Load Pako ZLIB library to enable PDF compression -->
+        <script src="https://unpkg.com/pako/dist/pako_deflate.min.js"></script>
+        <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+}
+
+@(
+Html.Kendo().Grid<Kendo.Mvc.Examples.Models.ProductViewModelGridPopUp>()
+    .Name("grid")
+    .ContextMenu()
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.ProductName);
+        columns.Bound(p => p.UnitPrice).Width(100);
+        columns.Bound(p => p.UnitsInStock).Width(100);
+        columns.Bound(p => p.Discontinued).Width(100);
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+    })
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Row))
+    .PersistSelection()
+    .Reorderable(r=>r.Rows(true))
+    .Pdf(pdf => pdf
+            .AllPages()
+            .AvoidLinks()
+            .PaperSize("A4")
+            .Margin("2cm", "1cm", "1cm", "1cm")
+            .Landscape()
+            .FileName("Kendo UI Grid Export.pdf")
+            .ProxyURL(Url.Action("Pdf_Export_Save", "Grid"))
+        )
+    .Excel(excel => excel
+        .AllPages(true)
+        .Filterable(true)
+        .FileName("Kendo UI Grid Export.xlsx")
+        .ProxyURL(Url.Action("Excel_Export_Save", "Grid"))
+    )
+    .HtmlAttributes(new { style = "height:430px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Model(model => model.Id(p => p.ProductID))
+        .Create(update => update.Action("EditingPopup_Create", "Grid"))
+        .Read(read => read.Action("EditingPopup_Read", "Grid"))
+        .Update(update => update.Action("EditingPopup_Update", "Grid"))
+        .Destroy(update => update.Action("EditingPopup_Destroy", "Grid"))
+    )
+)

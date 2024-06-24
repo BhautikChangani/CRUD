@@ -1,0 +1,52 @@
+
+        <button id="default">Paste</button>
+        <button id="flat">Paste</button>
+        <button id="outline">Paste</button>
+        <button id="primary">Paste</button>
+
+        <script type="module">
+            $(document).ready(function () {
+                $("#default").kendoDropDownButton({
+                    icon: "clipboard",
+                    items: [
+                        { id: "keep-text", text: "Keep Text Only", icon: "clipboard-text", click: function() { alert("Keep Text Only") }},
+                        { id: "paste-html", text: "Paste as HTML", icon: "clipboard-code", click:function(){ alert("Paste as HTML") }},
+                        { id: "paste-markdown", text: "Paste Markdown", icon: "clipboard-markdown", click: function() { alert("Paste Markdown") }},
+                        { id: "paste-default", text: "Set Default Paste", click: function(){ alert("Set Default Paste")} }
+                    ]
+                });
+
+                $("#flat").kendoDropDownButton({
+                    icon: "clipboard",
+                    fillMode:"flat",
+                    items: [
+                        { id: "keep-text", text: "Keep Text Only", icon: "clipboard-text", click: function() { alert("Keep Text Only") }},
+                        { id: "paste-html", text: "Paste as HTML", icon: "clipboard-code", click:function(){ alert("Paste as HTML") }},
+                        { id: "paste-markdown", text: "Paste Markdown", icon: "clipboard-markdown", click: function() { alert("Paste Markdown") }},
+                        { id: "paste-default", text: "Set Default Paste", click: function(){ alert("Set Default Paste")} }
+                    ],
+                });
+
+                $("#outline").kendoDropDownButton({
+                    fillMode:"outline",
+                    icon: "clipboard",
+                    items: [
+                        { id: "keep-text", text: "Keep Text Only", icon: "clipboard-text", click: function() { alert("Keep Text Only") }},
+                        { id: "paste-html", text: "Paste as HTML", icon: "clipboard-code", click:function(){ alert("Paste as HTML") }},
+                        { id: "paste-markdown", text: "Paste Markdown", icon: "clipboard-markdown", click: function() { alert("Paste Markdown") }},
+                        { id: "paste-default", text: "Set Default Paste", click: function(){ alert("Set Default Paste")} }
+                    ]
+                });
+                $("#primary").kendoDropDownButton({
+                    themeColor:"primary",
+                    icon: "clipboard",
+                    items: [
+                        { id: "keep-text", text: "Keep Text Only", icon: "clipboard-text", click: function() { alert("Keep Text Only") }},
+                        { id: "paste-html", text: "Paste as HTML", icon: "clipboard-code", click:function(){ alert("Paste as HTML") }},
+                        { id: "paste-markdown", text: "Paste Markdown", icon: "clipboard-markdown", click: function() { alert("Paste Markdown") }},
+                        { id: "paste-default", text: "Set Default Paste", click: function(){ alert("Set Default Paste")} }
+                    ]
+                });
+            });
+        </script>
+    

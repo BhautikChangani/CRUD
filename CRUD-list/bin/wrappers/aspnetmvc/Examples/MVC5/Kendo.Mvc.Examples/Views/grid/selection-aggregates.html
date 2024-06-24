@@ -1,0 +1,22 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The Grid enables you to calculate aggregates of the selected rows or cells in the table.
+</p>
+<p>
+    As demonstrated in this example, the <a href="https://www.telerik.com/aspnet-mvc/grid">Telerik UI for ASP.NET MVC Grid</a> supports selection aggregates through its <strong>GridSelectionSettingsBuilder</strong>'s <code>CellAggregates</code> property: <br />
+</p>
+<p>
+    <code>.Selectable(selectable => selectable.Mode(GridSelectionMode.Multiple)<br />&emsp;&emsp;&emsp;.CellAggregates(true)<br />)</code>
+</p>
+<p>To display the aggregates use the <code>StatusBarTemplateHandler</code> property of the Grid.</p>
+<p>
+  The aggregates are calculated for each selected cell and support <strong>Row</strong>, <strong>Cell</strong> and <strong>Checkbox Selection</strong>.
+  For <strong>Checkbox Selection</strong> also set the <code>.CheckboxSelection(true)</code> configuration property.
+</p>
+<p>
+  Additionally, you can persist the calculated selection aggregates of the Grid across its pages with the use of its
+  <code>PersistSelection(true)</code> method.
+</p>
+<p>
+  For more information, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/selection-aggregates" target="_blank">official Telerik UI for ASP.NET MVC Grid documentation about the selection aggregates</a>.
+</p>

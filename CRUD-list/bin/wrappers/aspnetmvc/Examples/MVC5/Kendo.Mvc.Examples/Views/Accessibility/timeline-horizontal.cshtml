@@ -1,0 +1,30 @@
+
+        <div id="timeline"></div>
+
+        <script type="module">
+            $("#timeline").kendoTimeline({
+                dataSource: {
+                    data:[
+                        {"id":1,"title":"Bowling tournament","subtitle":"Location: Sterling Lanes","description":"Summer Bowling tournament in Michigan","date":"2025-06-30T11:00:00.000Z","actions":[{"text":"Visit the Bowling tournament page"}] },
+                        {"id":2,"title":"Charlie's first football game","subtitle":"Location: City Football Stadium","description":"Call coach Williams","date":"2022-10-22T11:00:00.000Z"},
+                        {"id":3,"title":"Alex's Birthday","subtitle":"Location: Alex's House","description":"Buy birthday cake and some fruits","date":"2010-01-09T11:00:00.000Z","images":[{"src":"https://demos.telerik.com/kendo-ui/content/web/foods/4.jpg"}], "altField": "Cake" },
+                        {"id":4,"title":"Vacation in Mexico","subtitle": "Location: Cabo San Lucas","description":"Check-in for the flight","date":"2017-12-24T11:00:00.000Z"}
+                    ],
+                    schema: {
+                        model: {
+                            fields: {
+                                date: {
+                                    type: "date"
+                                }
+                            }
+                        }
+                    }
+                },
+                alternatingMode: true,
+                collapsibleEvents: true,
+                navigatable: true,
+                orientation: "horizontal",
+                dateFormat: "M/d/yyyy"
+            });
+        </script>
+    

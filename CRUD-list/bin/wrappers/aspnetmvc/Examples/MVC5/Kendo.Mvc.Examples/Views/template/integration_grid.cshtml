@@ -1,0 +1,65 @@
+@(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.EmployeeViewModel>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(e => e.EmployeeID).Title("Employee").ClientTemplate(Html.Kendo().Template().AddComponent(avatar => avatar
+                .Avatar()
+                .Name("avatar_${data.EmployeeID}")
+                .Type(AvatarType.Image)
+                .Size(ComponentSize.Large)
+                .Rounded(Rounded.Full)
+                .Image(@Url.Content("~/Content/web/Employees/${data.EmployeeID}.jpg"))
+            )).Width(110);
+            columns.Bound(e => e.FirstName).Title("Full Name").Width(200)
+            .ClientTemplate(Html.Kendo().Template().AddHtml("<span class='employee-name'>${data.FirstName} ${data.LastName}</span>"));
+            columns.Bound(e => e.Country).Width(110);
+            columns.Bound(e => e.City).Width(110);
+            columns.Bound(e => e.Title);
+        })
+        .Sortable()
+        .Pageable()
+        .Scrollable()
+        .ClientDetailTemplate(Html.Kendo().Template()
+            .AddComponent(detailGrid => detailGrid
+                .Grid<Kendo.Mvc.Examples.Models.OrderViewModel>()
+                    .Name("grid_${data.EmployeeID}")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(o => o.OrderID).Title("ID").Width(80);
+                        columns.Bound(o => o.OrderDate).Format("{0:MM/dd/yyyy}").Width(150);
+                        columns.Bound(o => o.ShipCountry).Title("Destination").Width(200)
+                        .ClientTemplate(Html.Kendo().Template().AddHtml("<span>${data.ShipCity}, ${data.ShipCountry}</span>"));
+                        columns.Bound(o => o.ShipName);
+                    })
+                    .Pageable()
+                    .Sortable()
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .PageSize(5)
+                        .Model(model => model.Id(p => p.OrderID))
+                        .Read(read => read.Action("HierarchyBinding_Orders", "Grid", new { employeeID = "${data.EmployeeID}" }))
+                    )
+            )
+        )
+        .HtmlAttributes(new { style = "height:430px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(5)
+            .Read(read => read.Action("HierarchyBinding_Employees", "Grid"))
+        )
+        .Events(events => events.DataBound("dataBound"))
+)
+
+@section scripts{
+    <script>
+        function dataBound() {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
+        }
+    </script>
+}
+
+<style>
+    .k-detail-cell {
+        padding: 0.2em;
+    }
+</style>

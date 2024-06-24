@@ -1,0 +1,16 @@
+<h2 class="kd-title">Description</h2>
+<p>
+    The <a href="https://www.telerik.com/aspnet-mvc/grid" target="_blank">Telerik UI for ASP.NET MVC Data Grid</a> provides a built-in paste functionality that allows you to copy cells from MS Excel or another Grid component and paste them in the desired Grid. Based on the selected pasting operation, you can either replace the selected Grid cells with the copied cells or insert them as a new Grid row.
+</p>
+<p>
+    To enable the paste operations of the Grid:
+    <ul style="list-style-type: disc;">
+        <li>Add the <code>AllowPaste(true)</code> option.</li>
+        <li>Make the Grid selectable by setting <code>.Selectable(selectable => selectable.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Cell))</code>.</li>
+        <li>Enable the keyboard navigation functionality through the <code>Navigatable()</code> method.</li>
+        <li>Include the <code>Paste()</code> command in the Grid's ToolBar to display a dropdown control with the available paste operations—Insert (<b>Paste (Insert)</b>) and Replace (<b>Paste (Replace)</b>) modes.</li>
+    </ul>
+</p>
+<p>
+    This demo shows how to implement the paste feature of the Data Grid to insert new rows or replace the selected cells with the copied cells from an Excel document or other Telerik UI for ASP.NET MVC Grids.
+</p>

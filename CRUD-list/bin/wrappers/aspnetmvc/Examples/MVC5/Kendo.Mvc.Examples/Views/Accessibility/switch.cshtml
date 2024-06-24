@@ -1,0 +1,16 @@
+
+        <label for="switch">Toggle switch</label>
+        <input type="checkbox" id="switch" checked="checked" />
+    <script type="module">
+      $(function () {
+        $("#switch").kendoSwitch();
+
+        //focus the widget
+        $(document).on("keydown.examples", function (e) {
+          if (e.altKey && e.keyCode === 87 /* w */) {
+            $("#switch").data("kendoSwitch").wrapper.focus();
+          }
+        });
+      });
+    </script>
+  

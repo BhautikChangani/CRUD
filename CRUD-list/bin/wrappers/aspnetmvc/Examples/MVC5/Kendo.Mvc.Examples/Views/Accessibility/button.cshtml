@@ -1,0 +1,28 @@
+
+        <button type="button" id="textButton">Text button</button>
+        <span id="iconTextButton">Icon and text</span>
+        <em id="iconButton" title="Refresh"><span class="k-icon refresh"></span></em>
+
+        <script type="module">
+
+            $(document).ready(function () {
+
+                $("#textButton").kendoButton({
+                });
+
+                $("#iconTextButton").kendoButton({
+                    icon: "ungroup"
+                });
+
+                $("#iconButton").kendoButton({
+                    icon: "arrow-rotate-cw"
+                });
+
+                $(document.body).keydown(function (e) {
+                    if (e.altKey && e.keyCode == 87) {
+                        $("#textButton")[0].focus();
+                    }
+                });
+            });
+        </script>
+    

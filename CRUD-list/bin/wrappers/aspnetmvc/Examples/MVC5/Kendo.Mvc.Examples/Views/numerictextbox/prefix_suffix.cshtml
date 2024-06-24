@@ -1,0 +1,46 @@
+<script type="text/x-kendo-template" id="prefixTemplate">
+    @(Html.Kendo().DropDownList()
+        .Name("length-units")
+        .Size(ComponentSize.Small)
+        .FillMode(FillMode.Flat)
+        .Rounded(Rounded.None)
+        .BindTo(new List<string>() {
+            "mm",
+            "cm",
+            "m",
+            "km"
+        })
+        .Events(ev => ev.Change("onChange"))
+        .HtmlAttributes(new { style = "width: 90px;" })
+        .ToClientTemplate()
+    )
+</script>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().NumericTextBox()
+            .Name("length")
+            .Placeholder("Enter length")
+            .PrefixOptions(prefix => prefix.TemplateId("prefixTemplate"))
+            .SuffixOptions(suffix => suffix.Separator(false).Template("<div class='selected-length-unit' id='selected-unit'>mm</div>"))
+            )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function onChange(ev) {
+            $("#selected-unit").text(this.value());
+        }
+    </script>
+}
+
+<style>
+    .selected-length-unit {
+        height: 100%;
+        width: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>

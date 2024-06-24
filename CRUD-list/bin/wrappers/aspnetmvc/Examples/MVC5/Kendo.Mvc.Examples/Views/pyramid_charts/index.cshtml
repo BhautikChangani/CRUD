@@ -1,0 +1,50 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <h4><input type="checkbox" id="dynamicHeight" /><label style="margin-left:5px;" for="dynamicHeight">Dynamic Height</label></h4>
+        <i>The height of the segment is the overall percentage for that dataItem</i>
+    </div>
+</div>
+<div class="demo-section wide">
+    @(Html.Kendo().Chart()
+        .Name("chart")
+        .Title(title => title
+              .Text("Sales"))
+        .Legend(legend => legend
+            .Visible(false)
+        )
+        .Series(series => {
+            series.Pyramid(new dynamic[] {
+                new {category = "Unique Visitors", value = 280022},
+                new {category = "Downloads", value = 190374},
+                new {category = "Purchases", value = 120392},
+            })
+            .DynamicHeight(false)
+            .Labels(labels => labels
+                .Background("none")
+            );
+        })
+        .Tooltip(tooltip => tooltip
+            .Visible(true)
+            .Template("#=category# (#=kendo.format('{0:p}', percentage)#)")
+        )
+    )
+</div>
+<script>
+    function refresh() {
+        var chart = $("#chart").data("kendoChart");
+        chart.options.series[0].dynamicHeight = $('#dynamicHeight').is(':checked');
+        chart.redraw();
+    }
+
+    $(document).ready(function() {
+        $('.box-col').on('click', ':checkbox', refresh);
+    });
+</script>
+
+<style>
+    #chart {
+        width: 400px;
+        margin: auto;
+    }
+</style>

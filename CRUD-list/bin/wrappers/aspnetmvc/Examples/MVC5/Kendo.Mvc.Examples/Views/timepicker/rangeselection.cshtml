@@ -1,0 +1,42 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="start">Start time:</label>
+        @(Html.Kendo().TimePicker()
+          .Name("start")
+          .Value("8:00 AM")
+          .Min("8:00 AM")
+          .Max("6:00 PM")
+          .Events(e => e.Change("startChange"))
+          .HtmlAttributes(new { style = "width: 100%" })
+        )
+        <br/>
+        <br/>
+        <label for="end">End time:</label>
+        @(Html.Kendo().TimePicker()
+          .Name("end")
+          .Value("8:30 AM")
+          .Min("8:00 AM")
+          .Max("7:30 AM")
+          .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+</div>
+@section scripts {
+    <script>
+        function startChange() {
+            var startTime = this.value(),
+                endPicker = $("#end").data("kendoTimePicker");
+
+            if (startTime) {
+                startTime = new Date(startTime);
+
+                endPicker.max(startTime);
+
+                startTime.setMinutes(startTime.getMinutes() + this.options.interval);
+
+                endPicker.min(startTime);
+                endPicker.value(startTime);
+            }
+        }
+    </script>
+}

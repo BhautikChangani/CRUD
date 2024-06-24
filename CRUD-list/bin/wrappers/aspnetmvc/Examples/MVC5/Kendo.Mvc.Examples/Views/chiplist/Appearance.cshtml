@@ -1,0 +1,152 @@
+@using Kendo.Mvc.UI
+
+<div id="example">
+    <div class="configurator">
+        <div class="header">Configurator</div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Item Size</h4>
+                    <input id="itemSize" name="size" />
+                </li>
+            </ul>
+        </div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Chip Item Theme Color</h4>
+                    <input id="themeColor" name="themeColor" />
+                </li>
+            </ul>
+        </div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Fill Mode</h4>
+                    <input id="fillMode" name="fillMode" />
+                </li>
+            </ul>
+        </div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Border Radius</h4>
+                    <input id="rounded" name="rounded" />
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+           @(Html.Kendo().ChipList()
+                .Name("chiplist")
+                .ItemSize(ComponentSize.Medium)
+                .Rounded(Rounded.Medium)
+                .FillMode(ChipFillMode.Solid)
+                .Removable(true)
+                .Selectable(ChipListSelectableMode.Single)
+                .Items(item=>{
+                    item.Add().Icon("plus").Label("Add").ThemeColor(ChipThemeColor.Base);
+                    item.Add().Icon("pencil").Label("Edit").ThemeColor(ChipThemeColor.Base);
+                    item.Add().Icon("trash").Label("Remove").ThemeColor(ChipThemeColor.Base);
+                })
+            )
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#itemSize").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "medium",
+                change: onChange,
+                dataSource: [
+                    { text: "Small", value: "small" },
+                    { text: "Medium", value: "medium" },
+                    { text: "Large", value: "large" },
+                    { text: "None", value: "none" }
+
+                ]
+            });
+
+            $("#themeColor").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "base",
+                change: onChange,
+                dataSource: [
+                    { text: "Base", value: "base" },
+                    { text: "Info", value: "info" },
+                    { text: "Success", value: "success" },
+                    { text: "Warning", value: "warning" },
+                    { text: "Error", value: "error" }
+                ]
+            });
+
+            $("#rounded").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "medium",
+                change: onChange,
+                dataSource: [
+                    { text: "Small", value: "small" },
+                    { text: "Medium", value: "medium" },
+                    { text: "Large", value: "large" },
+                    { text: "Full", value: "full" },
+                    { text: "None", value: "none" }
+                ]
+            });
+
+            $("#fillMode").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "solid",
+                change: onChange,
+                dataSource: [
+                    { text: "Solid", value: "solid" },
+                    { text: "Outline", value: "outline" }
+                ]
+            });
+
+            var original = $("#chiplist").clone(true);
+
+            function onChange(e) {
+                e.preventDefault();
+                var chiplist = $("#chiplist"),
+                    clone = original.clone(true);
+
+                chiplist.data("kendoChipList");
+                clone.empty();
+                chiplist.replaceWith(clone);
+                initChipList();
+            }
+
+            var initChipList = function () {
+                var itemSize = $("#itemSize").data("kendoDropDownList").value();
+                var themeColor = $("#themeColor").data("kendoDropDownList").value();
+                var rounded = $("#rounded").data("kendoDropDownList").value();
+                var fillMode = $("#fillMode").data("kendoDropDownList").value();
+
+                $('#chiplist').kendoChipList({
+                    removable: true,
+                    selectable: "single",
+                    itemSize: itemSize,
+                    rounded: rounded,
+                    fillMode: fillMode,
+                    items: [
+                        { icon: "plus", label: "Add", themeColor: themeColor },
+                        { icon: "pencil", label: "Edit", themeColor: themeColor },
+                        { icon: "trash", label: "Remove", themeColor: themeColor }
+                    ]
+                });
+            };
+
+        });
+    </script>
+
+    <style>
+        .k-picker.k-dropdownlist {
+            width: 140px;
+        }
+    </style>

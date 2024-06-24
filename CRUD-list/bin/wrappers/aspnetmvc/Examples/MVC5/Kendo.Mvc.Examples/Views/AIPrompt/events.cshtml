@@ -1,0 +1,60 @@
+<div class="k-d-flex k-justify-content-center" style="width: 600px; margin: auto;">
+    <div class="k-w-full">
+        @(Html.Kendo().AIPrompt()
+            .Name("aiprompt")
+            .Events(ev => ev
+                .PromptRequest("onPromptRequest")
+                .OutputCopy("onOutputCopy")
+                .CommandExecute("onCommandExecute")
+                .OutputRatingChange("onOutputRatingChange")
+            )
+            .Views(views =>
+            {
+                views.Add().Type(Kendo.Mvc.UI.ViewType.Prompt)
+                .PromptSuggestions(new string[] { "Act as [actor] and write [format] about [subject] in [100 words]", "Suggest post about [subject] that will be used in [social media]" });
+                views.Add().Type(Kendo.Mvc.UI.ViewType.Output);
+                views.Add().Type(Kendo.Mvc.UI.ViewType.Commands)
+                .PromptCommands(command =>
+                {
+                    command.Add().Id("1").Text("Simplify").Icon("min-width");
+                    command.Add().Id("2").Text("Extend").Icon("arrows-left-right");
+                });
+            })
+            )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function onPromptRequest(ev) {
+            // Mocked response from AI service.
+            kendoConsole.log("Prompt Request: " + ev.prompt)
+            var response = {
+                id: kendo.guid(),
+                output: 'For real prompt processing, please connect the component to a preferred AI service. You can use one of the items from the "Prompt Suggestions" section in the Prompt View to get a sample result.',
+                prompt: ev.prompt,
+            }
+            this.addPromptOutput(response);
+            this.activeView("output");
+        }
+
+        function onOutputCopy(ev) {
+            kendoConsole.log("Copied output: " + ev.output.output);
+        }
+
+        function onCommandExecute(ev) {
+            kendoConsole.log("Executed command: " + ev.item.text);
+        }
+
+        function onOutputRatingChange(ev) {
+            kendoConsole.log("Output Rated: " + ev.rateType)
+        }
+    </script>
+}
+
+<style>
+    .k-d-flex {
+        border-radius: 4px 4px 0 0;
+        box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.08);
+    }
+</style>

@@ -1,0 +1,95 @@
+@using Kendo.Mvc.Examples.Models.PropertyGrid;
+@model TemplateItemsViewModel
+
+<div class="demo-section wide">
+    @(Html.Kendo().PropertyGrid<TemplateItemsViewModel>()
+        .Name("propertyGrid")
+        .HtmlAttributes(new { style = "margin: auto;" })
+        .Model(Model)
+        .Columns(columns => columns.FieldColumn(fieldCol => fieldCol.Width(200)).ValueColumn(valueCol => valueCol.Width(250)))
+        .Groupable(true)
+        .ContextMenu(true)
+        .Navigatable(true)
+        .EditMode(true)
+        .Resizable(true)
+        .Height(380)
+        .Items(items =>
+        {
+            items.Add().Field(f => f.text).Template("<span style='color: red'>#=value#</span>");
+
+            items.Add().Field(f => f.color).Template("<i><span style='color:#=value#'>#=value#</span></i>")
+            .Editor(editor => editor
+                .DropDownList()
+                .BindTo(new string[] { "red", "green", "blue", "purple", "orange" }));
+
+            items.Add().Field(f => f.icon).TemplateHandler("iconTemplate")
+            .Editor(editor => editor
+                .DropDownList()
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .BindTo(new List<SelectListItem>() {
+                    new SelectListItem() {
+                        Text = "gear", Value = "gear"
+                    },
+                    new SelectListItem() {
+                        Text = "star", Value = "star"
+                    },
+                    new SelectListItem() {
+                        Text = "folder", Value = "folder"
+                    },
+                    new SelectListItem() {
+                        Text = "user", Value = "user"
+                    },
+                    new SelectListItem() {
+                        Text = "info-circle", Value = "info-circle"
+                    }
+                }));
+
+            items.Add().Field("font").TemplateHandler("fontTemplate")
+            .Items(childItems =>
+            {
+                childItems.Add().Field("fontWeight").Editor(editor => editor.NumericTextBox().Step(100).Min(100).Max(900));
+                childItems.Add().Field("fontFamily").Editor(editor => editor
+                .AutoComplete()
+                .BindTo(new string[] { "Arial", "Roboto", "Georgia", "Calibri", "Cursive", "Monospace", "Fantasy" }));
+            });
+        })
+        .Events(ev => ev.Save("saveHandler"))
+    )
+</div>
+
+@section scripts {
+    <script>
+        function iconTemplate(data) {
+            return `${kendo.ui.icon(data.value)}`;
+        }
+
+        function fontTemplate(data) {
+            var propertyGridModel = $("#propertyGrid").data('kendoPropertyGrid').model();
+            return `<span class="fontWeight">${propertyGridModel.font["fontWeight"]}</span> <span class="fontFamily">${propertyGridModel.font["fontFamily"]}</span>`;
+        }
+
+        function saveHandler(e) {
+            var model = e.model;
+            var value = e.values ? e.values.value : model.value;
+
+            if (model.field == 'fontWeight') {
+                $('.fontWeight').text(value);
+            } else if (model.field == 'fontFamily') {
+                $('.fontFamily').text(value);
+            }
+        }
+    </script>
+}
+
+<style>
+    #propertyGrid {
+        width: 70%;
+    }
+
+    @@media (max-width: 1038px) {
+        #propertyGrid {
+            width: 100%;
+        }
+    }
+</style>

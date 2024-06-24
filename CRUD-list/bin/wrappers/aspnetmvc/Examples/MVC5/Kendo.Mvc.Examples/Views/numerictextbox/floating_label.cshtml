@@ -1,0 +1,15 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().NumericTextBox<decimal>()
+            .Name("numerictextbox")
+            .Format("n0")
+            .Label(l => l.Content("Age").Floating(true))
+        )
+    </div>
+</div>
+
+<style>
+    .k-floating-label-container {
+        width: 100%;
+    }
+</style>

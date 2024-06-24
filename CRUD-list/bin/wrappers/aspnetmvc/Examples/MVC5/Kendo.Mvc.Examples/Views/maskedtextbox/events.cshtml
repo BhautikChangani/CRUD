@@ -1,0 +1,19 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().MaskedTextBox()
+          .Name("maskedtextbox")
+          .Mask("(999) 000-0000")
+          .Label(l => l.Content("Enter phone number"))
+          .Events(events => events.Change("change"))
+          .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+</div>
+
+    @section scripts {
+        <script>
+            function change() {
+                kendoConsole.log("Change :: " + this.value());
+            }
+        </script>
+    }

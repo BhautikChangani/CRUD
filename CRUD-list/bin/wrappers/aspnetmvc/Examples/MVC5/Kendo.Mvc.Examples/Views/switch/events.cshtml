@@ -1,0 +1,20 @@
+<div class="demo-section">
+    @(Html.Kendo().Switch()
+        .Name("switch")
+        .Events(ev => ev.Change("onChange"))
+    )
+</div>
+
+@section scripts {
+<script>
+    function onChange(e) {
+        kendoConsole.log("checked: " + e.checked);
+    }
+</script>
+}
+
+<style>
+    .demo-section {
+        text-align: center;
+    }
+</style>

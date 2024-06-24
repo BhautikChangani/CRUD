@@ -1,0 +1,8 @@
+<div class="demo-section wide">
+    @(Html.Kendo().Chart()
+        .Name("heatmap")
+        .Series(s=>s.HeatMap("Value", "Column", "Row").Markers(m=>m.Visible(true).Type(ChartMarkerShape.Square)).Labels(l=>l.Visible(false)))
+        .DataSource(dataSource=> dataSource.Read("RemoteData","HeatMap"))
+        .Legend(legend=>legend.Visible(false))
+    )
+</div>

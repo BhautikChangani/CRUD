@@ -1,0 +1,39 @@
+<div class="demo-section k-rtl" style="width: 600px; margin: auto;">
+    @(Html.Kendo().AIPrompt()
+        .Name("aiprompt")
+        .Events(ev => ev.PromptRequest("onPromptRequest"))
+        .Views(views =>
+        {
+            views.Add().Type(Kendo.Mvc.UI.ViewType.Prompt)
+            .PromptSuggestions(new string[] { "Act as [actor] and write [format] about [subject] in [100 words]", "Suggest post about [subject] that will be used in [social media]" });
+            views.Add().Type(Kendo.Mvc.UI.ViewType.Output);
+            views.Add().Type(Kendo.Mvc.UI.ViewType.Commands)
+            .PromptCommands(command =>
+            {
+                command.Add().Id("1").Text("Simplify").Icon("min-width");
+                command.Add().Id("2").Text("Extend").Icon("arrows-left-right");
+            });
+        })
+        )
+</div>
+
+@section scripts {
+    <script>
+        function onPromptRequest(ev) {
+            var response = {
+                id: kendo.guid(),
+                output: 'For real prompt processing, please connect the component to a preferred AI service. You can use one of the items from the "Prompt Suggestions" section in the Prompt View to get a sample result.',
+                prompt: ev.prompt,
+            };
+            this.addPromptOutput(response);
+            this.activeView("output");
+        }
+    </script>
+}
+
+<style>
+    .demo-section {
+        border-radius: 4px 4px 0 0;
+        box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.08);
+    }
+</style>

@@ -1,0 +1,73 @@
+
+        <figure>
+            <div id="diagram" title="Diagram" tabindex="0"></div>
+            <figcaption pos>
+                Diagrammatic data representation
+            </figcaption>
+        </figure>
+
+        <script type="module">
+            function createDiagram() {
+
+                kendo.dataviz.autoTheme(true);
+                kendo.dataviz.ui['Diagram'].fn.options.theme = "sass";
+
+                $("#diagram").kendoDiagram({
+                    dataSource: {
+                        data: diagramNodes(),
+                        schema: {
+                            model: {
+                                children: "items"
+                            }
+                        }
+                    },
+                    layout: {
+                        type: "tree",
+                        subtype: "down",
+                        horizontalSeparation: 30,
+                        verticalSeparation: 20
+                    },
+                    shapeDefaults: {
+                        width: 40,
+                        height: 40
+                    }
+                });
+            }
+
+            function diagramNodes() {
+                var root = { name: "0", items: [] };
+                addNodes(root, [3, 2, 2]);
+                return [root];
+            }
+
+            function addNodes(root, levels) {
+                if (levels.length > 0) {
+                    for (var i = 0; i < levels[0]; i++) {
+                        var node = { name: "0", items: [] };
+                        root.items.push(node);
+
+                        addNodes(node, levels.slice(1));
+                    }
+                }
+            }
+
+            $(document).ready(function () {
+                $("#subtype").change(function () {
+                    $("#diagram").getKendoDiagram().layout({
+                        subtype: $(this).val(),
+                        type: "tree",
+                        horizontalSeparation: 30,
+                        verticalSeparation: 20
+                    });
+                });
+            });
+
+            $(document).ready(createDiagram);
+            $(document).bind("kendo:skinChange", createDiagram);
+        </script>
+        <style>
+            figure {
+                text-align: center;
+            }
+        </style>
+    

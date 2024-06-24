@@ -1,0 +1,52 @@
+@model  IEnumerable<Kendo.Mvc.Examples.Models.EmployeeViewModel>
+
+<script type="text/x-kendo-tmpl" id="template">
+     <div class="k-card">
+            <div class="k-card-body k-card-horizontal k-vbox k-column">
+                <img class='k-card-image' src="@Url.Content("~/Content/web/Employees/")#:EmployeeID#.jpg" alt ="#=FirstName# #=LastName#">
+                <div class='details'>
+                    <h5 class="k-card-title">#=FirstName# #=LastName#</h6>
+                    <h6 class='k-card-subtitle'>#=Title#</h6>
+                    <p>
+                        #=Notes#
+                    </p>
+                </div>
+            </div>
+          </div>
+     </div>
+</script>
+
+@(Html.Kendo().ListView(Model)
+    .Name("listView")
+    .TagName("div")
+    .ClientTemplateId("template")
+    .DataSource(dataSource => {
+        dataSource.ServerOperation(false);
+        dataSource.PageSize(3);
+    })
+    .Pageable()
+)
+
+<style>
+    #listView {
+        width: 70%;
+        margin: auto;
+        font: inherit;
+    }
+    .details {
+        display: inline-block;
+        vertical-align: top;
+        margin:3%;
+    }
+    .k-card{
+        margin:auto;
+    }
+    .k-card-image {
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        height: 100px;
+        margin: auto 0;
+    }
+</style>
+
+

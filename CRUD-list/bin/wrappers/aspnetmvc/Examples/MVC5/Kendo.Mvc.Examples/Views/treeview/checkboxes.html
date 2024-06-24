@@ -1,0 +1,13 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+    <p>
+      To facilitate the user interaction with the <a href="https://www.telerik.com/aspnet-mvc/treeview" target="_blank">Telerik UI for ASP.NET MVC TreeView</a>, you can enable the nodes checkboxes. In this way, whent he user selects a parent node, its child nodes will be selected as well. Also, if all child nodes are selected one by one, their parent will be selected, too.
+    <p>
+      To define the TreeView checkboxes, use either of the following approaches:
+    </p>
+    <ul style="list-style-type: disc;">
+      <li>Setting the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/treeviewbuilder#checkboxessystemboolean" target="_blank"><code>Checkboxes</code></a> option to <code>true</code>.</li>
+      <li>Setting the name of the checkbox inputs in the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/treeviewcheckboxesbuilder#namesystemstring" target="_blank"><code>Name()</code></a> method and enable the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/treeviewcheckboxesbuilder#checkchildrensystemboolean" target="_blank"><code>CheckChildren()</code></a> option, which indicates whether checkboxes of child items will be checked when the parent item checkbox is checked. To implement the feature, add these two methods in the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/treeviewbuilder#checkboxessystemaction" target="_blank"><code>Checkboxes()</code></a> configuration.</li>
+    </ul>
+    <p>In this demo, the TreeView checkboxes are implemented by utilizing the options in the <code>Checkboxes()</code> configuration.</p>
+</div>

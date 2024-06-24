@@ -1,0 +1,439 @@
+@using Kendo.Mvc.Examples.Models.PropertyGrid;
+@model Kendo.Mvc.Examples.Models.PropertyGrid.MultipleSelectionViewModel
+
+<div class="demo-section wide">
+    @(Html.Kendo().Splitter()
+        .Name("splitter")
+        .Orientation(SplitterOrientation.Horizontal)
+        .Panes(panes =>
+        {
+            panes.Add().Size("30%").Content(@<text>
+                <div id="container">
+                    <div class="demo-instructions">Use <b>Ctrl/Command + click</b> to select and deselect the Button and TextBox components. The PropertyGrid displays the properties of the selected component. When both components are selected, the PropertyGrid will load only their common properties. Edit the property values in the PropertyGrid, and the appearance of the currently selected component will update accordingly.</div>
+                    <div class="first-pane-container button-item">
+                        @(Html.Kendo().Button()
+                            .Name("kendoIconTextButton")
+                            .Content("Button")
+                            .Icon("star")
+                         )
+                    </div>
+                    <div class="first-pane-container textbox-item">
+                        @(Html.Kendo().TextBox()
+                            .Name("textbox")
+                            .Value("Text box")
+                        )
+                    </div>
+                </div>
+            </text>);
+
+            panes.Add().Content(@<text>
+                @(Html.Kendo().PropertyGrid<PropertyGridItemsViewModel>()
+                .Name("propertyGrid")
+                .Model(Model)
+                .Columns(columns => columns.FieldColumn(fieldCol => fieldCol.Width(200)).ValueColumn(valueCol => valueCol.Width(250)))
+                .Groupable(true)
+                .Navigatable(true)
+                .ContextMenu(true)
+                .EditMode(true)
+                .Resizable(true)
+                .HtmlAttributes(new { style = "height: 100%;" })
+                .Items(items =>
+                {
+                items.Add().Field(f => f.size)
+                .Editor(editor => editor
+                    .DropDownList()
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new List<SelectListItem>() {
+                        new SelectListItem() {
+                            Text = "small", Value = "small"
+                        },
+                        new SelectListItem() {
+                            Text = "medium", Value = "medium"
+                        },
+                        new SelectListItem() {
+                            Text = "large", Value = "large"
+                        },
+                        new SelectListItem() {
+                            Text = "none", Value = "none"
+                        }
+                    }));
+
+                items.Add().Field(f => f.fillMode)
+                .Editor(editor => editor
+                    .DropDownList()
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new List<SelectListItem>() {
+                        new SelectListItem() {
+                            Text = "solid", Value = "solid"
+                        },
+                        new SelectListItem() {
+                            Text = "outline", Value = "outline"
+                        },
+                        new SelectListItem() {
+                            Text = "flat", Value = "flat"
+                        },
+                        new SelectListItem() {
+                            Text = "link", Value = "link"
+                        },
+                        new SelectListItem() {
+                            Text = "clear", Value = "clear"
+                        },
+                        new SelectListItem() {
+                            Text = "none", Value = "none"
+                        }
+                    }));
+
+                items.Add().Field(f => f.themeColor)
+                .Editor(editor => editor
+                    .DropDownList()
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new List<SelectListItem>() {
+                        new SelectListItem() {
+                            Text = "base", Value = "base"
+                        },
+                        new SelectListItem() {
+                            Text = "primary", Value = "primary"
+                        },
+                        new SelectListItem() {
+                            Text = "secondary", Value = "secondary"
+                        },
+                        new SelectListItem() {
+                            Text = "teritary", Value = "teritary"
+                        },
+                        new SelectListItem() {
+                            Text = "info", Value = "info"
+                        },
+                        new SelectListItem() {
+                            Text = "warning", Value = "warning"
+                        },
+                        new SelectListItem() {
+                            Text = "success", Value = "success"
+                        },
+                        new SelectListItem() {
+                            Text = "error", Value = "error"
+                        },
+                        new SelectListItem() {
+                            Text = "dark", Value = "dark"
+                        },
+                        new SelectListItem() {
+                            Text = "light", Value = "light"
+                        },
+                        new SelectListItem() {
+                            Text = "inverse", Value = "inverse"
+                        },
+                        new SelectListItem() {
+                            Text = "none", Value = "none"
+                        }
+                    }));
+
+                items.Add().Field(f => f.rounded)
+                .Editor(editor => editor
+                    .DropDownList()
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new List<SelectListItem>() {
+                        new SelectListItem() {
+                            Text = "small", Value = "small"
+                        },
+                        new SelectListItem() {
+                            Text = "medium", Value = "medium"
+                        },
+                        new SelectListItem() {
+                            Text = "large", Value = "large"
+                        },
+                        new SelectListItem() {
+                            Text = "full", Value = "full"
+                        },
+                        new SelectListItem() {
+                            Text = "none", Value = "none"
+                        }
+                    }));
+
+                items.Add().Field(f => f.icon)
+                .TemplateHandler("iconTemplate")
+                .Editor(editor => editor
+                    .DropDownList()
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new List<SelectListItem>() {
+                        new SelectListItem() {
+                            Text = "gear", Value = "gear"
+                        },
+                        new SelectListItem() {
+                            Text = "star", Value = "star"
+                        },
+                        new SelectListItem() {
+                            Text = "folder", Value = "folder"
+                        },
+                        new SelectListItem() {
+                            Text = "user", Value = "user"
+                        },
+                        new SelectListItem() {
+                            Text = "info-circle", Value = "info-circle"
+                        }
+                    }));
+
+                items.Add().Field("enable")
+                .Editor(editor => editor
+                    .DropDownList()
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new List<SelectListItem>() {
+                        new SelectListItem() {
+                            Text = "true", Value = "true"
+                        },
+                        new SelectListItem() {
+                            Text = "false", Value = "false"
+                        }
+                    }));
+
+                items.Add().Field("font").TemplateHandler("fontTemplate")
+                .Items(childItems =>
+                {
+                    childItems.Add().Field("fontWeight").Editor(editor => editor.NumericTextBox().Step(100).Min(100).Max(900));
+                    childItems.Add().Field("fontFamily").Editor(editor => editor
+                        .AutoComplete()
+                        .BindTo(new string[] { "Arial", "Roboto", "Georgia", "Calibri", "Cursive", "Monospace", "Fantasy" }));
+                });
+        })
+        .Events(ev => ev.Save("saveHandler").Cancel("saveHandler"))
+        )
+        </text>);
+        })
+    )
+</div>
+
+@section scripts {
+<script>
+    var buttonModel = {
+            size: "medium",
+            themeColor: "base",
+            fillMode: "solid",
+            rounded: "medium",
+            icon: "star",
+            enable: true,
+            font: {
+                "fontWeight": 400,
+                "fontFamily": "Roboto"
+            }
+        };
+        var textboxModel = {
+            size: "large",
+            fillMode: "solid",
+            rounded: "medium",
+            enable: true,
+            font: {
+                "fontWeight": 400,
+                "fontFamily": "Roboto"
+            }
+        };
+        var model;
+
+        $(document).on("kendoReady", function () {
+            setTimeout(function () {
+                $('#kendoIconTextButton').addClass('k-focus');
+                $('#kendoIconTextButton').trigger($.Event("click", { ctrlKey: true,  metaKey: true }));
+            });
+
+            // Handle Ctrl + click to select/deselect TextBox and/or Button components.
+            $('.first-pane-container').on("click", function (evt) {
+                if (evt.ctrlKey || evt.metaKey) {
+                   ctrlClickAction($(this));
+                }
+            });
+        });
+
+        function ctrlClickAction(element) {
+            $(element).toggleClass("marked");
+
+            let marked = $('.marked');
+            let updated = [...$('.k-dirty').closest('tr').find('td:eq(0)')];
+            let currentModel = $("#propertyGrid").data('kendoPropertyGrid').model();
+
+            let selected = marked.map((index, item) => {
+                if ($(item).hasClass('button-item')) return 'button';
+                if ($(item).hasClass('textbox-item')) return 'textbox';
+            });
+
+            let currentButtonModel = $("#kendoIconTextButton").data('kendoButton').options;
+            let currentTextBoxModel = $("#textbox").data('kendoTextBox').options;
+            let buttonFontFamily = $("#kendoIconTextButton").data('kendoButton').element.css("font-family");
+            let textboxFontFamily = $("#textbox").data('kendoTextBox').element.css("font-family");
+            let buttonFonWeight = $("#kendoIconTextButton").data('kendoButton').element.css("font-weight");
+            let textboxFontWeight = $("#textbox").data('kendoTextBox').element.css("font-weight");
+
+            let newBtnModel = {
+                size: currentButtonModel.size,
+                themeColor: currentButtonModel.themeColor,
+                fillMode: currentButtonModel.fillMode,
+                rounded: currentButtonModel.rounded,
+                icon: currentButtonModel.icon,
+                enable: currentButtonModel.enable,
+                font: {
+                    "fontWeight": parseInt(buttonFonWeight),
+                    "fontFamily": buttonFontFamily
+                }
+            };
+                    
+            let newTextBoxModel = {
+                size: currentTextBoxModel.size,
+                fillMode: currentTextBoxModel.fillMode,
+                rounded: currentTextBoxModel.rounded,
+                enable: currentTextBoxModel.enable,
+                font: {
+                    "fontWeight": parseInt(textboxFontWeight),
+                    "fontFamily": textboxFontFamily
+                }
+            };
+
+            textboxModel = newTextBoxModel;
+            buttonModel = newBtnModel;
+
+            if (selected.length == 1 && selected[0] === 'button') {
+                // If the Button is selected, set the buttonModel in the PropertyGrid.
+                model = buttonModel;
+                $('#kendoIconTextButton').addClass('k-focus');
+            } else if (selected.length == 1 && selected[0] === 'textbox') {
+                // If the TextBox is selected, set the textboxModel in the PropertyGrid.
+                model = textboxModel;
+                $('#textbox').addClass('k-focus');
+            } else if (selected.length == 2) {
+                // If both components are selected, merge both models.
+                let joined = {
+                    ...newBtnModel,
+                    ...newTextBoxModel
+                };
+
+                // Set "..." as a value to all properties with different values.
+                for (const [key, value] of Object.entries(joined)) {
+                    let hasKey = textboxModel.hasOwnProperty(key)
+
+                    if (hasKey && (textboxModel[key] !== value || buttonModel[key] !== value) && typeof (value) != 'object') {
+                        joined[key] = '...'
+                    } else if (hasKey && typeof (value) == 'object') {
+
+                        for (const [key2, value2] of Object.entries(joined[key])) {
+                            if (joined[key][key2] === textboxModel[key][key2] && joined[key][key2] === currentModel[key][key2] && buttonModel[key][key2] == joined[key][key2]) {
+                                joined[key][key2] == textboxModel[key][key2]
+                            } else {
+                                joined[key][key2] = '...'
+                            }
+                        }
+                    } else if (!hasKey) {
+                        delete joined[key]
+                    }
+                }
+
+                for (const [key, value] of Object.entries(joined)) {
+                    let hasKey = buttonModel.hasOwnProperty(key)
+                    if (!hasKey) {
+                        delete joined[key]
+                    }
+                }
+                model = joined;
+            }
+
+            $("#propertyGrid").data('kendoPropertyGrid').model(model);
+        }
+
+        function saveHandler(e) {
+            var textboxElem = $("#textbox");
+            var textbox = textboxElem.getKendoTextBox();
+            var textboxOptions = textbox.options;
+            var buttonElem = $("#kendoIconTextButton");
+            var button = buttonElem.getKendoButton();
+            var buttonOptions = button.options;
+            var model = e.model;
+            var value = e.values ? e.values.value : model.value;
+            if (model.field == 'enable') {
+                value = value === 'true' ? true : false;
+            }
+
+            // Check if the TextBox is selected.
+            if ($('.textbox-item').hasClass('marked')) {
+                if (model.field == 'fontWeight') {
+                    $('.fontWeight').text(value);
+                } else if (model.field == 'fontFamily') {
+                    $('.fontFamily').text(value);
+                }
+
+                if (model.group == "Kendo UI/Telerik") {
+                    textboxOptions[model.field] = value;
+                    textbox.setOptions(textboxOptions);
+                } else {
+                    textbox.element.css(model.field, value);
+                }
+            }
+
+            // Check if the Button is selected.
+            if ($('.button-item').hasClass('marked')) {
+                if (model.field == 'fontWeight') {
+                    $('.fontWeight').text(value);
+                } else if (model.field == 'fontFamily') {
+                    $('.fontFamily').text(value);
+                }
+
+                if (model.group == "Kendo UI/Telerik") {
+                    if (model.field == 'enable') {
+                        button.enable(value);
+                    } else {
+                        buttonOptions[model.field] = value;
+                        button.destroy();
+                        buttonElem.kendoButton(buttonOptions);
+                    }
+                } else {
+                    button.element.css(model.field, value);
+                }
+            }
+        }
+
+        function iconTemplate(data) {
+            return `${kendo.ui.icon(data.value)}`;
+        }
+
+        function fontTemplate(data) {
+            var propertyGridModel = $("#propertyGrid").data('kendoPropertyGrid').model();
+            return `<span class="fontWeight">${propertyGridModel.font["fontWeight"]}</span> <span class="fontFamily">${propertyGridModel.font["fontFamily"]}</span>`;
+        }
+</script>
+}
+
+<style>
+    .k-pane:nth-child(1) {
+        text-align: center;
+        margin-top: 1%;
+        gap: 10px;
+    }
+
+    #splitter {
+        min-height: 500px
+    }
+
+    #container {
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #container .demo-instructions {
+        padding-block: 4px;
+        padding-inline: 8px;
+        font-style: italic;
+    }
+
+    #kendoIconTextButton, #textbox {
+        font-family: "Roboto";
+        font-weight: 400;
+    }
+
+    .marked {
+        padding: 4px;
+        border-radius: 4px;
+        border: 2px solid #AA33FF;
+        margin: 5px;
+    }
+</style>

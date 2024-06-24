@@ -1,0 +1,86 @@
+<div class="demo-section">
+    @(Html.Kendo().TreeView()
+            .Name("treeview")
+            .Checkboxes(true)
+            .DragAndDrop(true)
+            .LoadOnDemand(false)
+            .DataTextField("Name")
+            .Events(events => events
+                .Change("onChange")
+                .Select("onSelect")
+                .Check("onCheck")
+                .Collapse("onCollapse")
+                .Expand("onExpand")
+                .DragStart("onDragStart")
+                .Drag("onDrag")
+                .Drop("onDrop")
+                .DragEnd("onDragEnd")
+                .Navigate("onNavigate")
+                .LoadCompleted("onLoadCompleted")
+            )
+            .DataSource(dataSource => dataSource
+                .Read(read => read
+                    .Action("Remote_Data_Binding_Get_Employees", "TreeView")
+                )
+            )
+        )
+</div>
+
+@section scripts {
+<script>
+    var treeview;
+
+    function onSelect(e) {
+        kendoConsole.log("Selecting: " + this.text(e.node));
+    }
+
+    function onCheck(e) {
+        kendoConsole.log("Checkbox changed :: " + this.text(e.node));
+    }
+
+    function onChange(e) {
+        kendoConsole.log("Selection changed");
+    }
+
+    function onCollapse(e) {
+        kendoConsole.log("Collapsing " + treeview.text(e.node));
+    }
+
+    function onExpand(e) {
+        kendoConsole.log("Expanding " + treeview.text(e.node));
+    }
+
+    function onDragStart(e) {
+        kendoConsole.log("Started dragging " + treeview.text(e.sourceNode));
+    }
+
+    function onDrag(e) {
+        kendoConsole.log("Dragging " + this.text(e.sourceNode));
+    }
+
+    function onDrop(e) {
+        kendoConsole.log(
+        "Dropped " + treeview.text(e.sourceNode) +
+        " (" + (e.valid ? "valid" : "invalid") + ")"
+        );
+    }
+
+    function onDragEnd(e) {
+        kendoConsole.log("Finished dragging " + treeview.text(e.sourceNode));
+    }
+
+    function onNavigate(e) {
+        if (e.node) {
+            kendoConsole.log("Navigate " + this.text(e.node));
+        }
+    }
+
+    function onLoadCompleted(e) {
+        kendoConsole.log("Load Completed: " + Array.prototype.map.call(e.nodes, function (item) { return item.Name; }).join(", "));
+    }
+
+    $(document).on("kendoReady", function() {
+        treeview = $("#treeview").data("kendoTreeView");
+    });
+</script>
+}

@@ -1,0 +1,46 @@
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="column">
+        <h3>SplitButton iconCss:</h3>
+        @(Html.Kendo().SplitButton()
+                .Name("paste")
+                .Text("Paste")
+                .ArrowIcon("chevron-down")
+                .IconClass("fa fa-plus")
+                .Items(items =>
+                 {
+                     items.Add().Id("keep-text").Text("Keep Text Only").Icon("gear");
+                     items.Add().Id("paste-html").Text("Paste as HTML").Icon("clipboard-code");
+                     items.Add().Id("paste-markdown").Text("Paste Markdown").Icon("clipboard-markdown");
+                     items.Add().Id("paste-default").Text("Set Default Paste");
+                 }
+                )
+            )
+    </div>
+
+    <div class="column">
+        <h3>SplitButton spriteCssClass:</h3>
+        @(Html.Kendo().SplitButton()
+                .Name("play")
+                .Text("Play")
+                .SpriteCssClass("k-icon videoIcon")
+                .Items(items =>
+                {
+                    items.Add().Id("stop").Text("Stop").Icon("stop");
+                    items.Add().Id("pause").Text("Pause").Icon("pause");
+                    items.Add().Id("resume").Text("Resume").Icon("play");
+                })
+            )
+    </div>
+</div>
+<style>
+    .column {
+        flex-direction: row;
+        text-align: center;
+        width: 300px;
+    }
+    .videoIcon {
+        background-image: url("@Url.Content("~/Content/shared/icons/16/video.png")");
+    }
+</style>

@@ -1,0 +1,33 @@
+<script type="text/x-kendo-template" id="suffixTemplate">
+    @(Html.Kendo().Button()
+        .Name("suffix-button")
+        .Content("Cc")
+        .FillMode(ButtonFillMode.Flat)
+        .ThemeColor(ThemeColor.Primary)
+        .ToClientTemplate()
+      )
+</script>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="customers">Search for shipping names</label>
+        @(Html.Kendo().MultiSelect()
+            .Name("customers")
+            .PrefixOptions(prefix => prefix.Icon("user"))
+            .SuffixOptions(suffix => suffix.TemplateId("suffixTemplate"))
+            .Placeholder("Select customers...")
+            .DataTextField("ContactName")
+            .DataValueField("CustomerID")
+            .Height(400)
+            .ClearButton(true)
+            .AutoClose(false)
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("Template_GetCustomers", "MultiSelect");
+                });
+            })
+          )
+    </div>
+</div>

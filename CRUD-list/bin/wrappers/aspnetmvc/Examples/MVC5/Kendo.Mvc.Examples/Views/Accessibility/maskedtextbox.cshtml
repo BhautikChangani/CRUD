@@ -1,0 +1,13 @@
+
+            <input id="phone_number" value="555 123 4567" title="MaskedTextBox" style="width: 200px" />
+          <script type="module">
+              $(document).ready(function () {
+                $("#phone_number").kendoMaskedTextBox({
+                      mask: "(999) 000-0000",
+                      label: {
+                          content: "Enter value"
+                      }
+                  });
+              });
+          </script>
+        

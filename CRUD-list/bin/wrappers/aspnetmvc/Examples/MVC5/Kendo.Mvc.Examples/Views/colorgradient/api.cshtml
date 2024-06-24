@@ -1,0 +1,85 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <h4>Values</h4>
+        <ul class="options">
+            <li>
+                <input id="value" value="#ff0000" style="width: 100px; margin: 0;" />
+                <button id="set">Set value</button>
+            </li>
+            <li><button id="get">Get value</button></li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>State control</h4>
+        <ul class="options">
+            <li>
+                <button id="enable">Enable</button>
+                <button id="disable">Disable</button>
+                <button id="focus">Focus</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="k-d-flex k-justify-content-center" id="color-gradient-container">
+    <div class="k-w-300">
+        <label for="colorgradient">ColorGradient</label>
+        @(Html.Kendo().ColorGradient()
+            .Name("colorgradient")
+            .Value("#00f")
+            .Input(true)
+            .Opacity(true)
+        )
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).on("kendoReady", function () {
+            var colorgradient = $("#colorgradient").data("kendoColorGradient");
+
+            $("#enable").click(function () {
+                colorgradient.enable(true);
+            });
+            $("#disable").click(function () {
+                colorgradient.enable(false);
+            });
+            $("#focus").click(function () {
+                colorgradient.focus();
+            });
+            $("#get").click(function () {
+                alert(colorgradient.value());
+            });
+
+            $("#set").click(function () {
+                var color = $("#value").val();
+                try {
+                    color = kendo.parseColor(color);
+                    colorgradient.value(color);
+                } catch (ex) {
+                    alert('Cannot parse color: "' + color + '"');
+                }
+            });
+        });
+    </script>
+}
+
+<style>
+    #color-gradient-container {
+        padding-top: 54px;
+        padding-bottom: 30px;
+    }
+
+    .k-w-300 label{
+        text-align: center;
+        display: block;
+    }
+
+    .k-colorgradient {
+        margin: 0 auto;
+    }
+    .configurator button {
+        min-width: 80px;
+    }
+</style>

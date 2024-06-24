@@ -1,0 +1,19 @@
+
+        <div id="chiplist"></div>
+        <script type="module">
+            var chipList = $('#chiplist').kendoChipList({
+                fillMode: "solid",
+                rounded: 'full',
+                size: "small",
+                selectable: "single",
+                items: [
+                    { label: "Disabled Chip 1", enabled: false },
+                    { icon: "globe", label: "Chip 1", selectable: true, selected: true },
+                    { label: "Disabled Chip 2", enabled: false },
+                    { label: "Chip 2", rounded: "small", selectable: true },
+                    { label: "Chip 3" },
+                    { label: "Disabled Chip 3", enabled: false },
+                ]
+            }).data("kendoChipList");
+        </script>
+    

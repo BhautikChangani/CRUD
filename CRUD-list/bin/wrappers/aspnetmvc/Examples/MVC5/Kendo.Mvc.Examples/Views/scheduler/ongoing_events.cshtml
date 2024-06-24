@@ -1,0 +1,22 @@
+@model IEnumerable<Kendo.Mvc.Examples.Models.Scheduler.TaskViewModel>
+
+    @(Html.Kendo().Scheduler<Kendo.Mvc.Examples.Models.Scheduler.TaskViewModel>()
+    .Name("scheduler")
+    .Date(DateTime.Now)
+    .Height(600)
+    .Editable(false)
+    .OngoingEvents(oe =>
+    {
+        oe.UpdateInterval(300000); // 5 minutes
+    })
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView();
+        views.MonthView(mv =>
+            mv.Selected(true).AdaptiveSlotHeight(true).EventsPerDay(5));
+        views.TimelineView(tv=>
+            tv.MajorTick(360));
+    })
+    .BindTo(Model)
+)

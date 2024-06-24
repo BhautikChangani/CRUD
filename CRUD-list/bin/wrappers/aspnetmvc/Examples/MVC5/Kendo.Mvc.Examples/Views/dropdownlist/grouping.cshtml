@@ -1,0 +1,20 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="customers">Customers:</label>
+        @(Html.Kendo().DropDownList()
+          .Name("customers")
+          .DataTextField("ContactName")
+          .DataValueField("CustomerID")
+          .Height(400)
+          .HtmlAttributes(new { style = "width:100%" })
+          .DataSource(source =>  source
+              .Custom()
+              .Group(g => g.Add("Country", typeof(string)))
+              .Transport(transport => transport
+                .Read(read =>
+                {
+                    read.Action("Grouping_GetCustomers", "DropDownList");
+                })))
+        )
+    </div>
+</div>

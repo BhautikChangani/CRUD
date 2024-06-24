@@ -1,0 +1,44 @@
+<div class="demo-section">
+    @(Html.Kendo().Form<Kendo.Mvc.Examples.Models.Form.UserViewModel>()
+        .Name("formExample")
+        .HtmlAttributes(new { action = @Url.Action("Validation", "Form"), method = "POST" })
+        .Orientation("vertical")
+        .Validatable(v =>
+        {
+            v.ValidateOnBlur(true);
+            v.ValidationSummary(vs => vs.Enable(true));
+            v.ErrorTemplate("<span class='k-form-error'>#:message#</span>");
+        })
+        .Items(items =>
+        {
+            items.AddGroup()
+                .Label("Registration Form")
+                .Items(i =>
+                {
+                    i.Add()
+                        .Field(f => f.UserID);
+                    i.Add()
+                        .Field(f => f.FirstName);
+                    i.Add()
+                        .Field(f => f.LastName);
+                    i.Add()
+                        .Field(f => f.UserName);
+                    i.Add()
+                        .Field(f => f.Password)
+                        .Hint("Hint: enter alphanumeric characters only.");
+                    i.Add()
+                        .Field(f => f.ConfirmPassword);
+                    i.Add()
+                        .Field(f => f.Email);
+                    i.Add()
+                        .Field(f => f.Height)
+                        .Hint("Let us know so we can pick the right T-shirt size for you.");
+                    i.Add()
+                        .Field(f => f.DateOfBirth)
+                        .Label(l => l.Text("Date of Birth:").Optional(true));
+                    i.Add()
+                        .Field(f => f.Agree);
+                });
+        })
+    )
+</div>

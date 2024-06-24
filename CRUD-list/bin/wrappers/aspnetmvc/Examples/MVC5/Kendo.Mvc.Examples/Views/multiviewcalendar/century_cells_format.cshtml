@@ -1,0 +1,39 @@
+<div class="k-d-flex k-justify-content-center">
+    <div class="k-w-500"> 
+          @(Html.Kendo().ToggleButton()
+            .Name("toggleCalendarCenturyCells")
+            .Content("Toggle Century Cells Format")
+            .Icon("calendar-date")
+            .Events(events => events
+                .Toggle("onToggle")
+            )
+        )
+        <br/>
+        <br/>
+        @(Html.Kendo().MultiViewCalendar()
+            .Name("multiViewCalendar")
+            .Start(CalendarView.Century)
+            .CenturyCellsFormat(CenturyCellsFormats.Short)
+        )
+    </div>
+</div>
+
+<style>
+    .k-d-flex {
+        text-align: center;
+    }
+</style>
+
+@section scripts {
+    <script>
+        function onToggle(e){
+            var multiviewcalendar = $("#multiViewCalendar").getKendoMultiViewCalendar();
+            var centuryCellOption = multiviewcalendar.options.centuryCellsFormat == "short" ? "long" : "short";
+
+            multiviewcalendar.setOptions({
+                start: "century",
+                centuryCellsFormat: centuryCellOption
+            })
+        }
+    </script>
+}

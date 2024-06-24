@@ -1,0 +1,63 @@
+@{
+    ViewBag.Title = "DisableDates";
+}
+
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="weekend-datetime-picker">Disable weekends:</label>
+        @(Html.Kendo().DateTimePicker()
+            .Name("weekend-datetime-picker")
+            .HtmlAttributes(new { style = "width:100%;" })
+            .DisableDates(DayOfWeek.Saturday, DayOfWeek.Sunday)
+        )
+        <br />
+        <br />
+        <br />
+        <label for="national-datetime-picker">Disable Federal Holidays in USA in 2015:</label>
+        @(Html.Kendo().DateTimePicker()
+            .Name("national-datetime-picker")
+            .HtmlAttributes(new { style = "width:100%;" })
+            .DisableDates("disableDates")
+            .Value("1/2/2015")
+        )
+    </div>
+</div>
+@section scripts {
+    <script>
+        function disableDates(date) {
+            var dates = [
+                new Date("1/1/2015"),
+                new Date("1/19/2015"),
+                new Date("2/16/2015"),
+                new Date("4/16/2015"),
+                new Date("5/10/2015"),
+                new Date("5/25/2015"),
+                new Date("6/21/2015"),
+                new Date("7/3/2015"),
+                new Date("9/7/2015"),
+                new Date("10/12/2015"),
+                new Date("11/11/2015"),
+                new Date("11/26/2015"),
+                new Date("11/27/2015"),
+                new Date("12/25/2015")
+            ];
+
+            if (date && compareDates(date, dates)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function compareDates(date, dates) {
+            for (var i = 0; i < dates.length; i++) {
+                if (dates[i].getDate() == date.getDate() &&
+                    dates[i].getMonth() == date.getMonth() &&
+                    dates[i].getYear() == date.getYear()) {
+                    return true
+                }
+            }
+        }
+    </script>
+}

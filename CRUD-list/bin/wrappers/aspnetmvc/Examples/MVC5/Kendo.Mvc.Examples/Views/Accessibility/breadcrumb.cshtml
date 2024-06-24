@@ -1,0 +1,27 @@
+
+            <div >
+                <h2>Breadcrumb - Navigational</h2>
+                <nav id="breadcrumbNav" name="breadcrumb" style="width: 100%;" />
+            </div>
+
+            <script type="module">
+                $(function () {
+                    $("#breadcrumbNav").kendoBreadcrumb({
+                        items: [
+                            { type: "rootitem", href: "https://demos.telerik.com/kendo-ui/", text: "All Components", showText: false, icon: "home", showIcon: true },
+                            { type: "item", href: "https://demos.telerik.com/kendo-ui/breadcrumb", text: "Breadcrumb", showText: true },
+                            { type: "item", href: "https://demos.telerik.com/kendo-ui/breadcrumb/keyboard-navigation", text: "Keyboard Navigation", showText: true }
+                        ],
+                        editable: false,
+                        navigational: true
+                    });
+
+                    //focus the widget
+                    $(document.body).keydown(function (e) {
+                        if (e.altKey && e.keyCode === 87 /* w */) {
+                            $("#breadcrumbEdit").data("kendoBreadcrumb").wrapper.focus();
+                        }
+                    });
+                });
+            </script>
+        

@@ -1,0 +1,209 @@
+@using Kendo.Mvc.UI
+@{ var themeColorData = new List<SelectListItem> { new SelectListItem { Text = "primary", Value = "1" }, new SelectListItem { Text = "secondary", Value = "2" }, new SelectListItem { Text = "tertiary", Value = "3" }, new SelectListItem { Text = "inherit", Value = "4" }, new SelectListItem { Text = "info", Value = "5" }, new SelectListItem { Text = "success", Value = "6" }, new SelectListItem { Text = "warning", Value = "7" }, new SelectListItem { Text = "error", Value = "8" }, new SelectListItem { Text = "dark", Value = "9" }, new SelectListItem { Text = "light", Value = "10" }, new SelectListItem { Text = "inverse", Value = "11" } }; }
+
+<script>
+
+    function changeRounded(e) {
+        $("#badgeBarcelona, #badgeSanFrancisco").each(function () {
+            $(this).data().kendoBadge.setOptions({
+                rounded: e.sender.text()
+            });
+        });
+    }
+    function changeSize(e) {
+        $("#badgeBarcelona, #badgeSanFrancisco").each(function () {
+            $(this).data().kendoBadge.setOptions({
+                size: e.sender.text()
+            });
+        });
+    }
+
+    function changeThemeColor(e) {
+        $("#badgeBarcelona, #badgeSanFrancisco").each(function () {
+            $(this).data().kendoBadge.setOptions({
+                themeColor: e.sender.text()
+            });
+        });
+    }
+    function changeFill(e) {
+        $("#badgeBarcelona, #badgeSanFrancisco").each(function () {
+            $(this).data().kendoBadge.setOptions({
+                fillMode: e.sender.text()
+            });
+        });
+    }
+</script>
+
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <ul class="options">
+            <li>
+                <h4>Rounded</h4>
+                @(Html.Kendo().DropDownList()
+                      .Name("rounded")
+                      .DataTextField("Text")
+                      .DataValueField("Value")
+                      .Events(e => e.Change("changeRounded"))
+                      .BindTo(new List<SelectListItem>() {
+                          new SelectListItem() {
+                              Text = "full",
+                              Value = "1"
+                          },
+                          new SelectListItem() {
+                              Text = "small",
+                              Value = "2"
+                          },
+                          new SelectListItem() {
+                              Text = "medium",
+                              Value = "3"
+                          },
+                          new SelectListItem() {
+                              Text = "large",
+                              Value = "4"
+                          },
+                          new SelectListItem() {
+                              Text = "none",
+                              Value = "5"
+                          }
+                      })
+                      .Value("1")
+                )
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <ul class="options">
+            <li>
+                <h4>Size</h4>
+                @(Html.Kendo().DropDownList()
+                      .Name("size")
+                      .DataTextField("Text")
+                      .DataValueField("Value")
+                      .Events(e => e.Change("changeSize"))
+                      .BindTo(new List<SelectListItem>() {
+                          new SelectListItem() {
+                              Text = "small",
+                              Value = "1"
+                          },
+                          new SelectListItem() {
+                              Text = "medium",
+                              Value = "2"
+                          },
+                          new SelectListItem() {
+                              Text = "large",
+                              Value = "3"
+                          },
+                           new SelectListItem() {
+                              Text = "none",
+                              Value = "4"
+                          }
+                      })
+                      .Value("2")
+                )
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <ul class="options">
+            <li>
+                <h4>Theme color</h4>
+                @(Html.Kendo().DropDownList()
+                      .Name("themeColor")
+                      .DataTextField("Text")
+                      .DataValueField("Value")
+                      .Events(e => e.Change("changeThemeColor"))
+                      .BindTo(themeColorData)
+                    .Value("2")
+                )
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <ul class="options">
+            <li>
+                <h4>FillMode</h4>
+                @(Html.Kendo().DropDownList()
+                      .Name("fill")
+                      .DataTextField("Text")
+                      .DataValueField("Value")
+                      .Events(e => e.Change("changeFill"))
+                      .BindTo(new List<SelectListItem>() {
+                          new SelectListItem() {
+                              Text = "outline",
+                              Value = "1"
+                          },
+                          new SelectListItem() {
+                              Text = "solid",
+                              Value = "2"
+                          },
+                          new SelectListItem() {
+                              Text = "none",
+                              Value = "3"
+                          }
+                      })
+                      .Value("2")
+                )
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <div class="cards-container">
+        <div class="k-card">
+            <div class="k-card-header">
+                <h5 class="k-card-title">Rome</h5>
+                <h6 class="k-card-subtitle">Capital of Italy</h6>
+            </div>
+            <img class="k-card-media" alt="Telerik UI for ASP.NET MVC Badge Rome" src="~/Content/web/cards/rome.jpg" />
+            <div class="k-card-body">
+                @(Html.Kendo().Badge()
+                        .Name("badgeBarcelona")
+                        .Text("New"))
+                <p>Rome is a sprawling, cosmopolitan city with nearly 3,000 years of globally influential art, architecture and culture on display.</p>
+            </div>
+        </div>
+
+        <div class="k-card">
+            <div class="k-card-header">
+                <h5 class="k-card-title">San Francisco</h5>
+                <h6 class="k-card-subtitle">City in California</h6>
+            </div>
+            <img class="k-card-media" alt="Telerik UI for ASP.NET MVC Badge San Francisco" src="~/Content/web/cards/sanfran.jpg" />
+            <div class="k-card-body">
+                @(Html.Kendo().Badge()
+                        .Name("badgeSanFrancisco")
+                        .Text("Most Popular"))
+                <p>San Francisco, officially City and County of San Francisco and colloquially known as SF, San Fran or "The City", is the cultural, commercial, and financial center of Northern California.</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .k-card {
+            width: 285px;
+            margin: 5%;
+        }
+
+        .k-card-footer {
+            text-align: center;
+        }
+
+        .k-badge {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+        }
+
+        .k-picker.k-dropdownlist {
+            width: 140px;
+        }
+    </style>
+</div>

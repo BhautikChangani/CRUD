@@ -1,0 +1,21 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+  <p>This demo shows how to import a file in <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/editors/editor/overview" target="_blank">Telerik UI for ASP.NET MVC Editor</a> and how to export the Editor content. The import and export features internally rely on the Telerik Document Processing Library.</p>
+  <p><a target="_blank" href="https://docs.telerik.com/devtools/document-processing/introduction">Telerik Document Processing</a> is a bundle of UI-independent, cross-platform libraries enabling you to process the most commonly used flow, fixed and spreadsheet document formats. The components allow to create documents, import, modify and export them without external dependencies between the following different formats.</p>
+  <p>To enable the import option in the Editor, add the respective command in the toolbar of he Editor <code>.Tools(tools => tools.Import())</code>. By using the <code>Import</code> attribute, you can configure the <code>Proxy</code> option or set the maximum file size and the allowed extensions of the imported file. Through the <code>Import</code> option, you can import files with the following extensions:
+        <ul>
+            <li>DOCX</li>
+            <li>RTF</li>
+            <li>HTML</li>
+            <li>TXT</li>
+        </ul>
+    </p>
+    <p>To export the content of the Editor, include the corresponding command to its toolbar <code>.Tools(tools => tools.ExportAs())</code> and configure the export settings through the <code>ExportAs</code> attribute. For example, specify the <code>Proxy</code> option, which sets the <code>Action</code> to which the content will be submitted, or specify the <code>FileName</code> attribute to set the name of the downloaded file.</p>
+    <ul>
+        <li>DOCX</li>
+        <li>RTF</li>
+        <li>PDF</li>
+        <li>HTML</li>
+        <li>TXT</li>
+    </ul>
+</div>

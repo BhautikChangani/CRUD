@@ -1,0 +1,26 @@
+<div class="demo-section wide">
+    @(Html.Kendo().Chart()
+        .Name("chart")
+        .Title(t => t.Text("Gross domestic product growth /GDP annual %/")
+        .Description("A chart that visualizes the trends in GDP across different countries for the period 2010-2022"))
+        .Legend(legend => legend.Position(ChartLegendPosition.Bottom).Orientation(ChartLegendOrientation.Horizontal))
+        .Series(series =>
+        {
+            series.Line(new double[] { 7.61, 5.47, 5.18, 5.24, 4.76, 4.72, 4.67, 5.05, 4.76, 3.96, -0.12, 6.1, 2.85 }).Name("East Asia & Pacific");
+            series.Line(new double[] { 2.23, 1.89, -0.7, -0.08, 1.6, 2.31, 1.98, 2.84, 2.07, 1.81, -5.67, 5.47, 3.54 }).Name("European Union");
+            series.Line(new double[] { 4.54, 3.32, 2.71, 2.81, 3.07, 3.08, 2.81, 3.39, 3.29, 2.59, -3.07, 6.02, 3.08 }).Name("World")
+            .LegendItem(li => li
+                .Markers(m => m.Type(ChartMarkerShape.Triangle))
+                .Type("line")
+                .Area(a => a.Opacity(0.5))
+                .Highlight(h => h.Visible(true).Markers(hm => hm.Type(ChartMarkerShape.Rect))));
+        })
+        .CategoryAxis(axis => axis
+            .Categories("2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022")
+        )
+        .SeriesDefaults(sd => sd.Line()
+        .Style(ChartLineStyle.Smooth)
+        .Labels(l => l.AriaTemplate("GDP Growth for #= series.name # in #= category # is #= value #%"))
+        )
+        )
+</div>

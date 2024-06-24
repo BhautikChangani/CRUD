@@ -1,0 +1,140 @@
+
+            <div id="example">
+                <div class="demo-section k-content wide">
+                    <div id="toolbar"></div>
+                    <div id="drawer">
+                        <div id="drawer-content">
+                            <div id="Inbox" tabindex="0">
+                                <ul class="inboxList">
+                                    <li>
+                                        <h2>Monday meeting</h2>
+                                        <p>Hi Tom, Since Monday I'll be out of office, I'm rescheduling the meeting for Tuesday.</p>
+                                    </li>
+                                    <li>
+                                        <h2>I'm sorry, Tom</h2>
+                                        <p>Hi Tom, my aunt comes for a visit this Saturday, so I can't come back to St. Pete...</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="Notifications" class="hidden" tabindex="0">
+                                <ul>
+                                    <li>Monday meeting</li>
+                                    <li>Regarding org chart changes</li>
+                                    <li>Meeting with Cliff</li>
+                                    <li>Global Marketing Meeting</li>
+                                    <li>Out tonight with collegues?</li>
+                                </ul>
+                            </div>
+                            <div id="Calendar" class="hidden" tabindex="0">
+                                <ul>
+                                    <li>
+                                        <h2>11/5 Monday</h2>
+                                        <p>Martha Birthday</p>
+                                    </li>
+                                    <li>
+                                        <h2>15/6 Sunday</h2>
+                                        <p>Job interview for internal position</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="Attachments" class="hidden" tabindex="0">
+                                <ul>
+                                    <li>Build enterprise apps</li>
+                                    <li>Fw: Regarding Multiline textbox</li>
+                                    <li>Away next week</li>
+                                    <li>Fw: Your Costume is ready</li>
+                                    <li>Update completed</li>
+                                </ul>
+                            </div>
+                            <div id="Favourites" class="hidden" tabindex="0">
+                                <ul>
+                                    <li>90% Discount!</li>
+                                    <li>90% Discount!</li>
+                                    <li>One time offer!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="module">
+                    $(document).ready(function () {
+                        $("#drawer").kendoDrawer({
+                            template: "<ul> \
+                                        <li data-role='drawer-item' class='k-selected'><span class='k-icon k-i-inbox'></span><span class='k-item-text' data-id='Inbox'>Inbox</span></li> \
+                                        <li data-role='drawer-separator'></li> \
+                                        <li data-role='drawer-item'><span class='k-icon k-i-notification k-i-bell'></span><span class='k-item-text' data-id='Notifications'>Notifications</span></li> \
+                                        <li data-role='drawer-item'><span class='k-icon k-i-calendar'></span><span class='k-item-text' data-id='Calendar'>Calendar</span></li> \
+                                        <li data-role='drawer-separator'></li> \
+                                        <li data-role='drawer-item'><span class='k-icon k-i-hyperlink-email'></span><span class='k-item-text' data-id='Attachments'>Attachments</span></li> \
+                                        <li data-role='drawer-item'><span class='k-icon k-i-star-outline k-i-bookmark-outline'></span><span class='k-item-text' data-id='Favourites'>Favourites</span></li> \
+                                      </ul>",
+                            mode: "push",
+                            mini: true,
+                            itemClick: function (e) {
+                                if(!e.item.hasClass("k-drawer-separator")){
+                                    e.sender.drawerContainer.find("#drawer-content > div").addClass("hidden");
+                                    e.sender.drawerContainer.find("#drawer-content").find("#" + e.item.find(".k-item-text").attr("data-id")).removeClass("hidden");
+                                }
+                            },
+                            navigatable: true,
+                            position: 'left',
+                            minHeight: 330,
+                            swipeToOpen: true
+                        });
+                    });
+
+                    function toggleDrawer() {
+                        var drawerInstance = $("#drawer").data().kendoDrawer;
+                        var drawerContainer = drawerInstance.drawerContainer;
+
+                        if(drawerContainer.hasClass("k-drawer-expanded")) {
+                            drawerInstance.hide();
+                        } else {
+                            drawerInstance.show();
+                        }
+                    }
+
+                    $("#toolbar").kendoToolBar({
+                        items: [
+                            { type: "button", icon: "menu", attributes: {"title": "Toggle Button", "class": "k-flat" }, click: toggleDrawer},
+                            { template: "<h1 style='margin-left: 20px;'>Mail Box</h1>" }
+                        ]
+                    });
+
+                    $(document.body).keydown(function (e) {
+                        if (e.altKey && e.keyCode === 87) {
+                            $("#drawer").data("kendoDrawer").element.focus();
+                        }
+                    });
+                </script>
+                <style>
+                    #drawer-content li {
+                        font-size: 1.2em;
+                        padding-left: .89em;
+                        background: 0 0;
+                        border-radius: 0;
+                        border-width: 0 0 1px;
+                        border-color: rgba(33, 37, 41, 0.125);
+                        border-style: solid;
+                        line-height: 1.5em;
+                        padding: 1.09em .84em 1.23em .84em;
+                    }
+
+                    #drawer-content li:last-child {
+                        border: 0;
+                    }
+
+                    .hidden {
+                        display: none;
+                    }
+
+                    #example .demo-section {
+                        max-width: 640px;
+                    }
+
+                    .k-toolbar .k-icon {
+                        font-size: 18px;
+                    }
+                </style>
+            </div>
+        

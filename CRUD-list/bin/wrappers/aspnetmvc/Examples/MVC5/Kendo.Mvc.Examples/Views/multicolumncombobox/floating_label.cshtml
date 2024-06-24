@@ -1,0 +1,27 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().MultiColumnComboBox()
+        .Name("products")
+        .DataTextField("ProductName")
+        .DataValueField("ProductID")
+        .Label(label => {
+            label.Content("Select a product...");
+            label.Floating(true);
+        })
+        .Columns(columns =>
+        {
+            columns.Add().Field("ProductName").Title("Name");
+            columns.Add().Field("ProductID").Title("ID");
+        })
+        .HtmlAttributes(new { style = "width:100%;" })
+        .Filter(FilterType.Contains)
+        .DataSource(source =>
+        {
+            source.Read(read =>
+            {
+                read.Action("ServerFiltering_GetProducts", "MultiColumnComboBox");
+            });
+        })
+    )
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div id="example">
+    <div class="configurator">
+        <div class="header">Configurator</div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Size</h4>
+                    <input id="size" name="size" />
+                </li>
+            </ul>
+        </div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Track</h4>
+                    <input id="track" name="track" />
+                </li>
+            </ul>
+        </div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Thumb</h4>
+                    <input id="thumb" name="thumb" />
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="demo-section">
+        <div>
+            @(Html.Kendo().Switch()
+                .Name("switch")
+            )
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var kSwitch = $("#switch").data("kendoSwitch");
+
+            var size = $("#size").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "medium",
+                change: onChange,
+                dataSource: [
+                    { text: "Small", value: "small" },
+                    { text: "Medium", value: "medium" },
+                    { text: "Large", value: "large" },
+                    { text: "None", value: "none" }
+
+                ]
+            }).data("kendoDropDownList");
+
+            var track = $("#track").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                change: onChange,
+                value: "full",
+                dataSource: [
+                    { text: "Small", value: "small" },
+                    { text: "Medium", value: "medium" },
+                    { text: "Large", value: "large" },
+                    { text: "Full", value: "full" },
+                    { text: "None", value: "none" },
+                ]
+            }).data("kendoDropDownList");
+
+            var thumb = $("#thumb").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                change: onChange,
+                value: "full",
+                dataSource: [
+                    { text: "Small", value: "small" },
+                    { text: "Medium", value: "medium" },
+                    { text: "Large", value: "large" },
+                    { text: "Full", value: "full" },
+                    { text: "None", value: "none" },
+                ]
+            }).data("kendoDropDownList");
+
+            function onChange(e) {
+                var sizeValue = size.value();
+                var roundedValue = track.value();
+                var thumbValue = thumb.value();
+                kSwitch.setOptions({
+                    size: sizeValue,
+                    trackRounded: roundedValue,
+                    thumbRounded: thumbValue
+                })
+            }
+        });
+    </script>
+
+    <style>
+        .k-picker.k-dropdownlist {
+            width: 140px;
+        }
+
+        .demo-section {
+            text-align: center;
+        }
+    </style>
+</div>

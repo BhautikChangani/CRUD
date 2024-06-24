@@ -1,0 +1,18 @@
+
+        <div>
+            <input name="files" id="files" type="file" accesskey="w" />
+        </div>
+        <script type="module">
+            $(document).ready(function () {
+                $("#files").kendoUpload({
+                    async: {
+                        chunkSize: 11000,// bytes
+                        saveUrl: "chunksave",
+                        removeUrl: "remove",
+                        autoUpload: false
+                    }
+                });
+            });
+        </script>
+        </div>
+    

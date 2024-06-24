@@ -1,0 +1,50 @@
+@using Kendo.Mvc.UI
+@using Kendo.Mvc.Examples.Models.TreeList
+
+@section scripts {
+<script>
+    function urlHandler(options) {
+        var url;
+        if (options.data.hasOwnProperty('id')) {
+            url = "https://demos.telerik.com/kendo-ui/service-v4/odata/Employees(" + options.data.id + ")/Subordinates";
+        } else {
+            url = "https://demos.telerik.com/kendo-ui/service-v4/odata/Employees/Default.TopEmployees()/";
+        }
+
+        $.ajax({
+            url: url,
+            dataType: "json",
+            success: function (result) {
+                // notify the data source that the request succeeded
+                options.success(result.value);
+            },
+            error: function (result) {
+                // notify the data source that the request failed
+                options.error(result);
+            }
+        });
+    }
+</script>
+}
+@(Html.Kendo().TreeList<EmployeeViewModel>()
+    .Name("treelist")
+    .Columns(columns =>
+    {
+        columns.Add().Field(e => e.FirstName).Width(220);
+        columns.Add().Field(e => e.LastName).Width(160);
+        columns.Add().Field(e => e.City).Width(160);
+        columns.Add().Field(e => e.HomePhone).Width(200);
+        columns.Add().Field(e => e.Address).Width(140);
+    })
+    .Filterable()
+    .Sortable()
+    .DataSource(ds => ds.Custom()
+        .Type("odata-v4")
+        .Schema(sch => sch.Model(m =>
+        {
+            m.Id(i => i.EmployeeID);
+            m.Field("parentId", typeof(int?)).From("ReportsTo").DefaultValue(null);
+        }))
+        .Transport(t => t.Read("urlHandler"))
+    )
+)

@@ -1,0 +1,39 @@
+<div class='note' style="text-align: center;">
+    <p>
+        Resize the browser to see how the AutoComplete popup adapts to different resolutions.
+    </p>
+</div>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-600">
+        <label for="products">Type a product name</label>
+        @(Html.Kendo().AutoComplete()
+            .Name("products")
+            .DataTextField("ProductName")
+            .HtmlAttributes(new { style = "width:100%" })
+            .Filter("startswith")
+            .AdaptiveMode(AdaptiveMode.Auto)
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("AdaptiveMode_GetProducts", "AutoComplete");
+                });
+            })
+            )
+        <div class="demo-hint">Hint: type "Cha"</div>
+    </div>
+</div>
+
+<style>
+    .note {
+        font: normal 18px "Metric";
+        border-radius: 2px;
+        margin: 20px auto 40px auto;
+        padding: 20px;
+        border-left: 4px solid;
+        border-left-color: #5392e4;
+        background: rgba(83,146,228,0.1);
+        text-align: center;
+    }
+</style>

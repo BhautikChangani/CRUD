@@ -1,0 +1,137 @@
+@model Kendo.Mvc.Examples.Models.SignatureFieldsModel
+
+<div id="example">
+
+    <div class="demo-section">
+        <h4>Select a signed template or custom document and explore signature validation status</h4>
+        @using (Html.BeginForm("Check_Pdf_Signature", "PdfProcessing"))
+            {
+            <div class="list-box-container">
+                @Html.Label("Load a signed template document:")
+                @(Html.Kendo().ListBox()
+                  .Name("options")
+                  .TemplateId("item-template")
+                  .HtmlAttributes(new { title = "options" })
+                  .Events(events => events
+                  .Change("onChange")
+                   )
+                  .BindTo(new List<string>
+                   {
+                    "Valid",
+                    "Invalid",
+                    "Unknown",
+                   })
+                )
+            </div>
+            @Html.Label("Load a custom document:")
+
+            @(Html.Kendo().Upload()
+                        .Name("customDocument")
+                        .Multiple(false)
+                        .Messages(m=>m.Select("Select file..."))
+                        .Validation(validation => validation.AllowedExtensions(new string[] { ".pdf" }))
+            )
+    <div>
+        <input type="submit" class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md wide-btn k-button-icontext" value="Check signature" id="submit" />
+    </div>
+            <span class="demo-hint">The validation process in the example is based only on Windows trusted root certificates.</span>
+                <span class="error-message">@Model.ExceptionMessage</span>
+
+                <hr class="k-hr" />
+                <h4>Signature validation</h4>
+                <input type="text" id="selectedItem" name="selectedItem" />
+                <p><span class="bold"> Signature status: </span> @if (@Model.ImgUrl != "none"){<img src='@Url.Content(Model.ImgUrl)'>}</p>
+                <p><span class="bold"> Is document modified: </span><span>@Model.IsDocumentModified</span> </p>
+                <p><span class="bold"> Is certificate valid: </span><span>@Model.IsCertificateValid</span> </p>
+                <p><span class="bold"> Signer information: </span><span>@Model.SignerInformation</span> </p>
+                <p><span class="bold"> Hash algorithm: </span><span>@Model.HashAlgorithm</span></p>
+        }
+    </div>
+</div>
+
+<script id="item-template" type="text/x-kendo-template">
+    <span> <img src='@Url.Content("~/content/web/pdfprocessing/#:data#.png")' /></span>
+    <span>#:data# signature</span>
+</script>
+
+@section scripts{
+<script>
+    function onChange(e) {
+        var selectedValue = e.sender.select();
+        $("#selectedItem").val(selectedValue[0].innerText);
+    }
+</script>
+}
+<style>
+    label {
+        display: inline-block;
+        margin-top: 1em;
+        margin-bottom: .4em;
+    }
+
+    .demo-hint {
+        padding-top: 0;
+    }
+
+    .error-message {
+        font-size: 16px;
+        color: red;
+        font-weight: bold;
+    }
+
+    .k-hr {
+        margin: 2em 0;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+    .centered {
+        width: 486px;
+        margin: 0 auto;
+    }
+
+    .k-item > span {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    hr {
+        margin: 15px 0;
+        border-width: 0 0 1px 0;
+        border-style: solid;
+    }
+
+    span > img {
+        padding-right: 1em;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    p:not(:last-of-type) {
+        margin: 1.5em 0;
+    }
+
+    .k-listbox {
+        width: 100%;
+        height: 100px;
+    }
+
+    #selectedItem {
+        display: none;
+    }
+
+    #submit {
+        margin: 2em 0 2em 0;
+    }
+
+    .demo-section {
+        margin: 0 auto 2.5em;
+    }
+</style>

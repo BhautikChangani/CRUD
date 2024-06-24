@@ -1,0 +1,11 @@
+@model Kendo.Mvc.Examples.Models.CategoryViewModel
+
+@(Html.Kendo().Template()
+    .AddComponent(ddl => ddl
+        .DropDownListFor(m => m)
+            .DataValueField("CategoryID")
+            .DataTextField("CategoryName")
+            .HtmlAttributes(new { data_bind = "value: Category" })
+            .DataSource(ds => ds.Read(read => read.Action("Categories", "Grid")))
+    )
+)

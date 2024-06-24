@@ -1,0 +1,6 @@
+@model decimal?
+
+
+@(Html.Kendo().Template()
+    .AddComponent(num => num.NumericTextBoxFor(m => m).Min(0).Max(300).Format("c2").Step(1))
+)

@@ -1,0 +1,30 @@
+@using Kendo.Mvc.UI
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    @(Html.Kendo().Chip()
+        .Name("chip")
+        .ThemeColor(ChipThemeColor.Base)
+        .Size(ComponentSize.Large)
+        .Label("Chip Label")
+        .RemoveIcon("trash")
+        .Removable(true)
+        .Selectable(true)
+        .Events(e=>e.Click("onClick").Select("onSelect").Remove("onRemove"))
+    )
+</div>
+
+@section scripts{
+    <script>
+        function onClick(e) {
+            kendoConsole.log("Click :: " + e.sender.element.text());
+        };
+
+        function onSelect(e) {
+            kendoConsole.log("Select :: " + e.sender.element.text());
+        };
+
+        function onRemove(e) {
+            kendoConsole.log("Remove :: " + e.sender.element.text());
+        };
+    </script>
+}

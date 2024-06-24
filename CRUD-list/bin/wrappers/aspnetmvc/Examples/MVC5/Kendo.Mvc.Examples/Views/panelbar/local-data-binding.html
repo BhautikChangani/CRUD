@@ -1,0 +1,9 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+    <p>The <a href="https://www.telerik.com/aspnet-mvc/panelbar" target="_blank">Telerik UI for ASP.NET MVC PanelBar</a> supports local data binding and you can display local-storage data in the component.</p>
+    <p>The current demo illustrates two approaches for binding the PanelBar to local data:</p>
+    <ul style="list-style-type: disc;">
+        <li>(Default) Using inline data&#8212;Pass an <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.ienumerable?view=net-7.0" target="_blank"><code>IEnumerable</code></a> of <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui/panelbaritemmodel" target="_blank"><code>PanelBarItemModel</code></a> to the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/panelbarbuilder#bindtosystemcollectionsgenericienumerable" target="_blank"><code>BindTo()</code></a> method. In this example, the list of items is stored in a <code>ViewBag</code> and then passed to the <code>BindTo()</code> option.</li>
+        <li>Mapping Model properties&#8212;Bind the PanelBar to a list of objects and map the Model properties to the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui/panelbaritem" target="_blank"><code>PanelBarItem</code></a> properties. This example uses another overload of the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/panelbarbuilder#bindtosystemcollectionsienumerablesystemaction" target="_blank"><code>BindTo()</code></a> method as the first argument is an <code>IEnumerable</code> of Model <code>CategoryItem</code>, and the second is the action, which will map the properties.</li>
+    </ul>
+</div>

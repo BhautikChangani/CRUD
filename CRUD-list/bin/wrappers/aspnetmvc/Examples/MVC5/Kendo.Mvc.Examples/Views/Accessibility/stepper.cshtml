@@ -1,0 +1,44 @@
+
+        <div id="example">
+            <div class="demo-section k-content">
+                <div class="demo-section k-content wide">
+                    <nav id="stepper"></nav>
+                </div>
+
+                <script type="module">
+                    $(document).ready(function () {
+                        $("#stepper").kendoStepper({
+                            linear: false,
+                            steps: [{
+                                label: "Personal Info",
+                                icon: "user"
+                            }, {
+                                label: "Education",
+                                icon: "book",
+                                error: true
+                            }, {
+                                label: "Experience",
+                                icon: "flip-vertical",
+                                selected: true
+                            }, {
+                                label: "Attachments",
+                                icon: "paperclip"
+                            }, {
+                                label: "Review",
+                                icon: "eye",
+                                enabled: false
+                            }, {
+                                label: "Submit",
+                                icon: "file-add"
+                            }]
+                        });
+                    });
+                    $(document.body).keydown(function (e) {
+                        if (e.altKey && e.keyCode == 87) {
+                            $("#stepper .k-step-current .k-step-link").focus();
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    

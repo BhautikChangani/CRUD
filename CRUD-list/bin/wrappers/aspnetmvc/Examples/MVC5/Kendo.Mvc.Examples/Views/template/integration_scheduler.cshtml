@@ -1,0 +1,102 @@
+@(Html.Kendo().Scheduler<Kendo.Mvc.Examples.Models.Scheduler.TaskViewModel>()
+    .Name("scheduler")
+    .Date(new DateTime(2022, 6, 13))
+    .StartTime(new DateTime(2022, 6, 13, 7, 00, 00))
+    .Height(600)
+    .EventTemplate(Html.Kendo().Template()
+        .AddHtml(@<text>
+            <div class='event-container'>
+                <h3 class='event-title-${data.resources[0].value}'>
+                    <b>${data.title}</b>
+                </h3>
+                <div class='event-owner'>
+                    <i>Created by: ${data.resources[0].text}</i>
+                </div>
+            </div>
+        </text>)
+    )
+    .AllDayEventTemplate(Html.Kendo().Template().AddHtml("<div class='event-container'><h3 class='event-title-${data.resources[0].value}'><b>${data.title}</b></h3></div>"))
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(workWeekView =>
+        {
+            workWeekView.Selected(true);
+        });
+        views.MonthView();
+        views.YearView();
+        views.AgendaView();
+    })
+    .Editable(editable =>
+    {
+        editable.TemplateComponentName("CustomSchedulerEditorTemplate");
+    })
+    .Timezone("Etc/UTC")
+    .Resources(resource =>
+    {
+        resource.Add(m => m.OwnerID)
+            .Title("Owner")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataColorField("Color")
+            .BindTo(new[] {
+                new { Text = "Alex", Value = 1, Color = "#f8a398" } ,
+                new { Text = "Bob", Value = 2, Color = "#51a0ed" } ,
+                new { Text = "Charlie", Value = 3, Color = "#56ca85" }
+            });
+    })
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskID);
+            m.Field(f => f.Title).DefaultValue("No title");
+            m.Field(f => f.OwnerID).DefaultValue(1);
+            m.RecurrenceId(f => f.RecurrenceID);
+        })
+        .Read("Basic_Usage_Read", "Scheduler")
+        .Create("Basic_Usage_Create", "Scheduler")
+        .Destroy("Basic_Usage_Destroy", "Scheduler")
+        .Update("Basic_Usage_Update", "Scheduler")
+    )
+    .Events(ev => ev.Edit("onEdit"))
+)
+
+@section scripts {
+    <script>
+        function onEdit(e) {
+            $("#isAllDay").data("kendoCheckBox").bind("change", function (e) {
+                if (e.checked) {
+                    $("#startDate").show();
+                    $("#endDate").show();
+                } else {
+                    $("#startDateTime").show();
+                    $("#endDateTime").show();
+                }
+            });
+        }
+    </script>
+}
+
+<style>
+    .event-container {
+        margin-top: -8px;
+    }
+
+        .event-container h3 {
+            padding: 0px 2px;
+            font-size: 12px;
+        }
+
+    .event-owner {
+        font-size: 12px;
+    }
+
+    .k-event .k-i-reload,
+    .k-event .k-i-non-recurrence {
+        display: none;
+    }
+
+    .k-form-field {
+        margin-bottom: 15px;
+    }
+</style>

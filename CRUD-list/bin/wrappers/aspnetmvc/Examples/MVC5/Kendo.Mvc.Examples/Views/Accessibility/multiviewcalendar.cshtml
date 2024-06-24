@@ -1,0 +1,15 @@
+
+        <div id="multiViewCalendar" ></div>
+        <script type="module">
+            $(document).ready(function () {
+                $("#multiViewCalendar").kendoMultiViewCalendar({
+                    selectable: "multiple"
+                });
+            });
+            $(document.body).keydown(function (e) {
+                if (e.altKey && e.keyCode === 87 /* w */) {
+                    $("#multiViewCalendar").data("kendoCalendar").focus();
+                }
+            });
+        </script>
+    

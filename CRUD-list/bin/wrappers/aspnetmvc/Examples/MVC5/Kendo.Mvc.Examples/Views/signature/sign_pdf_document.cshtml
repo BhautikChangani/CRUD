@@ -1,0 +1,168 @@
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
+    <script>
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js';
+    </script>
+}
+
+<div id="example" class="k-d-flex k-justify-content-center">
+    @(Html.Kendo().PDFViewer().Name("pdfViewer")
+        .PdfjsProcessing(pdf => pdf.File(Url.Content("~/Content/web/signature/certificate.pdf")))
+        .Height(680)
+    )
+</div>
+<br />
+<div class="signature-container">
+    <p style="margin-left: 5px;">Add a Signature to your existing PDF files.</p>
+    <div id="toolbar"></div>
+    <div class="signature-wrapper">
+        @(Html.Kendo().Signature()
+                .Name("signature")
+                .Maximizable(false)
+                .Color("#4040b7")
+                .Smooth(true)
+                .HideLine(true))
+    </div>
+    <div class="notes">
+        Add your Signature and Export the PDF File
+    </div>
+    <div id="bottomtoolbar"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        var signature = $("#signature").getKendoSignature();
+
+        $("#toolbar").kendoToolBar({
+            items: [
+                {
+                    template: "<label>Brush:</label><input id='colorpicker'/>",
+                    id: "brush",
+                    overflow: "never"
+                },
+                {
+                    type: "splitButton",
+                    text: "Size",
+                    id: "sizes",
+                    overflow: "never",
+                    menuButtons: [
+                        { text: "Normal" },
+                        { text: "Wide" }
+                    ],
+                    click: function (e) {
+                        signature.setOptions({
+                            strokeWidth: e.target.text() === "Wide" ? 3 : 1
+                        });
+                    }
+                },
+                {
+                    template: "<label>Background:</label><input id='background'/>",
+                    id: "bccolor",
+                    overflow: "never"
+                }
+            ]
+        });
+
+        $("#bottomtoolbar").kendoToolBar({
+            items: [
+                {
+                    type: "button",
+                    text: "Place Your Signature",
+                    primary: true,
+                    icon: "save",
+                    click: exportToPdf
+                }
+            ]
+        });
+
+        $("#colorpicker").kendoColorPicker({
+            view: "gradient",
+            views: ["gradient", "palette"],
+            value: "#4040b7",
+            change: function (e) {
+                signature.setOptions({
+                    color: e.value
+                });
+            },
+            buttons: false
+        });
+
+        $("#background").kendoColorPicker({
+            view: "gradient",
+            value: "#FFFFFF",
+            views: ["gradient", "palette"],
+            change: function (e) {
+                signature.setOptions({
+                    backgroundColor: e.value
+                });
+            },
+            buttons: false
+        });
+    });
+
+    function exportToPdf(e) {
+        kendo.drawing.drawDOM(".k-signature-canvas > canvas")
+            .then(function (group) {
+                // Render the result as a pdf document
+                return kendo.drawing.exportPDF(group);
+            })
+            .done(function (data) {
+                // Save the pdf document
+                refreshPdfViewer(data);
+            });
+    }
+    function refreshPdfViewer(data) {
+        $.post('@Url.Action("PreparePdf", "Signature")', {
+            pdfdata: data.replace("data:application/pdf;base64,", "")
+        },
+            function (response) {
+                var pdfViewer = $("#pdfViewer").data().kendoPDFViewer;
+                pdfViewer.destroy();
+                pdfViewer.element.empty();
+
+                var newPdfViewer = pdfViewer.element.kendoPDFViewer({
+                    height: 680,
+                    pdfjsProcessing: {
+                        file: {
+                            data: response
+                        }
+                    },
+                }).data().kendoPDFViewer;
+            });
+    }
+</script>
+
+<style>
+    .signature-container {
+        width: 360px;
+        margin: auto;
+    }
+
+        .signature-container > p {
+            font-size: larger;
+            font-weight: bold;
+            color: #494949;
+        }
+
+    .signature-wrapper {
+        height: 150px;
+    }
+
+        .signature-wrapper .k-signature {
+            width: 100%;
+            height: 100%;
+        }
+
+    div.notes {
+        font-style: italic;
+        border-width: 1px;
+        border-bottom-width: 0;
+        border-style: solid;
+        padding: 1em;
+    }
+
+    .k-signature, .notes {
+        border-color: rgba(0, 0, 0, 0.08);
+        border-width: 0 1px;
+        border-radius: 0;
+    }
+</style>

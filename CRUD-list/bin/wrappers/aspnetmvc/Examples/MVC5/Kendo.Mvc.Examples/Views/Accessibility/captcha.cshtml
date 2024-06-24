@@ -1,0 +1,26 @@
+
+        <div id="example">
+            <label for="captcha">Captcha</label>
+            <input id="captcha" />
+
+            <script type="module">
+                $("#captcha").kendoCaptcha({
+                    dataCaptchaField: "captchaImage",
+                    handler: function (args) {
+                        args.success({
+                            captchaImage: "captcha.png",
+                            captchaId: "1234"
+                        });
+                    },
+                    audioHandler: function (args) {
+                        args.success("captcha.wav");
+                    }
+                });
+                $(document.body).keydown(function (e) {
+                    if (e.altKey && e.keyCode === 87 /* w */) {
+                        $("#captcha").focus();
+                    }
+                });
+            </script>
+        </div>
+    

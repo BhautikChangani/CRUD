@@ -1,0 +1,17 @@
+@model Kendo.Mvc.Examples.Models.ProductViewModel
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().MultiColumnComboBoxFor(m => m.ProductID)
+            .Label(label => label.Content("Products"))
+            .DataValueField("ProductID")
+            .DataTextField("ProductName")
+            .Columns(columns =>
+            {
+                columns.Add().Field("ProductName").Title("Product Name").Width("200px");
+                columns.Add().Field("ProductID").Title("Product ID").Width("200px");
+            })
+            .BindTo((System.Collections.IEnumerable)ViewData["products"])
+        )
+    </div>
+</div>

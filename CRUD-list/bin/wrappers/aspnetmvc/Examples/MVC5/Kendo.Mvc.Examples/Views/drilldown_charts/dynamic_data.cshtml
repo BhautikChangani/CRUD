@@ -1,0 +1,56 @@
+<div id="example">
+    <div class="demo-section wide">
+        @(Html.Kendo().ChartBreadcrumb()
+            .Name("cb")
+            .Chart("chart")
+        )
+        @(Html.Kendo().Chart<Kendo.Mvc.Examples.Models.VehicleMake>()
+             .Name("chart")
+             .Series(series =>
+             {
+                series.Column(model => model.Count)
+                .Name("Battery EVs registered in 2022")
+                .CategoryField("Company")
+                .DrilldownField("Company").DrilldownSeriesFactory("drilldownByModel");
+             })
+             .DataSource(dataSource => dataSource.Read(read => read.Action("Get_VehicleMakes","Drilldown_Charts")))
+             .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+        )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+       var vehiclesByQuarter = @Html.Raw(Json.Encode(@ViewData["VehiclesByQuarter"]));
+       var vehiclesByModel = @Html.Raw(Json.Encode(@ViewData["VehiclesByModel"]));
+
+       function drilldownByQuarter(model) {
+           const data = vehiclesByQuarter[model];
+
+           if (data) {
+               return {
+                   type: 'column',
+                   name: model + ' Sales by Quarter',
+                   data,
+                   field: 'Count',
+                   categoryField: 'Period'
+               };
+           }
+       }
+       function drilldownByModel(make) {
+           const data = vehiclesByModel[make];
+
+           if (data) {
+               return {
+                   type: 'column',
+                   name: make + ' Sales by Model',
+                   data,
+                   field: 'Count',
+                   categoryField: 'Model',
+                   drilldownField: 'Model',
+                   drilldownSeriesFactory: drilldownByQuarter
+               };
+           }
+       }
+    </script>
+}

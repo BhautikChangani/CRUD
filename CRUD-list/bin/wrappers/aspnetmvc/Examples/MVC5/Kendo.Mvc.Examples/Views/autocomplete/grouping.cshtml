@@ -1,0 +1,33 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="customers">Find a Customer:</label>
+        @(Html.Kendo().AutoComplete()
+            .Name("customers")
+            .DataTextField("ContactName")
+            .HtmlAttributes(new { style = "width:100%" })
+            .Placeholder("Type a customer name")
+            .Height(400)
+            .DataSource(source => source
+                .Custom()
+                .Group(g => g.Add("Country", typeof(string)))
+                .Transport(transport => transport
+                .Read(read =>
+                {
+                    read.Action("Grouping_Read", "AutoComplete")
+                        .Data("onAdditionalData");
+                }))
+                .ServerFiltering(true))
+        )
+
+        <div class="demo-hint">Hint: type "an"</div>
+    </div>
+</div>
+    @section scripts {
+        <script>
+            function onAdditionalData() {
+                return {
+                    text: $("#customers").val()
+                };
+            }
+        </script>
+    }

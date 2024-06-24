@@ -1,0 +1,112 @@
+@using Kendo.Mvc.UI
+
+@(
+Html.Kendo().Scheduler<Kendo.Mvc.Examples.Models.Scheduler.TaskViewModel>()
+                .Name("scheduler")
+                .Date(new DateTime(2022, 6, 13))
+                .StartTime(new DateTime(2022, 6, 13, 7, 00, 00))
+                .Height(600)
+                .Mobile(MobileMode.Auto)
+                .Toolbar(t => t.Custom(ct =>
+                    ct.Items(itm => {
+                        itm.CustomTool(Html.Kendo().Template().AddComponent(component => component
+                                .DropDownButton()
+                                .Name("viewsButton")
+                                .Text("Select View")
+                                .Icon("chevron-down").Items(db =>
+                                {
+                                    db.Add().Text("Day");
+                                    db.Add().Text("Week");
+                                    db.Add().Text("Timeline");
+                                    db.Add().Text("Month");
+                                    db.Add().Text("Year");
+                                })
+                                .Events(ev => ev.Click("viewsHandler"))
+                                )
+                            );
+                        itm.CustomTool(Html.Kendo().Template().AddComponent(c => c
+                            .Button()
+                            .Name("customButton")
+                            .Content("Custom Button")
+                            .Events(ev => ev.Click("clickHandler"))
+                            )
+                        );
+                        itm.Spacer();
+                        itm.Current();
+                        itm.Group(g =>
+                        {
+                            g.Today();
+                            g.Previous();
+                            g.Next();
+                        });
+                    })
+                    )
+                )
+        .Views(views =>
+        {
+            views.DayView();
+            views.WorkWeekView(workWeekView =>
+            {
+                workWeekView.Selected(true);
+            });
+            views.WeekView();
+            views.MonthView();
+            views.YearView();
+            views.AgendaView();
+            views.TimelineView();
+        })
+        .Timezone("Etc/UTC")
+        .Resources(resource =>
+        {
+            resource.Add(m => m.OwnerID)
+                .Title("Owner")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .DataColorField("Color")
+                .BindTo(new[] {
+                    new { Text = "Alex", Value = 1, Color = "#f8a398" } ,
+                    new { Text = "Bob", Value = 2, Color = "#51a0ed" } ,
+                    new { Text = "Charlie", Value = 3, Color = "#56ca85" }
+                });
+        })
+        .DataSource(d => d
+            .Events(e => e.Error("onError"))
+            .Model(m =>
+            {
+                m.Id(f => f.TaskID);
+                m.Field(f => f.Title).DefaultValue("No title");
+                m.Field(f => f.OwnerID).DefaultValue(1);
+                m.RecurrenceId(f => f.RecurrenceID);
+            })
+            .Read("Basic_Usage_Read", "Scheduler")
+            .Create("Basic_Usage_Create", "Scheduler")
+            .Destroy("Basic_Usage_Destroy", "Scheduler")
+            .Update("Basic_Usage_Update", "Scheduler")
+        )
+    )
+
+@section scripts {
+    <script type="text/javascript">
+        function viewsHandler(e) {
+            var scheduler = $("#scheduler").getKendoScheduler();
+            var selectedView = e.target.text().toLowerCase()
+            scheduler.view(selectedView)
+        }
+        function clickHandler(e){
+                alert('Custom button is clicked!!!')
+        }
+        function onError(e) {
+            this.cancelChanges();
+
+            var errorMessage = "";
+            if (e.errors) {
+                for (var error in e.errors) {
+                    errorMessage += e.errors[error].errors[0] + " ";
+                }
+            }
+
+            alert(errorMessage);
+        }
+
+    </script>
+}

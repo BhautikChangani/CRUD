@@ -1,0 +1,103 @@
+<div>
+    <div id="list">
+        <div class="cards-container">
+            <div class="k-card">
+                <img src="https://demos.telerik.com/kendo-ui/content/chat/quote_full.jpeg" alt="undefined" class="k-card-media">
+                <div class="k-card-body">
+                    <h5 class="k-card-title">Full Coverage</h5>
+                    <h6 class="k-card-subtitle">5% of car cost</h6>
+                </div>
+                <div class="k-actions k-card-actions k-actions-vertical k-actions-stretched">
+                    <span class="k-card-action">
+                        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" data-value="View details of Full Coverage">View Details</button>
+                    </span>
+                    <span class="k-card-action">
+                        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" data-value="Get a quote for Full Coverage">Get a Quote</button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="k-card">
+                <img src="https://demos.telerik.com/kendo-ui/content/chat/quote_collision.jpeg" alt="undefined" class="k-card-media">
+                <div class="k-card-body">
+                    <h5 class="k-card-title">Collision, fire and theft</h5>
+                    <h6 class="k-card-subtitle">4% of car cost</h6>
+                </div>
+                <div class="k-actions k-card-actions k-actions-vertical k-actions-stretched">
+                    <span class="k-card-action">
+                        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" data-value="View details of Collision, fire and theft">View Details</button>
+                    </span>
+                    <span class="k-card-action">
+                        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" data-value="Get a quote for Collision, fire and theft">Get a Quote</button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="k-card">
+                <img src="https://demos.telerik.com/kendo-ui/content/chat/quote_collision_only.jpeg" alt="undefined" class="k-card-media">
+                <div class="k-card-body">
+                    <h5 class="k-card-title">Collision only</h5>
+                    <h6 class="k-card-subtitle">2% of car cost</h6>
+                </div>
+                <div class="k-actions k-card-actions k-actions-vertical k-actions-stretched">
+                    <span class="k-card-action">
+                        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" data-value="View details of Collision only">View Details</button>
+                    </span>
+                    <span class="k-card-action">
+                        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" data-value="Get a quote for Collision only">Get a Quote</button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="k-card">
+                <img src="https://demos.telerik.com/kendo-ui/content/chat/quote_young.jpeg" alt="undefined" class="k-card-media">
+                <div class="k-card-body">
+                    <h5 class="k-card-title">Young driver</h5>
+                    <h6 class="k-card-subtitle">6% of car cost</h6>
+                </div>
+                <div class="k-actions k-card-actions k-actions-vertical k-actions-stretched">
+                    <span class="k-card-action">
+                        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" data-value="View details of Young driver">View Details</button>
+                    </span>
+                    <span class="k-card-action">
+                        <button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md" data-value="Get a quote for Young driver">Get a Quote</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @(Html.Kendo().Sortable()
+        .For("#list")
+        .Cursor("move")
+        .Filter(".k-card")
+        .CursorOffset(offset => offset.Left(-230).Top(-10))
+        .HintHandler("hint")
+        .PlaceholderHandler("placeholder")
+    )
+    @section scripts {
+        <script>
+            function hint(element) {
+                return element.clone().css("width", element.width()).removeClass("k-selected");
+            }
+
+            function placeholder(element) {
+                return element.clone().css("opacity", 0.1);
+            }
+        </script>
+        }
+
+        <style>
+
+            .cards-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .k-card {
+                margin: 0 0 5% 0;
+                width: 230px;
+            }
+        </style>
+    </div>

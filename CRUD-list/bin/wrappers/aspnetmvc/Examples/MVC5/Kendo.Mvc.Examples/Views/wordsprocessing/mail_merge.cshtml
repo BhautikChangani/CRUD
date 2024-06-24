@@ -1,0 +1,112 @@
+<div id="example">
+    <div class="demo-section">
+        @using (Html.BeginForm("MailMerge", "WordsProcessing"))
+        {
+            <p>Mail Template Preview:</p>
+            <div class="imageContainer">
+                <img alt="Telerik UI for ASP.NET MVC WordsProcessing mail template preview" src="~/Content/web/wordsprocessing/MailTemplate.png" />
+            </div>
+            <div class="file-options-wrapper">
+                <div>
+                    @Html.Label("recepients", "Mail Recepients: ", new { @class = "multi-select-label" })
+                    @(Html.Kendo().MultiSelect()
+                    .Name("recepients")
+                    .HtmlAttributes(new { required = "required", data_required_msg = "Select recepient" })
+                    .Items(items =>
+                    {
+                        items.Add().Text("Nancy Davolio").Value("1");
+                        items.Add().Text("Andrew Fuller").Value("2");
+                        items.Add().Text("Janet Leverling").Value("3");
+                        items.Add().Text("Margaret Peacock").Value("4");
+                        items.Add().Text("Steven Buchanan").Value("5");
+                    })
+                    )
+                    <span class="k-invalid-msg" data-for="recepients"></span>
+                </div>
+                <div>
+                    @Html.Label("fileExtension", "Download as: ", new { @class = "drop-down-label" })
+                    @(Html.Kendo().DropDownList()
+                    .Name("fileFormat")
+                    .SelectedIndex(0)
+                    .Items(items =>
+                    {
+                        items.Add().Text("DOCX").Value("docx");
+                        items.Add().Text("RTF").Value("rtf");
+                        items.Add().Text("HTML").Value("html");
+                    })
+                    )
+                </div>
+            </div>
+            <hr class="clear" />
+            <input type="submit" class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md wide-btn float-right" value="Generate and Download" />
+        }
+    </div>
+    @section scripts {
+<script>
+        $(document).on("kendoReady", function () {
+            $("form").kendoValidator();
+        });
+    </script>
+}
+</div>
+
+<style>
+    .drop-down-label {
+        width: 105px;
+        display: inline-block;
+    }
+
+    .imageContainer {
+        border: 1px solid #c9c9c9;
+        height: 207px;
+        width: 400px;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .imageContainer img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    .file-options-wrapper {
+        margin-top: 30px;
+    }
+
+    .file-options-wrapper > div:nth-child(1)  {
+        margin-bottom: 20px;
+    }
+
+    hr {
+        margin: 15px 0;
+        border-width: 0 0 1px 0;
+        border-color: #c9c9c9;
+        border-style: solid;
+    }
+
+    .k-widget.k-multiselect{
+        width: 200px;
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+    .k-invalid-msg {
+        margin-left: 106px;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .wide-btn {
+        width: 240px;
+    }
+</style>

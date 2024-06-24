@@ -1,0 +1,29 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().TimeDurationPicker()
+        .Name("timeDurationPicker")
+        .Columns(c =>
+        {
+            c.Hours().Format("## hours ");
+            c.Minutes().Format(" ## minutes");
+        })
+        .Events(e => e.Open("onOpen").Close("onClose").Change("onChange"))
+    )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function onOpen() {
+            kendoConsole.log("TimeDurationPicker has been opened.");
+        }
+
+        function onClose() {
+            kendoConsole.log("TimeDurationPicker has been closed.");
+        }
+
+        function onChange() {
+            kendoConsole.log("TimeDurationPicker value has been changed.");
+        }
+    </script>
+}

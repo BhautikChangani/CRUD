@@ -1,0 +1,66 @@
+<script>
+        function select(e) {
+            $(".bike").css("background-color", e.value);
+        }
+  </script>
+
+ <div class="hidden-on-narrow wide" id="flatcolor-container">
+    <div id="bike">
+        <div id="bike-tail" class="bike"></div><div id="bike-head" class="bike"></div>
+    </div>
+    <br/>
+    <br/>
+    <div class="picker-wrapper">
+        <label for="flatColorPicker">Bike color</label>
+        @(Html.Kendo().FlatColorPicker()
+                .Name("flatColorPicker")
+                .Input(true)
+                .Buttons(false)
+                .Value("#ff0000")
+                .Events(ev => ev.Change("select"))
+                .Opacity(true)
+                .Preview(true)
+                .HtmlAttributes(new { @class = "picker" })
+        )
+    </div>
+</div>
+
+<div class="responsive-message"></div>
+
+<style>
+    #flatcolor-container {
+        padding-top: 54px;
+        padding-bottom: 30px;
+        text-align: center;
+    }
+
+    .k-colorgradient-input-label {
+        align-self: flex-start;
+    }
+
+    #bike {
+        margin: 0 0 10px;
+        background: transparent url(@Url.Content("~/Content/web/colorpicker/background.png"));
+    }
+
+    #bike-head, #bike-tail {
+        background: transparent url(@Url.Content("~/Content/web/colorpicker/motor.png"));
+        display: inline-block;
+        height: 299px;
+        width: 241px;
+        background-color: #000;
+    }
+
+    #bike-tail {
+        background-color: #000;
+    }
+
+    #bike-head {
+        background-color: #e15613;
+        background-position: -241px 0;
+    }
+
+    .picker-wrapper label {
+        display: block;
+    }
+</style>

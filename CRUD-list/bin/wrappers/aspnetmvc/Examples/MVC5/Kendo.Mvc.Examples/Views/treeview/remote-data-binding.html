@@ -1,0 +1,8 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+    <p>The <a href="https://www.telerik.com/aspnet-mvc/treeview" target="_blank">Telerik UI for ASP.NET MVC TreeView</a> supports remote data binding and you can display remote-storage data in the component.</p> 
+    <p>To implement the remote data-binding feature, you need to specify a remote endpoint or web service returning data in a JSON or JSONP format, and utilize the Telerik UI for ASP.NET MVC DataSource as a mediator between the TreeView and the underlying data.</p> 
+    <p>To make the connection to the remote endpoint and process the data properly, the data source requires information about the web service URL.</p>
+    <p>Usually, the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/navigation/treeview/binding#remote-data-binding" target="_blank">remote binding</a> is a preferable approach for <a href="https://www.telerik.com/aspnet-mvc/treeview" target="_blank">Telerik UI for ASP.NET MVC TreeView</a> data binding. You can configure it easily by adding the <a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/treeviewbuilder#datasourcesystemaction" target="_blank">DataSource</a> component in the helper definition. By default, the TreeView sends to the remote endpoint the <code>id</code> of the expanded node as a query string parameter. In this way, you can filter the data collection in the Action method based on the received <code>id</code> parameter and return the appropriate child nodes to the DataSource of the component.</p>
+    <p>This example demonstrates how to bind the TreeView to remote data.</p>
+</div>

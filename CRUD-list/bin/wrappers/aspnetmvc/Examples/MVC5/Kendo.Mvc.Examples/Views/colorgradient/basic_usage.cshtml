@@ -1,0 +1,60 @@
+
+    <div class="hidden-on-narrow wide">
+        <div id="bike">
+            <div id="bike-tail" class="bike"></div><div id="bike-head" class="bike"></div>
+        </div>
+		</br>
+		</br>
+        <div class="picker-wrapper">
+            <label for="colorGradient">Bike color</label>
+            @(Html.Kendo().ColorGradient()
+                .Name("colorGradient")
+                .Input(true)
+                .Value("#000")
+                .Opacity(true)
+                .Events(ev => ev.Change("onChange"))
+            )
+        </div>
+    </div>
+
+@section scripts {
+<script type="text/javascript">
+    function onChange(e) {
+        $(".bike").css("background-color", e.value);
+    }
+</script>
+}
+
+<style>
+    .wide {
+        text-align: center;
+        padding-top: 54px;
+        padding-bottom: 30px;
+    }
+
+    #bike {
+        margin: 0 0 10px;
+        background: url("@Url.Content("~/Content/web/colorpicker/background.png")");
+    }
+
+    #bike-head, #bike-tail {
+        background: url("@Url.Content("~/Content/web/colorpicker/motor.png")");
+        display: inline-block;
+        height: 299px;
+        width: 241px;
+        background-color: #000;
+    }
+
+    #bike-tail {
+        background-color: #000;
+    }
+
+    #bike-head {
+        background-color: #e15613;
+        background-position: -241px 0;
+    }
+
+    .k-colorgradient {
+        margin: auto;
+    }
+</style>

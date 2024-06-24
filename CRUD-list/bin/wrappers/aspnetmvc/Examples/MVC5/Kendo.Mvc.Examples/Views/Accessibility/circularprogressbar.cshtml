@@ -1,0 +1,16 @@
+
+        <figure>
+            <div id="progressbar" title="Circular Progress Bar"></div>
+            <script type="module">
+
+                kendo.dataviz.autoTheme(true);
+                kendo.ui['CircularProgressBar'].fn.options.theme = "sass";
+
+                $("#progressbar").kendoCircularProgressBar({
+                    value: 33,
+                    ariaRole: true,
+                    centerTemplate: '<span style="color: #: color #;">#= value == 100 ? "<span class=\'k-icon k-i-check\'></span>" : value + "%" #</span>'
+                });
+            </script>
+        </figure>
+    

@@ -1,0 +1,51 @@
+<script>
+    function onValidateField(e) {
+        $("#validation-success").html("");
+    }
+    function onSubmit(e) {
+        e.preventDefault();
+        $("#validation-success").html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
+    }
+    function onClear(e) {
+        $("#validation-success").html("");
+    }
+</script>
+
+<div class="demo-section">
+    <div id="validation-success"></div>
+    @(Html.Kendo().Form()
+                .Name("exampleform")
+                .Orientation("vertical")
+                .FormData(new
+                {
+                    Username = "johny",
+                    Email = "john.doe@email.com",
+                    Birth = DateTime.Now,
+                    Signature = ""
+                })
+                .Items(i=>
+                {
+                    i.AddGroup()
+                        .Label("Registration Form")
+                        .Items(items =>
+                        {
+                            items.Add().Field("Username").Label("Username").InputHtmlAttributes(new { required = "required" });
+                            items.Add().Field("Email").Label("Email").InputHtmlAttributes(new { required = "required", data_type = "email" });
+                            items.Add().Field("Birth").Label(l=>l.Text("Date of birth: ").Optional(true));
+                            items.Add().Field("Signature")
+                                        .Label("Signature:")
+                                        .InputHtmlAttributes(new { required = "required" })
+                                        .Editor(e => e.Signature());
+                        }
+                    );
+                })
+                .Events(ev=>
+                {
+                    ev.ValidateField("onValidateField");
+                    ev.Submit("onSubmit");
+                    ev.Clear("onClear");
+                })
+            )
+</div>
+
+

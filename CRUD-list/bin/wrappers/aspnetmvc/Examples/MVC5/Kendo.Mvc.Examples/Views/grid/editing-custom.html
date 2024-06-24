@@ -1,0 +1,41 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  Some scenarios require the <a href="https://www.telerik.com/aspnet-mvc/grid" target="_blank">Telerik UI for ASP.NET MVC Data Grid</a> not only visualize data in a table structure, but also to support editing and validation before users save changes.
+</p> 
+<p>
+  The <a href="https://www.telerik.com/aspnet-mvc/grid" target="_blank">Telerik UI for ASP.NET MVC Grid</a> allows you to implement CRUD data-editing operations by setting its data source. To enable the data-editing capabilities of the component:</p>
+<ol>
+    <li>Set the <code>Editable</code> configuration property of the Grid&#8212;<a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/gridbuilder#editablesystemaction" target="_blank"><code>.Editable(editable => editable.Mode(GridEditMode.InCell))</code></a>.</li>
+    <li>Specify a unique field in the <code>Model</code> as the <code>DataSource.Model.Id</code>.</li>
+    <li>Configure the DataSource of the Data Grid for performing CRUD data operations by defining its <code>Read</code>, <code>Create</code>, <code>Update</code>, and <code>Destroy</code> methods.</li>
+</ol>
+<p>
+  To allow the insertion of new Data Grid records, you need to add the <strong>New Record</strong> button in the toolbar of the component&#8212;<a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/gridtoolbarcommandfactory#create" target="_blank"><code>.ToolBar(toolbar => toolbar.Create())</code></a>.
+</p>
+<p> 
+  To enable the <strong>Delete</strong> command on each row, insert a new column&#8212;<a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/gridactioncommandfactory#destroy" target="_blank"><code>columns.Command(command => { command.Destroy(); });</code></a>.
+</p>
+<p>          
+  This demo shows how to further customize the editor for the <strong>Category</strong> field which is an object (a complex type). To make sure that the Data Grid uses the custom editor, add the editor to the <code>~Views\\Shared\\EditorTemplates</code> folder, for example, <code>@(Html.Kendo().DropDownListFor(m => m)</code>.
+</p>
+<p>
+  To ensure that the Grid invokes the custom editor: 
+</p>
+<ol>
+  <li>Decorate the <code>model</code> property with the <code>UIHint</code> attribute.
+    <div>
+      <code>[UIHint("ClientCategory")]</code>
+    </div>
+    <div>
+      <code>public CategoryViewModel Category { get; set;}</code>
+    </div>
+    </li>
+  <li>Specify a default value that will be used initially when an item will be created:
+    <div>
+      <code>model.Field(p => p.Category).DefaultValue(ViewData["defaultCategory"] as Kendo.Mvc.Examples.Models.CategoryViewModel);</code>
+    </div>
+  </li>
+</ol>
+<p>
+  For more information about the editing capabilities, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/editing/overview" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available data-editing approaches</a>.
+</p>

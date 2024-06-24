@@ -1,0 +1,38 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <ul class="options">
+            <li>
+                <button id="showNotification" class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md">Show</button> &nbsp; &nbsp;
+                <button id="hideAllNotifications" >Hide All</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@(Html.Kendo().Notification()
+    .Name("notification")
+    .Width("12em")
+    .Templates(t =>
+    {
+        t.Add().Type("time").ClientTemplate("<div style='padding: .6em 1em'>Time is: <span class='timeWrap'>#: time #</span></div>");
+    })
+)
+
+@section scripts {
+<script>
+    $(document).on("kendoReady", function () {
+
+        var notification = $("#notification").data("kendoNotification");
+
+        $("#showNotification").click(function () {
+            var d = new Date();
+            notification.show({ time: kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000") }, "time");
+        });
+
+        $("#hideAllNotifications").click(function () {
+            notification.hide();
+        });
+    });
+</script>
+}

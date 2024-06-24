@@ -1,0 +1,32 @@
+@using Kendo.Mvc.Examples.Models
+@using Kendo.Mvc.UI.Fluent
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="dropdowntree-left">Inline data (default settings):</label>
+        @(Html.Kendo().DropDownTree()
+            .Name("dropdowntree-left")
+            .AutoWidth(true)
+            .BindTo((IEnumerable<DropDownTreeItemModel>)ViewBag.inlineDefault)
+        )
+        <br />
+        <br />
+        <label for="dropdowntree-right">Inline data:</label>
+        @(Html.Kendo().DropDownTree()
+            .Name("dropdowntree-right")
+            .AutoWidth(true)
+            .BindTo((IEnumerable<CategoryItem>)ViewBag.inline, (NavigationBindingFactory<DropDownTreeItem> mappings) =>
+            {
+                mappings.For<CategoryItem>(binding => binding.ItemDataBound((item, category) =>
+                    {
+                        item.Text = category.CategoryName;
+                    })
+                    .Children(category => category.SubCategories));
+
+                mappings.For<SubCategoryItem>(binding => binding.ItemDataBound((item, subCategory) =>
+                {
+                    item.Text = subCategory.SubCategoryName;
+                }));
+            })
+        )
+    </div>
+</div>

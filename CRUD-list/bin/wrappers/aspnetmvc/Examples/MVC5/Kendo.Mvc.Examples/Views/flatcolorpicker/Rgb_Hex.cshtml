@@ -1,0 +1,34 @@
+<div class="k-d-flex k-align-items-center k-justify-content-evenly" id="flatcolor-container">
+    <div class="column">
+        <label for="rgb">Choose Your Color | RGB</label>
+        @(Html.Kendo().FlatColorPicker()
+              .Name("rgb")
+              .Buttons(true)
+              .Value("#ff0000")
+              .Format("rgb")
+              .Formats(new string[] {"rgb","hex"})
+        )
+    </div>
+    <div class="column" style="margin:inherit">
+        <label for="hex">Choose Your Color | HEX</label>
+        @(Html.Kendo().FlatColorPicker()
+              .Name("hex")
+              .Buttons(true)
+              .Value("#fff700")
+              .Format("hex")
+              .Formats(new string[] {"rgb","hex"})
+        )
+    </div>
+</div>
+
+<style>
+    #flatcolor-container {
+        padding-top: 54px;
+        padding-bottom: 30px;
+    }
+    
+    .column {
+        text-align: center;
+        width: 300px;
+    }
+</style>

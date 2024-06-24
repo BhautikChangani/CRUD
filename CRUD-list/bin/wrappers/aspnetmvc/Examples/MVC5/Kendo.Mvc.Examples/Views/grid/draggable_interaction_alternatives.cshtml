@@ -1,0 +1,30 @@
+<div class="k-d-flex k-justify-content-center">
+    @(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.ProductViewModel>()
+        .Name("activeProductsGrid")
+        .Columns(columns =>
+        {
+            columns.Template(@<text> </text>).Draggable(true).Width(100);
+            columns.Bound(p => p.ProductName).Title("Product").Width(200);
+            columns.Bound(p => p.UnitPrice).Title("Price").Width(140);
+            columns.Bound(p => p.Discontinued)
+                .Title("In Stock")
+                .ClientTemplate("<span class='k-badge k-badge-solid k-badge-solid-success k-badge-md k-rounded-md k-badge-inline'>Available</span>")
+                .Width(130);
+        })
+        .Pageable()
+        .Scrollable()
+        .Sortable()
+        .Navigatable()
+        .Reorderable(reorder => reorder
+            .Rows(rows=>rows.ClickMoveClick(true))
+            .Columns(true)
+            )
+        .HtmlAttributes(new { style = "height:430px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Model(m => m.Id("ProductID"))
+            .Read(read => read.Action("Drag_Drop_Active_Read", "Grid"))
+            )
+    )
+</div>

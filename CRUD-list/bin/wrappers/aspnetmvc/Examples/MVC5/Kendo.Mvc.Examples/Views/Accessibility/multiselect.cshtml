@@ -1,0 +1,18 @@
+
+          <select id="multiselect" multiple="multiple" style="width: 300px">
+              <option>X-Small</option>
+              <option value="small">Small</option>
+              <option>Medium</option>
+              <option>Large</option>
+              <option>X-Large</option>
+              <option>2X-Large</option>
+          </select>
+          <script type="module">
+              $(document).ready(function () {
+                  $("#multiselect").kendoMultiSelect({
+                    label: { content: "Select sizes...", floating: true },
+                    value: ["small"]
+                  });
+              });
+          </script>
+        

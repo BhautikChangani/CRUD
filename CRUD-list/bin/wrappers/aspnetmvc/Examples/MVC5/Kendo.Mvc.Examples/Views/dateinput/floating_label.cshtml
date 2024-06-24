@@ -1,0 +1,13 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+    @(Html.Kendo().DateInput()
+        .Name("datepicker")
+        .Label(label =>
+        {
+            label.Content("Enter a date...");
+            label.Floating(true);
+        })
+        .HtmlAttributes(new { style = "width: 100%", title = "dateinput" })
+     )
+    </div>
+</div>

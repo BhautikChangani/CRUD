@@ -1,0 +1,19 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().TimeDurationPicker()
+        .Name("timeDurationPicker")
+        .Columns(c =>
+        {
+            c.Hours().Format("## hours ");
+            c.Minutes().Format(" ## minutes ");
+        })
+        .Shortcuts(s =>
+        {
+            s.Add().Text("1h 30min").Value(5400000);
+            s.Add().Text("2h 30min").Value(9000000);
+            s.Add().Text("4 hours").Value(14400000);
+        })
+        .Separator(":")
+    )
+    </div>
+</div>

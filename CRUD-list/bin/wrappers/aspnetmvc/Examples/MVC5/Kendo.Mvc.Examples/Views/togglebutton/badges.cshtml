@@ -1,0 +1,33 @@
+<div class="demo-section k-d-flex k-justify-content-evenly" style="padding-top: 54px;">
+    <div>
+        @(Html.Kendo().ToggleButton()
+            .Name("inlineBadgeBtn")
+            .Tag("button")
+            .Group("badges")
+            .Badge(badge => badge
+                .Position(BadgePosition.Inline)
+                .Shape(BadgeShape.Pill)
+                .Text("100%")
+                .ThemeColor(BadgeColor.Success)
+            )
+            .Content("Inline Badge")
+        )
+    </div>
+
+    <div>
+        @(Html.Kendo().ToggleButton()
+            .Name("overlayBadgeBtn")
+            .Tag("a")
+            .Group("badges")
+            .Selected(true)
+            .Badge(badge => badge
+                .Position(BadgePosition.Edge)
+                .Align(BadgeAlign.TopEnd)
+                .Shape(BadgeShape.Rectangle)
+                .Text("80%")
+                .ThemeColor(BadgeColor.Warning)
+            )
+            .Content("Overlay Badge")
+        )
+    </div>
+</div>

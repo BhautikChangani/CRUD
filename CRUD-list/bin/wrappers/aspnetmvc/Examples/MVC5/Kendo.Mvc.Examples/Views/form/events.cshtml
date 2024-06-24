@@ -1,0 +1,57 @@
+<div class="demo-section">
+    <div id="validation-success"></div>
+    @(Html.Kendo().Form<Kendo.Mvc.Examples.Models.Form.UserViewModel>()
+        .Name("formExample")
+        .HtmlAttributes(new { action = "Index", method = "POST" })
+        .Validatable(v =>
+        {
+            v.ValidateOnBlur(true);
+            v.ValidationSummary(vs => vs.Enable(false));
+        })
+        .Items(items =>
+        {
+            items.AddGroup()
+                .Label("Registration Form")
+                .Items(i =>
+                {
+                   i.Add()
+                        .Field(f => f.FirstName)
+                        .Label(l => l.Text("First Name:"));
+                    i.Add()
+                        .Field(f => f.LastName)
+                        .Label(l => l.Text("Last Name:"));
+                    i.Add()
+                        .Field(f => f.UserName)
+                        .Label(l => l.Text("Username:"));
+                    i.Add()
+                        .Field(f => f.Email)
+                        .Label(l => l.Text("Email:"));
+                });
+        })
+        .Events(ev => ev.Change("onChange").ValidateField("onFormValidateField").Submit("onFormSubmit").Clear("onFormClear"))
+    )
+</div>
+
+@section scripts {
+    <script>
+        function onChange(e) {
+            kendoConsole.log("event: change");
+        }
+
+        function onFormValidateField(e) {
+            kendoConsole.log("event: validateField");
+            $("#validation-success").html("");
+        }
+
+        function onFormSubmit(e) {
+            e.preventDefault();
+            kendoConsole.log("event: submit");
+        }
+
+        function onFormClear(e) {
+            kendoConsole.log("event: clear");
+            $("#validation-success").html("");
+        }
+    </script>
+}
+

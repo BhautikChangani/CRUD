@@ -1,0 +1,35 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    @(Html.Kendo().SplitButton()
+        .Name("splitButton")
+        .Text("Paste")
+        .Events(events => {
+           events.Click("onClick");
+           events.Open("onOpen");
+           events.Close("onClose");
+        })
+        .Items(items =>
+         {
+             items.Add().Id("keep-text").Text("Keep Text Only").Icon("clipboard-text");
+             items.Add().Id("paste-html").Text("Paste as HTML").Icon("clipboard-code");
+             items.Add().Id("paste-markdown").Text("Paste Markdown").Icon("clipboard-markdown");
+             items.Add().Id("paste-default").Text("Set Default Paste");
+         }
+        )
+    )
+</div>
+
+@section scripts{
+    <script>
+    function onClick(e) {
+        kendoConsole.log("event :: click (#" + e.id + ")");
+    }
+
+    function onOpen(e) {
+        kendoConsole.log("event :: open");
+    }
+
+    function onClose(e) {
+        kendoConsole.log("event :: close");
+    }
+    </script>
+}

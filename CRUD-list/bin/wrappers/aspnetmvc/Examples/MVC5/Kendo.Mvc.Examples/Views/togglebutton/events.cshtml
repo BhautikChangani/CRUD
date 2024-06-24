@@ -1,0 +1,17 @@
+<div class="demo-section k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    @(Html.Kendo().ToggleButton()
+        .Name("togglebutton")
+        .Group("toggleGroup")
+        .Events(events => events.Toggle("onToggle"))
+        .Content("Toggle Button")
+     )
+</div>
+
+
+@section scripts {
+    <script>
+        function onToggle(e) {
+            kendoConsole.log(e.target.text() + " 'toggle' event is fired."+ " Checked State:" + e.checked+ " Group:" + e.group);
+        }
+    </script>
+}

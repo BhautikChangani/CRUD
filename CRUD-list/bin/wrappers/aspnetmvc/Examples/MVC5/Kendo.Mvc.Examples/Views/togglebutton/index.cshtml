@@ -1,0 +1,22 @@
+<div class="demo-section k-d-flex k-justify-content-evenly" style="padding-top: 54px;">
+    <div>
+        @(Html.Kendo().ToggleButton()
+        .Name("volumeUpBtn")
+        .Tag("button")
+        .Group("volumes")
+        .Selected(true)
+        .Icon("volume-up")
+        .Content("Increase volume")
+    )
+    </div>
+
+    <div>
+        @(Html.Kendo().ToggleButton()
+        .Name("volumeMuteBtn")
+        .Tag("span")
+        .Group("volumes")
+        .Icon("volume-mute")
+        .Content("Mute volume")
+    )
+    </div>
+</div>

@@ -1,0 +1,110 @@
+
+    <script>
+        $(window).on("resize", function () {
+            kendo.resize($(".k-chart, .k-grid"));
+        });
+
+        $(document).ready( function () {
+            kendo.resize($("#tilelayout"));
+            $(document).bind("kendo:skinChange", updateTheme);
+        });
+
+        function updateTheme() {
+            var charts = $(".k-chart");
+            $.each(charts, function (i, elem) {
+                var theme = kendoTheme;
+            
+                if (/(default-|bootstrap-|material-|classic-|fluent-)/.test(kendoTheme)) {
+                    theme = "sass";
+                }
+                $(elem).getKendoChart().setOptions({ theme: theme });
+            });
+        }
+    </script>
+
+@(
+Html.Kendo().TileLayout()
+    .Name("tilelayout")
+    .Columns(1)
+    .RowsHeight("230px")
+    .ColumnsWidth("100%")
+    .Containers(c => {
+        c.Add().Header(h => h.Text("Products comparison")).BodyTemplate(Html.Kendo().Template().AddComponent(chart => chart
+            .Chart()
+                .Name("chart")
+                .Title(title => title.Text("Number of sold products through the years").Align(ChartTextAlignment.Center))
+                .Legend(legend =>
+                {
+                    legend.Align(ChartLegendAlign.Center);
+                    legend.Position(ChartLegendPosition.Bottom);
+                    legend.Background("#DFDDD6");
+                    legend.Title(title => title.Text("Legend").Color("black"));
+                    legend.Orientation(ChartLegendOrientation.Horizontal);
+                })
+                .SeriesDefaults(seriesDefaults =>
+                    seriesDefaults.Line().Style(ChartLineStyle.Smooth)
+                )
+                .SeriesColors(new string[] { "#1FD2D5", "#F7D455" })
+                .Series(series =>
+                {
+                    series.Line(new double[] { 21560, 10548, 12548, 47526, 10254 }).Name("Product A");
+                    series.Line(new double[] { 10258, 36985, 45287, 23568, 35982 }).Name("Product B");
+                })
+                .AxisDefaults(axis => axis
+                    .Line(l => l.Visible(true)).Color("#858278"))
+                .CategoryAxis(axis => axis
+                    .Categories(new string[] { "2018", "2019", "2020", "2021", "2022" })
+                    .MajorGridLines(lines => lines.Visible(false))
+                )
+                .ValueAxis(axis => axis
+                    .Numeric()
+                    .Line(line => line.Visible(false))
+                    .AxisCrossingValue(-10)
+                )
+                .Tooltip(tooltip =>
+                {
+                    tooltip.Visible(true);
+                    tooltip.Background("#1FD5EA");
+                    tooltip.Font("20px sans - serif");
+                    tooltip.Format("{0:n2}");
+                })
+                .Pdf(pdf => pdf.FileName("ProductChart"))
+        ))
+        .ColSpan(1).RowSpan(2);
+        c.Add().Header(h => h.Text("Available Products")).BodyTemplate(Html.Kendo().Template().AddComponent(grid => grid
+            .Grid<Kendo.Mvc.Examples.Models.ProductViewModel>()
+                .Name("grid")
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.ProductName);
+                    columns.Bound(p => p.Category).ClientTemplate(Html.Kendo().Template().AddHtml("${data.Category.CategoryName}"))
+                        .EditorTemplateComponentName("TemplateCategoryEditor");
+                    columns.Bound(p => p.UnitPrice).Width(150).EditorTemplateComponentName("TemplateUnitPriceEditor");
+                    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+                })
+                .ToolBar(toolbar => toolbar.Create())
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .Pageable()
+                .Scrollable()
+                .HtmlAttributes(new { style = "height:400px;" })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .PageSize(10)
+                    .Model(model =>
+                    {
+                        model.Id(p => p.ProductID);
+                        model.Field(p => p.ProductID).Editable(false);
+                        model.Field(p => p.Category)
+                            .DefaultValue(new Kendo.Mvc.Examples.Models.CategoryViewModel() { CategoryID = 1, CategoryName = "Beverages"});
+                    })
+                    .Create(update => update.Action("EditingInline_Create", "Grid"))
+                    .Read(read => read.Action("EditingInline_Read", "Grid"))
+                    .Update(update => update.Action("EditingInline_Update", "Grid"))
+                    .Destroy(update => update.Action("EditingInline_Destroy", "Grid"))
+                )
+        )).ColSpan(1).RowSpan(2);
+    })
+    .Reorderable(true)
+)
+
+

@@ -1,0 +1,21 @@
+<script type="text/x-kendo-template" id="suffixTemplate">
+    @(Html.Kendo().Button()
+        .Name("suffix-send-button")
+        .Icon("paper-plane")
+        .FillMode(ButtonFillMode.Flat)
+        .ThemeColor(ThemeColor.Primary)
+        .ToClientTemplate()
+    )
+</script>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().TextBox()
+            .Name("email")
+            .Placeholder("Enter your email...")
+            .PrefixOptions(prefix => prefix.Icon("envelop"))
+            .SuffixOptions(suffix => suffix.TemplateId("suffixTemplate"))
+            .HtmlAttributes(new { style = "width: 100%" })
+            )
+    </div>
+</div>

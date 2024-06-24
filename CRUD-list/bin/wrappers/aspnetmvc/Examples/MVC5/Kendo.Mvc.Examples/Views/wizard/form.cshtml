@@ -1,0 +1,202 @@
+<script type="text/javascript">
+    (function ($, kendo) {
+        $.extend(true, kendo.ui.validator, {
+            rules: {
+                username: function (input) {
+                    if (input.is("[name=Username]")) {
+                        input.attr("data-username-msg", "Username is required");
+
+                        if (!input.val()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                email: function (input) {
+                    if (input.is("[name=Email]")) {
+                        input.attr("data-email-msg", "Email is required");
+
+                        if (!input.val()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                password: function (input) {
+                    if (input.is("[name=Password]")) {
+                        input.attr("data-password-msg", "Password is required");
+
+                        if (!input.val()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                firstname: function (input) {
+                    if (input.is("[name=FirstName]")) {
+                        input.attr("data-firstname-msg", "First Name is required");
+
+                        if (!input.val()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                lastname: function (input) {
+                    if (input.is("[name=LastName]")) {
+                        input.attr("data-lastname-msg", "Last Name is required");
+
+                        if (!input.val()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                city: function (input) {
+                    if (input.is("[name=City]")) {
+                        input.attr("data-city-msg", "City is required");
+
+                        if (!input.val()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                country: function (input) {
+                    if (input.is("[name=Country]")) {
+                        input.attr("data-country-msg", "Country is required");
+                        console.log(input.val());
+                        if (!input.val()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                addressline: function (input) {
+                    if (input.is("[name=AddressLine]")) {
+                        input.attr("data-addressline-msg", "Address Line is required");
+
+                        if (!input.val()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+            }
+        });
+    })(jQuery, kendo);
+</script>
+
+<div id="example">
+    <div class="demo-section wide" style="width:700px">
+
+    @(Html.Kendo().Wizard()
+        .Name("wizard")
+        .Events(ev => ev.Done("onDone"))
+        .Steps(s =>
+        {
+            s.Add()
+            .Title("Registration")
+            .Form(f => f
+                .Validatable(v =>
+                {
+                    v.ValidateOnBlur(true);
+                    v.ValidationSummary(vs => vs.Enable(false));
+                })
+                .FormData(new { Username = "johny", Email = "john.doe@email.com", Password = "pass123", DateOfBirth = String.Format("{0:ddd, dd MMM yyyy}", DateTime.Now) })
+                .Items(items =>
+                {
+                    items.Add().Field("Username");
+                    items.Add().Field("Email");
+                    items.Add().Field("Password").InputHtmlAttributes(new { @type = "password" }).Hint("Hint: enter alphanumeric characters only.");
+                    items.Add().Field("DateOfBirth");
+                })
+            )
+                .Buttons(b =>
+                {
+                    b.Next();
+                });
+            s.Add()
+            .Title("Personal details")
+            .Form(f => f
+                .Validatable(v =>
+                {
+                    v.ValidateOnBlur(true);
+                    v.ValidationSummary(vs => vs.Enable(false));
+                })
+                .FormData(new { FirstName = "John", LastName = "Doe", Country = "1", City = "Strasbourg", AddressLine = "" })
+                .Layout("grid")
+                .Grid(g => g.Cols(2).Gutter(20))
+                .Items(items =>
+                {
+                    items.AddGroup()
+                        .Label("Personal Information")
+                        .Layout("grid")
+                        .Grid(g => g.Cols(1).Gutter(10))
+
+                        .Items(itemsGroup =>
+                        {
+                            itemsGroup.Add()
+                                .Field("FirstName")
+                                .Label(label => label.Text("First Name:"));
+                            itemsGroup.Add()
+                                .Field("LastName")
+                                .Label(label => label.Text("Last Name:"));
+                        });
+                    items.AddGroup()
+                        .Label("Shipping Address")
+                        .Layout("grid")
+                        .Grid(g => g.Cols(2).Gutter(10))
+                        .Items(itemsGroup =>
+                        {
+                            itemsGroup.Add()
+                                     .Field("Country")
+                                     .Label(label => label.Text("Country:"))
+                                     .ColSpan(1)
+                                     .Editor(e =>
+                                     {
+                                         e.ComboBox()
+                                        .DataTextField("Text")
+                                        .DataValueField("Value")
+                                        .BindTo(new List<SelectListItem>() {
+                                            new SelectListItem() {
+                                                Text = "France", Value = "1"
+                                            },
+                                            new SelectListItem() {
+                                                Text = "Germany", Value = "2"
+                                            },
+                                            new SelectListItem() {
+                                                Text = "Italy", Value = "3"
+                                            },
+                                            new SelectListItem() {
+                                                Text = "Spain", Value = "4"
+                                            }
+                                        });
+                                     });
+                            itemsGroup.Add()
+                                .Field("City")
+                                .Label(l => l.Text("City:"))
+                                .ColSpan(1);
+                            itemsGroup.Add()
+                                .Field("AddressLine")
+                                .Label(l => l.Text("Address Line:"))
+                                .ColSpan(2);
+                        });
+                    })
+                )
+                .Buttons(b =>
+                {
+                    b.Previous();
+                    b.Done();
+                });
+        })
+    )
+        </div>
+</div>
+@section scripts{
+<script>
+    function onDone(e) {
+        kendo.alert("Thank you for registering! Registration details would be sent to your email.");
+    }
+</script>
+}

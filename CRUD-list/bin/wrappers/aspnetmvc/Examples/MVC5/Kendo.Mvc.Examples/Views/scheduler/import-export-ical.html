@@ -1,0 +1,15 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+    <p>
+        This <a href="https://www.telerik.com/aspnet-mvc/scheduler" target="_blank">Telerik UI for ASP.NET MVC Scheduler</a> example shows how to use the <a href="https://github.com/kewisch/ical.js" target="_blank">ical.js</a> third-party library that supports the <a href="https://icalendar.org/" target="_blank">iCalendar</a> standard to import or export the Scheduler events.
+    </p>
+    <p>
+        To achieve full customization for the import and export integration of the iCalendar, follow the steps below:
+    </p>
+    <ol>
+        <li>Define a custom DataSource schema based the iCalendar standards (<code>kendo.data.schemas["scheduler-ical"]</code>).</li>
+        <li>Create <strong>Import</strong> and <strong>Export</strong> buttons, which will use the <code>importICal</code> and <code>exportICal</code> methods.</li>
+        <li>To import iCal data into the Scheduler component, create an empty array, process it with the iCal library, and use the <a href="https://docs.telerik.com/kendo-ui/api/javascript/ui/scheduler/methods/setdatasource" target="_blank"><code>setDataSource</code></a> method of the Scheduler to push the generated array of iCal items to the component. For more details, refer to the <code>importICal(iCalData)</code> function in the source code of the demo.</li>
+        <li>To export the Scheduler data to iCal, read the items from the DataSource of the component and create an iCal-formatted text by using the iCal library. For more detauls, refer to the <code>exportICal()</code> function in the source code of the demo.</li>
+    </ol>
+</div>

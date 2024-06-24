@@ -1,0 +1,40 @@
+<div class="k-d-flex k-justify-content-center">
+    <div class="signature-container">
+        <div class="signature-wrapper">
+            @(Html.Kendo().Signature()
+                    .Name("signature")
+                    .Color("red")
+                    .Width(600)
+                    .Height(340)
+                    .PopupScale(1))
+        </div>
+        <div class="notes">
+            By using the Telerik UI for ASP.NET MVC Signature component,
+            you can enable your end-users to draw handwritten signatures
+            using touch or pointer devices.
+        </div>
+    </div>
+</div>
+
+<style>
+    .signature-container {
+        width: 602px;
+    }
+
+    .signature-wrapper {
+        height: 341px;
+    }
+
+    div.notes {
+        font-style: italic;
+        border-width: 1px;
+        border-style: solid;
+        padding: 1em;
+    }
+
+    #signature, .notes {
+        border-color: rgba(0, 0, 0, 0.08);
+        border-width: 1px 1px 0 1px;
+        border-radius: 0;
+    }
+</style>

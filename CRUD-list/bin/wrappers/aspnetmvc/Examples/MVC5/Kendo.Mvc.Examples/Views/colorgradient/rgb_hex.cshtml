@@ -1,0 +1,38 @@
+
+<div class="k-d-flex k-align-items-center k-justify-content-evenly" id="color-gradient-container">
+    <div class="column">
+        <label for="picker">Choose Your Color | RGB</label>
+        @(Html.Kendo().ColorGradient()
+            .Name("picker")
+            .Value("#ff0000")
+            .Format(ColorGradientFormat.Rgb)
+            .Formats(new string[] { "rgb", "hex" })
+        )
+    </div>
+    <div class="column" style="margin:inherit">
+        <label for="no-inputs-picker">Choose Your Color | HEX</label>
+        @(Html.Kendo().ColorGradient()
+            .Name("no-inputs-picker")
+            .Value("#fff700")
+            .Format(ColorGradientFormat.Hex)
+            .Formats(new string[] { "rgb", "hex" })
+        )
+    </div>
+</div>
+
+<style>
+    #color-gradient-container {
+        padding-top: 54px;
+        padding-bottom: 30px;
+    }
+    
+    .column {
+        flex-direction: row;
+        text-align: center;
+        width: 300px;
+    }
+
+    .k-colorgradient {
+        margin: 0 auto;
+    }
+</style>

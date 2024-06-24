@@ -1,0 +1,175 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <h4>Set Auto Switch Behavior</h4>
+        <ul class="options">
+            <li><input id="auto-switch-key" /></li>
+            <li><input id="auto-switch" /></li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <ul class="options col-no-header">
+            <li><input id="auto-correct" /></li>
+            <li><input id="mouse-wheel" /></li>
+        </ul>
+    </div>
+    <div class="box-col col-second">
+        <h4>Steps</h4>
+        <ul class="options">
+            <li class="kd-steps"><input id="year" value="1" /><input id="month" value="1" /></li>
+            <li class="kd-steps"><input id="day" value="1" /><button id="apply">Apply Steps</button><button id="reset">Reset Steps</button></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px; padding-bottom: 54px;">
+    <div class="k-w-300">
+        <label for="dateinput">Enter a date:</label>
+        @(Html.Kendo().DateInput()
+            .Name("dateinput")
+            .AutoSwitchParts(false)
+            .AutoSwitchKeys(new string[]{"/"})
+            .Steps(steps=>steps.Year(1))
+            .HtmlAttributes(new { style = "width: 100%"})
+            )
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var autoSwitchSelected = [];
+        var dateinput = $("#dateinput").data("kendoDateInput");
+
+        $("#auto-switch").kendoCheckBox({
+            label: "Enable auto switch parts",
+            change: function (e) {
+                var isChecked = e.checked;
+                dateinput.setOptions({
+                    autoSwitchParts: isChecked
+                })
+            }
+        });
+
+        $("#auto-switch-key").kendoMultiSelect({
+            placeholder: "Select auto-switch keys",
+            dataSource: [
+                { id: 1, text: 'Dash (-)', sign: '-' },
+                { id: 2, text: 'Slash (/)', sign: '/' },
+                { id: 3, text: 'Colon (:)', sign: ':' }
+            ],
+            dataTextField: "text",
+            dataValueField: "id",
+            value:2,
+            select: function (e) {
+                autoSwitchSelected.push(e.dataItem.sign);
+                dateinput.setOptions({
+                    autoSwitchKeys: autoSwitchSelected
+                })
+            },
+            deselect: function (e) {
+                var index = autoSwitchSelected.indexOf(e.dataItem.sign);
+
+                if (index > -1) {
+                    autoSwitchSelected.splice(index, 1);
+                    dateinput.setOptions({
+                        autoSwitchKeys: autoSwitchSelected
+                    })
+                }
+            }
+        });
+
+        $("#auto-correct").kendoCheckBox({
+            label: "Enable autocorrect",
+            change: function (e) {
+                var isChecked = e.checked;
+                dateinput.setOptions({
+                    autoCorrect: isChecked
+                })
+            }
+        });
+
+        $("#mouse-wheel").kendoCheckBox({
+            label: "Enable mouse wheel",
+            change: function (e) {
+                var isChecked = e.checked;
+                dateinput.setOptions({
+                    enableMouseWheel: isChecked
+                })
+            }
+        });
+
+
+        $("#year").kendoNumericTextBox({
+            label: { content: "Year:" },
+            format: "n0",
+            min: 1
+        });
+        $("#month").kendoNumericTextBox({
+            label: { content: "Month:" },
+            format: "n0",
+            min: 1
+        });
+        $("#day").kendoNumericTextBox({
+            label: { content: "Day:" },
+            format: "n0",
+            min: 1
+        });
+        $("#apply").on("click",function(){
+            var year = $("#year").val();
+            var month = $("#month").val();
+            var day = $("#day").val();
+            dateinput.setOptions({
+                steps:{
+                    year:year,
+                    month:month,
+                    day:day
+                }
+            })
+        })
+        $("#reset").on("click", function () {
+            var year = $("#year").getKendoNumericTextBox().value(1);
+            var month = $("#month").getKendoNumericTextBox().value(1);
+            var day = $("#day").getKendoNumericTextBox().value(1);
+            dateinput.setOptions({
+                steps: {
+                    year: 1,
+                    month: 1,
+                    day: 1
+                }
+            })
+        })
+    })
+</script>
+
+<style>
+    .configurator .k-multiselect {
+        width: 220px;
+    }
+    .configurator .k-numerictextbox {
+        width: 180px;
+    }
+
+    .kd-steps {
+        display: flex;
+        gap: 10px;
+    }
+
+        .kd-steps label {
+            margin-left: 0px !important;
+            width: 32px;
+        }
+
+    .col-no-header {
+        margin-top: 26px !important;
+        margin-left: 15px !important;
+    }
+
+    #apply {
+        margin-left: auto;
+    }
+
+    .col-second {
+        margin-left: 60px;
+    }
+</style>

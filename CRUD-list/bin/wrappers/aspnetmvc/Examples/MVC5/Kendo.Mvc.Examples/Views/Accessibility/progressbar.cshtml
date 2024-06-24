@@ -1,0 +1,16 @@
+
+          <div id="profileCompleteness" tabindex="0"></div>
+          <script type="module">
+              $(document).ready(function () {
+                  var pb = $("#profileCompleteness").kendoProgressBar({
+                      ariaRole: true,
+                      label: "Current value",
+                      type: "chunk",
+                      chunkCount: 5,
+                      min: 0,
+                      max: 5,
+                      value: 2
+                  }).data("kendoProgressBar");
+              });
+          </script>
+        

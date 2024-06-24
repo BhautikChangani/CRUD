@@ -1,0 +1,32 @@
+
+        <figure>
+            <div id="gauge" tabindex="0" role="img" title="RadialGauge"></div>
+            <figcaption pos>
+                The current value is 50
+            </figcaption>
+        </figure>
+        <script type="module">
+            $(document).ready(function () {
+
+                kendo.dataviz.autoTheme(true);
+                kendo.dataviz.ui['RadialGauge'].fn.options.theme = "sass";
+
+                $("#gauge").kendoRadialGauge({
+                    pointer: {
+                        value: 50,
+                    },
+                    scale: {
+                        minorUnit: 5,
+                        startAngle: -30,
+                        endAngle: 210,
+                        max: 180
+                    }
+                });
+            });
+        </script>
+        <style>
+            figure {
+                text-align: center;
+            }
+        </style>
+    

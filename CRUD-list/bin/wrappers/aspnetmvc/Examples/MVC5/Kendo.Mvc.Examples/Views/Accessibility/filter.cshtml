@@ -1,0 +1,57 @@
+
+        <div id="example">
+            <div id="filter"></div>
+
+            <script type="module">
+                $(document).ready(function() {
+                    var dataSource = new kendo.data.DataSource({
+                        pageSize: 20,
+                        data: products.map(x => x.CreatedOn = new Date()),
+                        autoSync: true,
+                        schema: {
+                            model: {
+                                id: "ProductID",
+                                fields: {
+                                    ProductID: { editable: false, nullable: true },
+                                    ProductName: { validation: { required: true } },
+                                    UnitPrice: { type: "number", validation: { required: true, min: 1 } },
+                                    Discontinued: { type: "boolean" },
+                                    CreatedOn: { type: "date" }
+                                }
+                            }
+                        }
+                    });
+
+                    $("#filter").kendoFilter({
+                        dataSource: dataSource,
+                        applyButton: true,
+                        expressionPreview: true,
+                        fields: [
+                            { name: "ProductName", label: "Product Name" },
+                            { name: "CategoryID", type: "number", label: "Category", defaultValue: 1 },
+                            { name: "UnitPrice", type: "number", label: "Unit Price" },
+                            { name: "UnitsInStock", type: "number", label: "Units In Stock" },
+                            { name: "Discontinued", label: "Discontinued", type: "boolean" },
+                            { name: "CreatedOn", label: "Created on", type: "date" },
+                        ],
+                        expression: {
+                            logic: "or",
+                            filters: [
+                                { field: "ProductName", value: "Chai", operator: "contains" },
+                                { field: "UnitPrice", value: "10", operator: "gte" },
+                                { field: "Discontinued", value: true, operator: "eq" },
+                                {
+                                    logic: "and",
+                                    filters: [
+                                        { field: "CreatedOn", value: new Date(), operator: "lte" },
+                                    ]
+                                }
+
+
+                            ]
+                        }
+                    });
+                });
+            </script>
+        </div>
+    

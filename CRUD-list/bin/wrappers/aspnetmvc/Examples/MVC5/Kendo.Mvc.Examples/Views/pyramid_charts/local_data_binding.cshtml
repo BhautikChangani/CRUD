@@ -1,0 +1,74 @@
+<div class="demo-section wide">
+    <h4>Website optimization stats</h4>
+    @(
+        Html.Kendo().Chart((IEnumerable<Kendo.Mvc.Examples.Models.SiteOptimizationItem>)ViewData["before"])
+        .Name("before")
+        .Series(srs =>
+            srs.Pyramid(
+                m => m.Visitors,
+                m => m.Description
+            )
+            .DynamicHeight(false)
+            .Labels(
+                lbls=>lbls
+                    .Color("black")
+                    .Visible(true)
+                    .Background("transparent")
+                    .Template("#= category #: #= value #")
+                    .Align(ChartPyramidLabelsAlign.Left)
+            )
+        )
+        .Title(t=>t
+            .Text("Before optimization")
+            .Margin(10,0,10,-5)
+        )
+        .Legend(false)
+        .Tooltip(t=>t
+            .Visible(true)
+            .Template("#= category # #= kendo.format('{0:p}',value/dataItem.parent()[0].Visitors)#")
+        )
+    )
+    @(
+        Html.Kendo().Chart((IEnumerable<Kendo.Mvc.Examples.Models.SiteOptimizationItem>)ViewData["after"])
+        .Name("after")
+        .Series(srs =>
+            srs.Pyramid(
+                m => m.Visitors,
+                m => m.Description
+            )
+            .DynamicHeight(false)
+            .Labels(
+                lbls=>lbls
+                    .Color("black")
+                    .Visible(true)
+                    .Background("transparent")
+                    .Template("#= category #: #= value #")
+                    .Align(ChartPyramidLabelsAlign.Left)
+            )
+        )
+        .Title(t=>t
+            .Text("After optimization")
+            .Margin(10,0,10,-5)
+        )
+        .Legend(false)
+        .Tooltip(t=>t
+            .Visible(true)
+            .Template("#= category # #= kendo.format('{0:p}',value/dataItem.parent()[0].Visitors)#")
+        )
+    )
+</div>
+<style>
+    .demo-section {
+        text-align: center;
+    }
+
+    .k-chart {
+        display: inline-block;
+        width: 30%;
+        height: 350px;
+    }
+
+    #before {
+        margin-right: 20px;
+    }
+</style>

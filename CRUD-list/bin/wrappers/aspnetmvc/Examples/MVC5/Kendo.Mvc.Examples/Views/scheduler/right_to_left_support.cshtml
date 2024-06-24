@@ -1,0 +1,30 @@
+<div class="k-rtl">
+
+@(Html.Kendo().Scheduler<Kendo.Mvc.Examples.Models.Scheduler.TaskViewModel>()
+    .Name("scheduler")
+    .Date(new DateTime(2022, 6, 13))
+    .StartTime(new DateTime(2022, 6, 13, 7, 00, 00))
+    .Height(600)
+    .Timezone("Etc/UTC")
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(weekView => weekView.Selected(true));
+        views.MonthView();
+        views.AgendaView();
+    })
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskID);
+            m.Field(f => f.Title).DefaultValue("No title");
+            m.RecurrenceId(f => f.RecurrenceID);
+        })
+        .Read("Rtl_Support_Read", "Scheduler")
+        .Create("Rtl_Support_Create", "Scheduler")
+        .Destroy("Rtl_Support_Destroy", "Scheduler")
+        .Update("Rtl_Support_Update", "Scheduler")
+    )
+)
+
+</div>

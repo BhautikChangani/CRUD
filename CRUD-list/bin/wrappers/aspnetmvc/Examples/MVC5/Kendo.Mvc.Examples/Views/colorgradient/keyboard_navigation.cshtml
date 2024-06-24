@@ -1,0 +1,30 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="colorgradient">ColorGradient</label>
+        @(Html.Kendo().ColorGradient()
+            .Name("colorGradient")
+            .Opacity(true)
+        )
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).on("keydown.examples", function (e) {
+            if (e.altKey && e.keyCode === 87 /* w */) {
+                $("#colorGradient").data("kendoColorGradient").focus();
+            }
+        });
+    </script>
+}
+<style>
+    .k-w-300 label{
+        text-align: center;
+        display: block;
+    }
+
+    .k-colorgradient {
+        margin: 0 auto;
+    }
+</style>
+

@@ -1,0 +1,74 @@
+<div class="demo-section">
+    <ul class="fieldlist">
+        <li>
+            @Html.Label("textbox")
+            <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md" style="width: 100%;">
+                @Html.TextBox("textbox", "", new { @class = "k-input-inner", style = "width: 100%;" })
+            </span>
+        </li>
+        <li>
+            @Html.Label("textarea")
+            <span class="k-input k-textarea k-input-solid k-input-md k-rounded-md" style="width: 100%;">
+                @Html.TextArea("textarea", "", new { @class = "k-input-inner", style = "width: 100%;" })
+            </span>
+        </li>
+        <li>
+            @Html.Label("Input with icon left")
+            <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid" style="width: 100%;">
+                <span class="k-input-prefix">
+                    <span class="k-input-icon icon-search"></span>
+                </span>
+                <input id="icon-left" type="text" class="k-input-inner">
+            </span>
+        </li>
+        <li>
+            @Html.Label("Input with icon right")
+            <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid" style="width: 100%;">
+                <input id="icon-right" type="text" class="k-input-inner">
+                <span class="k-input-sufix">
+                    <span class="k-input-icon icon-search"></span>
+                </span>
+            </span>
+        </li>
+        <li>
+            <h4>Buttons</h4>
+            <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md">Default</button>&nbsp;
+            <button class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md">Primary</button>
+        </li>
+        <li>
+            <h4>Link as Button</h4>
+            <a href="https://www.google.com" role="button" class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md">google.com</a>
+        </li>
+    </ul>
+</div>
+
+@section scripts {
+<script>
+    $(document).on("kendoReady", function () {
+        kendo.ui.icon($(".icon-search"), { icon: 'search' });
+    });
+    
+</script>
+}
+
+<style>
+    .fieldlist {
+        margin: 0 0 -2em;
+        padding: 0;
+    }
+
+        .fieldlist li {
+            list-style: none;
+            padding-bottom: 2em;
+        }
+
+        .fieldlist label {
+            display: block;
+            padding-bottom: 1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #444;
+        }
+</style>
+

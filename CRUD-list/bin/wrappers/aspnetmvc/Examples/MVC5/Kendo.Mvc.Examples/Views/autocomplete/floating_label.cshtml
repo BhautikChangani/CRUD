@@ -1,0 +1,22 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().AutoComplete()
+            .Name("products")
+            .DataTextField("ProductName")
+            .Filter("contains")
+            .Label(label => {
+                label.Content("Find a product...");
+                label.Floating(true);
+            })
+            .HtmlAttributes(new { style = "width:100%" })
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("FloatingLabel_GetProducts", "AutoComplete");
+                });
+            })
+         )
+        <div class="demo-hint">Hint: type "che"</div>
+    </div>
+</div>

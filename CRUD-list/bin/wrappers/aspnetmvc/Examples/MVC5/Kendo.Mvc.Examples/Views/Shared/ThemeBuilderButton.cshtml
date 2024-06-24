@@ -1,0 +1,27 @@
+@{
+    string theme = (string)ViewBag.Theme.Name.Split('-')[0];
+    string themeCapitalized = char.ToUpper(theme[0]) + theme.Substring(1);
+
+    //list of components not available in themebuilder
+    string[] components = { "treemap", "pdfviewer", "diagram",
+     "contextmenu", "dateinput", "form", "cards", "reporting integration",
+    "checkbox","radiobutton","validator","pdf export","barcode","qr code","datasource","drawingapi","globalization",
+    "integrationwithjslibraries","mvvm","single-pageapplication","templates","touchevents","dragdrop","fx","sortable","styling","ripple container","responsive panel",
+    "box plot charts","bullet charts","funnel charts","radar charts","range bar charts","range area charts","scatter charts","waterfall charts","chart api",
+    "spreadprocessing", "pdfprocessing", "zip library", "wordsprocessing", "spreadstreamprocessing", "actionsheet" };
+
+    string currentComponent = ((NavigationItem)ViewBag.CurrentWidget).Text.ToLower();
+    //don't display the button, if the component is not present in themebuilder
+    if (!components.Contains(currentComponent))
+    {
+    <a class="tabstrip-link tb-edit-button" target="_blank"
+       href="https://themebuilder.telerik.com/@ViewBag.Product?component=@ViewBag.CurrentWidget.Text&theme=@themeCapitalized">
+        <span>
+            Edit in Theme Builder
+        </span>
+        <span class="icon">
+            @Html.Raw(File.ReadAllText(Server.MapPath("~/content/shared/images/site/hyperlink-open-sm.svg")))
+        </span>
+    </a>
+    }
+}

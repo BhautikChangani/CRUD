@@ -1,0 +1,28 @@
+
+            <div class="demo-section k-content wide" style="max-width: 644px;">
+                <div id="mediaplayer" tabindex="0" style="height:360px"></div>
+            </div>
+                <script type="module">
+                     $(document).ready(function () {
+                        // create MediaPlayer from div HTML element
+                        $("#mediaplayer").kendoMediaPlayer({
+                            autoPlay: false,
+                            mute: true,
+                            navigatable: true,
+                            media: {
+                                title: "Digital Factory",
+                                source: [
+                                    { quality: "360p", url: "https://telerik-media.s3.amazonaws.com/digital-factory/digital-factory-360.mp4" },
+                                    { quality: "480p", url: "https://telerik-media.s3.amazonaws.com/digital-factory/digital-factory-480.mp4" },
+                                    { quality: "720p", url: "https://telerik-media.s3.amazonaws.com/digital-factory/digital-factory-720.mp4" }]
+                            }
+                        });
+                        //focus the widget
+                        $(document).on("keydown", function(e) {
+                            if (e.altKey && e.keyCode === 87 /* w */) {
+                                $("#mediaplayer").focus();
+                            }
+                        });
+                    });
+                </script>
+        

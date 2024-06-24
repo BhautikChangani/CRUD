@@ -1,0 +1,78 @@
+
+            <div id="example">
+                <div id="treelist"></div>
+                <script type="module">
+                    $(document).ready(function () {
+                        var crudServiceBaseUrl = "https://demos.telerik.com/kendo-ui/service";
+
+                        var dataSource = new kendo.data.TreeListDataSource({
+                                transport: {
+                                    read:  {
+                                        url: crudServiceBaseUrl + "/EmployeeDirectory/All",
+                                        dataType: "jsonp"
+                                    },
+                                    update: {
+                                        url: crudServiceBaseUrl + "/EmployeeDirectory/Update",
+                                        dataType: "jsonp"
+                                    },
+                                    destroy: {
+                                        url: crudServiceBaseUrl + "/EmployeeDirectory/Destroy",
+                                        dataType: "jsonp"
+                                    },
+                                    parameterMap: function(options, operation) {
+                                        if (operation !== "read" && options.models) {
+                                            return {models: kendo.stringify(options.models)};
+                                        }
+                                    }
+                                },
+                                batch: true,
+                                pageSize: 20,
+                                schema: {
+                                    model: {
+                                        id: "EmployeeId",
+                                        parentId: "ReportsTo",
+                                        fields: {
+                                            EmployeeId: { type: "number", editable: false, nullable: false },
+                                            ReportsTo: { nullable: true, type: "number" },
+                                            FirstName: { validation: { required: true } },
+                                            LastName: { validation: { required: true } },
+                                            HireDate: { type: "date" },
+                                            Phone: { type: "string" },
+                                            HireDate: { type: "date" },
+                                            BirthDate: { type: "date" },
+                                            Extension: { type: "number", validation: { min: 0, required: true } },
+                                            Position: { type: "string" }
+                                        },
+                                        expanded: true
+                                    }
+                                }
+                            });
+
+                        $("#treelist").kendoTreeList({
+                            dataSource: dataSource,
+                            selectable: "multiple, row",
+                            filterable: true,
+                            navigatable: true,
+                            height: 540,
+                            pageable: true,
+                            sortable: true,
+                            columns: [
+                                { field: "FirstName", expandable: true, title: "First Name", width: 320 , locked: true, lockable: false },
+                                { field: "LastName", title: "Last Name", width: 400, locked: true },
+                                { field: "Position", locked: false, width: 600 },
+                                { field: "HireDate", title: "Hire Date", format: "{0:MMMM d, yyyy}", width: 600 },
+                                { field: "Phone", title: "Phone", width: 600 }
+                            ]
+                        });
+                    });
+                </script>
+
+            <script type="module">
+                $(document.body).keydown(function (e) {
+                    if (e.altKey && e.keyCode == 87) {
+                        $("#treelist").data("kendoTreeList").table.focus();
+                    }
+                });
+            </script>
+            </div>
+        

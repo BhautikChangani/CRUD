@@ -1,0 +1,149 @@
+<div class="example-container k-d-flex-col">
+    <div class="header k-d-flex">
+        <h1 class="k-flex-grow">Popular Creators</h1>
+
+        <div class="k-d-flex k-align-items-center">
+            @(Html.Kendo().ButtonGroup()
+               .Name("orientation")
+               .Items(t =>
+               {
+                   t.Add().Text("Horizontal").Selected(true);
+                   t.Add().Text("Vertical");
+               })
+               .Events(ev=>ev.Select("onOrientationSelect"))
+            )
+        </div>
+    </div>
+    @(Html.Kendo().StackLayout()
+        .Name("stacklayout")
+        .Spacing("15px")
+        .Orientation(StackLayoutOrientation.Horizontal)
+        .HorizontalAlign(HorizontalAlign.Stretch)
+        .VerticalAlign(VerticalAlign.Stretch)
+        .Items(i=>{
+            i.Add().Content(@<text>
+                    <div class="k-card k-flex-30 k-card-vertical" style="">
+                      <div class="k-card-header k-hbox">
+                        <div class="k-rounded-full k-avatar avatar-size">
+                          <div class="k-avatar-image ng-star-inserted" style="background-image: url(@Url.Content("~/Content/web/stacklayout/avatar1.jpg"));"></div>
+                        </div>
+                        <div>
+                          <div class="k-card-title ">
+                            Lindsey Mango
+                          </div>
+                          <div class="k-card-subtitle ">
+                             34k followers
+                          </div>
+                        </div>
+                      </div>
+                      <img class="k-card-media k-card-cover" alt="Telerik UI for ASP.NET MVC StackLayout dog" src="~/Content/web/stacklayout/dog1.jpg" style=" ">
+                      <div class="k-card-body ">
+                        <div class="k-card-subtitle photo-text">
+                                Photos by Rikonavt and by Ivana La on Unsplash
+                        </div>
+                      </div>
+                      <div class="k-actions k-card-actions k-actions-start k-actions-horizontal ">
+                        <button class="k-button k-button-flat k-rounded-md k-button-rectangle k-button-md k-button-flat-primary">
+                          <span class="k-button-text">See more from Lindsey</span>
+                        </button>
+                      </div>
+                    </div>
+                </text>);
+            i.Add().Content(@<text>
+                <div class="k-card k-flex-40 k-card-vertical" style="">
+                      <div class="k-card-header k-hbox">
+                        <div class="k-rounded-full k-avatar avatar-size">
+                          <div class="k-avatar-image ng-star-inserted" style="background-image: url(@Url.Content("~/Content/web/stacklayout/avatar2.jpg"));"></div>
+                        </div>
+                        <div>
+                          <div class="k-card-title ">
+                            Vincenzo Mays
+                          </div>
+                          <div class="k-card-subtitle ">
+                             32k followers
+                          </div>
+                        </div>
+                      </div>
+                      <img class="k-card-media k-card-cover" alt="Telerik UI for ASP.NET MVC StackLayout summer" src="~/Content/web/stacklayout/summer.jpg" style=" ">
+                      <div class="k-card-body ">
+                        <div class="k-card-subtitle photo-text">
+                                Photos by Irene Strong and by the BlackRabbit on Unsplash
+                        </div>
+                      </div>
+                      <div class="k-actions k-card-actions k-actions-start k-actions-horizontal ">
+                        <button class="k-button k-button-flat k-rounded-md k-button-rectangle k-button-md k-button-flat-primary">
+                          <span class="k-button-text">See more from Vincenzo</span>
+                        </button>
+                      </div>
+                    </div>
+                </text>);
+            i.Add().Content(@<text>
+                <div class="k-card k-flex-30 k-card-vertical" style="">
+                      <div class="k-card-header k-hbox">
+                        <div class="k-rounded-full k-avatar avatar-size">
+                          <div class="k-avatar-image ng-star-inserted" style="background-image: url(@Url.Content("~/Content/web/stacklayout/avatar3.jpg"));"></div>
+                        </div>
+                        <div>
+                          <div class="k-card-title ">
+                            Marissa Webb
+                          </div>
+                          <div class="k-card-subtitle ">
+                             36k followers
+                          </div>
+                        </div>
+                      </div>
+                      <img class="k-card-media k-card-cover" alt="Telerik UI for ASP.NET MVC StackLayout dog image" src="~/Content/web/stacklayout/dog2.jpg" style=" ">
+                      <div class="k-card-body ">
+                        <div class="k-card-subtitle photo-text">
+                                Photos by JJ Jordan and by Silvana Carlos on Unsplash
+                        </div>
+                      </div>
+                      <div class="k-actions k-card-actions k-actions-start k-actions-horizontal ">
+                        <button class="k-button k-button-flat k-rounded-md k-button-rectangle k-button-md k-button-flat-primary">
+                          <span class="k-button-text">See more from Marissa</span>
+                        </button>
+                      </div>
+                    </div>
+                </text>);
+        })
+    )
+</div>
+
+<style>
+    .example-container {
+        margin: 0 auto;
+        max-width: 900px;
+    }
+
+    .k-flex-30 {
+        flex: 1 1 30%;
+    }
+
+    .k-flex-40 {
+        flex: 1 1 40%;
+    }
+
+    .k-card-cover {
+        object-fit: cover;
+        width: 100%;
+        height: 375px;
+    }
+
+    .k-card-body {
+        padding: 0px 8px !important;
+    }
+
+    .photo-text {
+        text-align: right;
+        font-size: 10px;
+        font-style: italic;
+    }
+</style>
+
+@section scripts {
+    <script>
+        function onOrientationSelect(e) {
+            $("#stacklayout").toggleClass("k-hstack").toggleClass("k-vstack");
+        }
+    </script>
+}

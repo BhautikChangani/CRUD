@@ -1,0 +1,76 @@
+<div class="k-d-flex hidden-on-narrow wide" style="margin-top: 54px;">
+    <div class="column">
+        <label for="foreground-picker">Foreground Color</label>
+        @(Html.Kendo().FlatColorPicker()
+             .Name("foreground-picker")
+             .Opacity(true)
+             .Events(ev => ev.Change("foregroundSelect"))
+        )
+    </div>
+    <div class="column">
+        <div id="background">Text for Contrast Tool Demo</div>
+    </div>
+    <div class="column">
+        <label for="background-picker">Background Color</label>
+        @(Html.Kendo().FlatColorPicker()
+             .Name("background-picker")
+             .Opacity(true)
+             .Input(false)
+             .Views(new string[] {"gradient"})
+             .Events(ev => ev.Change("backgroundSelect"))
+        )
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+        $(document).on("kendoReady", function () {
+            var foregroundPicker = $("#foreground-picker").data("kendoFlatColorPicker");
+            var backgroundPicker = $("#background-picker").data("kendoFlatColorPicker");
+            var foregroundColor = $('.k-body').css("color");
+            var backgroundColor = $('.k-body').css("background-color");
+
+            foregroundPicker.value(foregroundColor);
+            backgroundPicker.value(backgroundColor);
+            backgroundPicker.setOptions({ contrastTool: { backgroundColor: backgroundColor } });
+
+        })
+
+        function foregroundSelect(e) {
+            $("#background").css("color", e.value);
+        }
+
+        function backgroundSelect(e) {
+            var foregroundPicker = $("#foreground-picker").data("kendoFlatColorPicker");
+            $("#background").css("background-color", e.value);
+            foregroundPicker.setBackgroundColor(e.value);
+        }
+    </script>
+}
+
+<style>
+    #background {
+        border-radius: 20px;
+        width: 300px;
+        height: 300px;
+        border: 1px solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .column {
+        margin: auto;
+        text-align: center;
+    }
+
+        .column label {
+            display: block;
+        }
+
+    .k-colorpicker {
+        vertical-align: top;
+        margin: 20px 0;
+    }
+</style>

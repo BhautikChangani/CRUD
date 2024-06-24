@@ -1,0 +1,22 @@
+<button id="export">Export as PNG</button>
+
+<div class="k-d-flex k-justify-content-center">
+    @(Html.Kendo().Signature()
+            .Name("signature")
+            .Width(600)
+            .Height(340)
+            .PopupScale(1))
+</div>
+
+<script>
+    let signature = $("#signature").getKendoSignature();
+
+    $("#export").kendoButton({
+        click: function() {
+            kendo.saveAs({
+                dataURI: signature.value(),
+                fileName: "signature.png"
+            })
+        }
+    });
+</script>

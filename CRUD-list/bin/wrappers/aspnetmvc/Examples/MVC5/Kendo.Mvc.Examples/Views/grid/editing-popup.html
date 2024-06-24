@@ -1,0 +1,17 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  Some scenarios require the <a href="https://www.telerik.com/aspnet-mvc/grid" target="_blank">Telerik UI for ASP.NET MVC Data Grid</a> not only to visualize data in a table structure, but also to support editing of its row content in a popup edit form.
+</p>
+<p>  
+  This demo shows how to edit or insert new Data Grid items through a popup window by configuring the component in the following way:
+</p>
+<ol>
+    <li>Activate the popup editing by setting <code>.Editable(editable => editable.Mode(GridEditMode.PopUp))</code>.</li>
+    <li>To allow the insertion of new records, add the <strong>New Record</strong> button to the toolbar of the component&#8212;<code>.ToolBar(toolbar => toolbar.Create())</code>.</li>
+    <li>To enable the <strong>Edit</strong> and <strong>Delete</strong> commands for each row, insert a new column&#8212;<code>columns.Command(command => { command.Edit(); command.Destroy(); });</code>.</li>
+    <li>Declare the <code>Create</code>, <code>Read</code>, <code>Update</code>, and <code>Destroy</code> action methods in the DataSource. These methods are responsible for the manipulation of the data items manipulation.</li>
+    <li>Specify a unique field in the <code>Model</code> as the <code>DataSource.Model.Id</code>.</li>
+</ol>
+<p>
+  For more information about the editing capabilities, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/editing/popup" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available popup editing approaches</a>.
+</p>

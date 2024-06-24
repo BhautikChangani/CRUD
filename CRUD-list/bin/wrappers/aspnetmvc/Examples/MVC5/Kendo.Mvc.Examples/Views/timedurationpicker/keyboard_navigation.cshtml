@@ -1,0 +1,23 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().TimeDurationPicker()
+        .Name("timeDurationPicker")
+        .Columns(c =>
+        {
+            c.Hours().Format("## hours ");
+            c.Minutes().Format(" ## minutes ");
+            c.Seconds().Format(" ## seconds");
+        })
+    )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).on("keydown.examples", function (e) {
+            if (e.altKey && e.keyCode === 87 /* w */) {
+                $("#timeDurationPicker").data("kendoTimeDurationPicker")._maskedInput.focus();
+            }
+        });
+    </script>
+}

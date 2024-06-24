@@ -1,0 +1,67 @@
+<div class="k-rtl">
+
+@using Kendo.Mvc.Examples.Models.Gantt;
+
+@(Html.Kendo().Gantt<TaskViewModel, DependencyViewModel>()
+    .Name("gantt")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.TaskID).Title("ID").Width(50);
+        columns.Bound("title").Editable(true).Sortable(true);
+        columns.Bound("start").Title("Start Time").Format("{0:MM/dd/yyyy}").Width(100).Editable(true).Sortable(true);
+        columns.Bound("end").Title("End Time").Format("{0:MM/dd/yyyy}").Width(100).Editable(true).Sortable(true);
+    })
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(weekView => weekView.Selected(true));
+        views.MonthView();
+    })
+    .Height(700)
+    .ShowWorkHours(false)
+    .ShowWorkDays(false)
+    .Snap(false)
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskID);
+            m.ParentId(f => f.ParentID);
+            m.OrderId(f => f.OrderId);
+            m.Field(f => f.Expanded).DefaultValue(true);
+        })
+        .Read("Rtl_Support_Read_Tasks", "Gantt")
+        .Destroy("Rtl_Support_Destroy_Task", "Gantt")
+        .Update(update => update.Action("Rtl_Support_Update_Task", "Gantt").Data("onUpdateCreate"))
+        .Create(create => create.Action("Rtl_Support_Create_Task", "Gantt").Data("onUpdateCreate"))
+    )
+    .DependenciesDataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.DependencyID);
+            m.PredecessorId(f => f.PredecessorID);
+            m.SuccessorId(f => f.SuccessorID);
+            m.Type(f => f.Type);
+        })
+        .Read("Rtl_Support_Read_Dependencies", "Gantt")
+        .Create("Rtl_Support_Create_Dependency", "Gantt")
+        .Destroy("Rtl_Support_Destroy_Dependency", "Gantt")
+    )
+)
+
+</div>
+
+@section scripts {
+<script>
+    // Send the dates for the newly creted/updated tasks as UTC strings
+    function onUpdateCreate(e) {
+        e.End = e.End.toISOString();
+        e.Start = e.Start.toISOString();
+    }
+</script>
+}
+
+<style>
+    .k-gantt-tasks .k-table-tbody {
+        text-align: left;
+    }
+</style>

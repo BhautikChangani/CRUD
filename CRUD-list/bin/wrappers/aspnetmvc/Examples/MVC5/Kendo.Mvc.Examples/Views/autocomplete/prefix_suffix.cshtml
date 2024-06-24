@@ -1,0 +1,28 @@
+<script type="text/x-kendo-template" id="suffixTemplate">
+    @(Html.Kendo().Button()
+            .Name("suffix-search-button")
+            .Content("Search")
+            .FillMode(ButtonFillMode.Flat)
+            .ThemeColor(ThemeColor.Primary)
+            .ToClientTemplate()
+      )
+</script>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().AutoComplete()
+            .Name("cities")
+            .PrefixOptions(prefix => prefix.Icon("search"))
+            .SuffixOptions(suffix => suffix.TemplateId("suffixTemplate"))
+            .Filter("contains")
+            .Placeholder("Please select city...")
+            .DataTextField("Text")
+            .DataSource(dataSource =>
+                dataSource.Read("GetCountries", "AutoComplete")
+                .ServerFiltering(false)
+            )
+            .HtmlAttributes(new { style = "width: 100%;" })
+            )
+    </div>
+</div>
+

@@ -1,0 +1,40 @@
+<div class='note' style="text-align: center;">
+    <p>
+        Resize the browser to see how the ComboBox popup adapts to different resolutions.
+    </p>
+</div>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-600">
+        <label for="products">Enter product name:</label>
+        @(Html.Kendo().ComboBox()
+            .Name("products")
+            .Placeholder("Select product")
+            .DataTextField("ProductName")
+            .DataValueField("ProductID")
+            .HtmlAttributes(new { style = "width:100%;" })
+            .Filter(FilterType.StartsWith)
+            .AdaptiveMode(AdaptiveMode.Auto)
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("AdaptiveMode_GetProducts", "ComboBox");
+                });
+            })
+            )
+    </div>
+</div>
+
+<style>
+    .note {
+        font: normal 18px "Metric";
+        border-radius: 2px;
+        margin: 20px auto 40px auto;
+        padding: 20px;
+        border-left: 4px solid;
+        border-left-color: #5392e4;
+        background: rgba(83,146,228,0.1);
+        text-align: center;
+    }
+</style>

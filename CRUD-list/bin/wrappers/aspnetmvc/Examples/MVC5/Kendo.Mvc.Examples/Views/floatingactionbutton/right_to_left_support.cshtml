@@ -1,0 +1,42 @@
+<div class="k-d-flex k-justify-content-around k-rtl">
+    <div class="k-card">
+        <div class="k-card-body">
+            <h5 class="k-card-title">San Francisco</h5>
+            <h6 class="k-card-subtitle">City in California</h6>
+        </div>
+        <img class="k-card-media" alt="Telerik UI for ASP.NET MVC FloatingActionButton San Francisco" src="../content/web/cards/sanfran.jpg" />
+        <div class="k-card-body">
+            <p>San Francisco, officially City and County of San Francisco and colloquially known as SF, San Fran or "The City", is the cultural, commercial, and financial center of Northern California.</p>
+        </div>
+        <div class="k-actions k-card-actions k-actions-stretched k-actions-vertical">
+            <span class="k-card-action"><button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md">Map</button></span>
+            <span class="k-card-action"><button class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md">Weather</button></span>
+        </div>
+        @(Html.Kendo().FloatingActionButton()
+            .Name("fab-text")
+            .PositionMode(FloatingActionButtonPositionMode.Absolute)
+            .Icon("star")
+            .Text("Bookmark")
+            .ThemeColor(FloatingActionButtonThemeColor.Primary)
+            .Size(FloatingActionButtonSize.Small)
+            .Align(FloatingActionButtonAlign.TopEnd)
+            .Events(ev => ev.Click("onClick"))
+        )
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        function onClick() {
+            kendo.alert("Bookmarked")
+        };
+    </script>
+    }
+
+<style>
+    .k-card {
+        width: 320px;
+        margin: 5%;
+    }
+</style>

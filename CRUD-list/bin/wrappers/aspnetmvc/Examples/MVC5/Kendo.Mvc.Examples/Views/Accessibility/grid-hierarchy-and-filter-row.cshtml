@@ -1,0 +1,71 @@
+
+        <div id="grid" style="height: 660px; width: 1000px;"></div>
+
+        <script type="module">
+            $(document).ready(function () {
+                var element = $("#grid").kendoGrid({
+                    dataSource: {
+                        type: "odata",
+                        transport: {
+                            read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Employees"
+                        },
+                        pageSize: 6,
+                        serverPaging: true,
+                        serverSorting: true
+                    },
+                    height: 600,
+                    sortable: true,
+                    pageable: true,
+                    pageable: true,
+                    navigatable: true,
+                    messages: {
+                        expandCollapseColumnHeader: "E/C"
+                    },
+                    detailInit: detailInit,
+                    dataBound: function () {
+                        this.expandRow(this.tbody.find("tr.k-master-row").first());
+                    },
+                    columns: [
+                        {
+                            field: "FirstName",
+                            title: "First Name"
+                        },
+                        {
+                            field: "LastName",
+                            title: "Last Name"
+                        }
+                    ]
+                });
+            });
+
+            function detailInit(e) {
+                $("<div/>").appendTo(e.detailCell).kendoGrid({
+                    dataSource: {
+                        type: "odata",
+                        transport: {
+                            read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+                        },
+                        serverPaging: true,
+                        serverSorting: true,
+                        serverFiltering: true,
+                        pageSize: 10,
+                        filter: { field: "EmployeeID", operator: "eq", value: e.data.EmployeeID }
+                    },
+                    scrollable: false,
+                    sortable: true,
+                    navigatable: true,
+                    columns: [
+                        { field: "OrderID", width: "110px" },
+                        { field: "ShipCountry", title: "Ship Country", width: "110px" },
+                        { field: "ShipAddress", title: "Ship Address" },
+                        { field: "ShipName", title: "Ship Name", width: "300px" }
+                    ]
+                });
+            }
+            $(document.body).keydown(function (e) {
+                      if (e.altKey && e.keyCode == 87) {
+                        $("#grid").data("kendoGrid").table.focus();
+                      }
+                  });
+        </script>
+    

@@ -1,0 +1,81 @@
+<div class="demo-wrapper k-d-grid k-gap-8 k-flex-1 k-px-8 k-pt-8 k-pb-8">
+    <div data-role="ninjacontainer" class="ninja-container !k-d-flex k-flex-col k-align-items-center k-px-5 k-bg-light k-rounded-md" aria-live="polite" aria-label="Loading...">
+        <div class="ninja"></div>
+    </div>
+
+    <div class="main-container k-d-flex k-flex-col">
+        <div class="k-d-flex k-gap-3 k-align-items-center k-mb-5">
+            <h4 class="k-h4 k-opacity-20 k-font-bold">T-shirt Design</h4>
+        </div>
+        <div class="k-d-flex k-flex-col k-gap-1">
+            <label for="colorGradient">Choose color</label>
+            @(Html.Kendo().ColorGradient()
+                .Name("colorGradient")
+                .Input(true)
+                .Value("#8174F2")
+                .Opacity(true)
+                .Format(ColorGradientFormat.Rgb)
+                .Formats(new string[] { "rgb", "hex" })
+                .Events(e => e.Change("select"))
+                )
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .demo-wrapper {
+        grid-template-columns: 1fr 272px;
+    }
+
+    .ninja-container {
+        padding-top: 128px;
+        padding-bottom: 128px;
+    }
+
+    .ninja {
+        width: 205px;
+        height: 255px;
+    }
+
+    .k-h4 {
+        line-height: 32px;
+        margin-bottom: 0;
+    }
+
+
+    @@media (max-width: 730px), (min-width: 821px) and (max-width: 1090px), (min-width: 1241px) and (max-width: 1380px) {
+        .demo-wrapper {
+            grid-template-columns: 1fr;
+        }
+
+        .ninja-container {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    }
+</style>
+@section scripts {
+    <script>
+        var ninjaSvg;
+        $(document).on("kendoReady", function () {
+            // fetch SVG and append to container
+            fetch("@Url.Content("~/Content/web/ninja.svg")")
+                .then(r => r.text())
+                .then(text => {
+                    $(".ninja").append(text);
+
+                    ninjaSvg = $("#ninja-svg");
+                    // remove the absolute position.
+                    ninjaSvg.removeClass("k-pos-absolute");
+                });
+        });
+
+        function select(e) {
+            var selectedColor = e.value;
+            $(ninjaSvg).find(".ninja-belt").each(function (i, el) {
+                $(el).attr('fill', selectedColor);
+            })
+        }
+    </script>
+}

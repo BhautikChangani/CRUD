@@ -1,0 +1,63 @@
+<div class="box wide">
+    <h4>Information</h4>
+    <p>Range selecion is available as built-in functionality for the <strong>DateRangePicker</strong> component.</p>
+    <br />
+    <p>Check out the <a href="../daterangepicker/index">DateRangePicker examples</a>.</p>
+</div>
+
+<div class="k-d-flex k-justify-content-center">
+    <div class="k-w-300">
+        <label for="start">Start date:</label>
+        @(Html.Kendo().DatePicker()
+          .Name("start")
+          .Value("10/10/2011")
+          .Max("10/10/2012")
+          .Events(e => e.Change("startChange"))
+          .HtmlAttributes(new { style = "width: 100%" })
+        )
+        <br/>
+        <br/>
+        <br/>
+        <label for="end">End date:</label>
+        @(Html.Kendo().DatePicker()
+          .Name("end")
+          .Value("10/10/2012")
+          .Min("10/10/2011")
+          .Events(e => e.Change("endChange"))
+          .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+</div>
+
+    @section scripts {
+        <script>
+            function startChange() {
+                var endPicker = $("#end").data("kendoDatePicker"),
+                    startDate = this.value();
+
+                if (startDate) {
+                    startDate = new Date(startDate);
+                    startDate.setDate(startDate.getDate() + 1);
+                    endPicker.min(startDate);
+                }
+            }
+
+            function endChange() {
+                var startPicker = $("#start").data("kendoDatePicker"),
+                    endDate = this.value();
+
+                if (endDate) {
+                    endDate = new Date(endDate);
+                    endDate.setDate(endDate.getDate() - 1);
+                    startPicker.max(endDate);
+                }
+            }
+
+        </script>
+    }
+
+<style>
+    #demo-runner .box {
+        margin: 0 auto;
+    }
+</style>

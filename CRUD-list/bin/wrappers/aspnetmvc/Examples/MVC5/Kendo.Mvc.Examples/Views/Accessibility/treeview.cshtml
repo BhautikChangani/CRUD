@@ -1,0 +1,52 @@
+
+            <div id="example">
+                <div class="demo-section k-content">
+                    <ul id="treeview" accesskey="w">
+                        <li>Furniture
+                            <ul>
+                                <li>Tables &amp; Chairs</li>
+                                <li>Sofas</li>
+                                <li>Occasional Furniture</li>
+                                <li>Childerns Furniture</li>
+                                <li>Beds</li>
+                            </ul>
+                        </li>
+                        <li data-expanded="true">Decor
+                            <ul>
+                                <li>Bed Linen</li>
+                                <li>Throws</li>
+                                <li>Curtains &amp; Blinds</li>
+                                <li>Rugs</li>
+                                <li>Carpets</li>
+                            </ul>
+                        </li>
+                        <li>Storage
+                            <ul>
+                                <li>Wall Shelving</li>
+                                <li>Kids Storage</li>
+                                <li>Baskets</li>
+                                <li>Multimedia Storage</li>
+                                <li>Floor Shelving</li>
+                                <li>Toilet Roll Holders</li>
+                                <li>Storage Jars</li>
+                                <li>Drawers</li>
+                                <li>Boxes</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <script type="module">
+                    $(document).ready(function() {
+                        $("#treeview").kendoTreeView();
+
+                        //focus the widget
+                        $(document).on("keydown.examples", function(e) {
+                            if (e.altKey && e.keyCode === 87 /* w */) {
+                                $("#treeview").data("kendoTreeView").wrapper.focus();
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        

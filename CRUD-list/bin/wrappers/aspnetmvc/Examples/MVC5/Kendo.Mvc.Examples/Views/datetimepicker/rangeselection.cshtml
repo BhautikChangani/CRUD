@@ -1,0 +1,50 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="start">Start date:</label>
+        @(Html.Kendo().DateTimePicker()
+          .Name("start")
+          .Value(DateTime.Today)
+          .Max(DateTime.Today)
+          .ParseFormats(new string[] { "MM/dd/yyyy" })
+          .Events(e => e.Change("startChange"))
+          .HtmlAttributes(new { style = "width:100%;" })
+        )
+        <br />
+        <br />
+        <br />
+        <label for="end">End date:</label>
+        @(Html.Kendo().DateTimePicker()
+          .Name("end")
+          .Value(DateTime.Today)
+          .Min(DateTime.Today)
+          .ParseFormats(new string[] { "MM/dd/yyyy" })
+          .Events(e => e.Change("endChange"))
+          .HtmlAttributes(new { style = "width:100%;" })
+        )
+    </div>
+</div>
+@section scripts {
+    <script>
+        function startChange() {
+            var endPicker = $("#end").data("kendoDateTimePicker"),
+                startDate = this.value();
+
+            if (startDate) {
+                startDate = new Date(startDate);
+                startDate.setDate(startDate.getDate() + 1);
+                endPicker.min(startDate);
+            }
+        }
+
+        function endChange() {
+            var startPicker = $("#start").data("kendoDateTimePicker"),
+                endDate = this.value();
+
+            if (endDate) {
+                endDate = new Date(endDate);
+                endDate.setDate(endDate.getDate() - 1);
+                startPicker.max(endDate);
+            }
+        }
+    </script>
+}

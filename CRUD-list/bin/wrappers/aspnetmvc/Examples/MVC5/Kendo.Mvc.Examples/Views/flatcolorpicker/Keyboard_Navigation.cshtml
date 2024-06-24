@@ -1,0 +1,28 @@
+<script>
+    $(document).on("keydown.examples", function (e) {
+        if (e.altKey && e.keyCode === 87 /* w */) {
+            $("#colorFlatPicker").data("kendoFlatColorPicker").focus();
+        }
+    });
+</script>
+<div class="k-d-flex k-justify-content-center" id="flatcolor-container">
+    <div class="k-w-300">
+        <label for="flatColorPicker">FlatColorPicker</label>
+        @(Html.Kendo().FlatColorPicker()
+              .Name("flatColorPicker")
+              .Opacity(true)
+              .HtmlAttributes(new { style="margin:auto;" })
+        )
+    </div>
+</div>
+
+<style>
+    #flatcolor-container {
+        padding-top: 54px;
+        padding-bottom: 30px;
+    }
+
+    .k-w-300 {
+        text-align: center;
+    }
+</style>

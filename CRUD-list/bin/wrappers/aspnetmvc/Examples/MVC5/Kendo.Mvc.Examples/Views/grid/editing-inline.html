@@ -1,0 +1,20 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The <a href="https://www.telerik.com/aspnet-mvc/grid" target="_blank">Telerik UI for ASP.NET MVC Data Grid</a> supports an inline editing mode. As a result, users are able to edit the content of th eData Grid cells by simply clicking the <strong>Edit row</strong> button, then modify the data inside the cell, and, finally, save or discard the changes by using the <strong>Update</strong> or <strong>Cancel</strong> buttons.
+</p>
+<p>
+  This demo shows how to implement the inline editing feature of the Data Grid by using the <code>create</code>, <code>update</code>, and <code>destroy</code> data operations of the component.
+</p> 
+<p>
+  To enable its inline editing capabilities: 
+</p>  
+  <ol>
+    <li>Set <code>.Editable(editable => editable.Mode(GridEditMode.InLine))</code>.</li>
+    <li>To allow the insertion of new Data Grid records, you need to add the <strong>New Record</strong> button in the toolbar of the component&#8212;<a href="https://docs.telerik.com/aspnet-mvc/api/kendo.mvc.ui.fluent/gridtoolbarcommandfactory#create"><code>.ToolBar(toolbar => toolbar.Create())</code>.</li>
+    <li>To enable the <strong>Edit</strong> and <strong>Delete</strong> commands on each row, insert a new column by setting <code>columns.Command(command => { command.Edit(); command.Destroy();});</code>.</li>
+    <li>Define the <code>Create</code>, <code>Read</code>, <code>Update</code>, and <code>Destroy</code> action methods to the <code>DataSource</code> declaration. These methods are responsible for the manipulation of the data items.</li>
+    <li>Specify a unique field in the <code>Model</code> as the <code>DataSource.Model.Id</code>.</li>
+ </ol>
+ <p>
+   For more information about the editing capabilities, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/editing/inline" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available inline editing approaches</a>.
+ </p>

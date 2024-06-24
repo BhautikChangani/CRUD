@@ -1,0 +1,297 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+    <p>Keyboard navigation provides all web and app users with a fast keyboard-only navigation capability and is also part of the web accessibility features—it enables users with disabilities to fully control their website or app access through the keyboard.</p>
+    <p>By default, users can only navigate to links, buttons, and form controls with a keyboard. The navigation order in which interactive items receive keyboard focus has to be logical and intuitive. Generally, keyboard navigation logic needs to follow the visual horizontal and vertical flow of the page, for example, left to right and top to bottom, header first followed by the main and then the page navigation.</p>
+    <p>
+        The <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/pivotgridv2/accessibility/keyboard-navigation" target="_blank">Telerik UI for ASP.NET MVC PivotGridV2 Keyboard Navigation</a>
+        can be enabled via the <code>Navigatable(true)</code> configuration as demonstrated in this demo.
+    </p>    
+    <p>The PivotGridV2 supports the following keyboard shortcuts: </p>
+</div>
+<h4>Focus</h4>
+<ul class="keyboard-legend" style="margin-bottom: 1em;">
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Alt</span>
+            +
+            <span class="key-button">W</span>
+        </span>
+        <span class="button-descr">
+            Focuses the component.
+        </span>
+    </li>
+</ul>
+
+<h4>Actions Applied on the PivotGridV2</h4>
+<ul class="keyboard-legend">
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Right Arrow</span>
+        </span>
+        <span class="button-descr">
+            Moves the focus one cell to the right. If the focus is on the right-most cell in the row, the focus does not move.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Left Arrow</span>
+        </span>
+        <span class="button-descr">
+            Moves the focus one cell to the left. If the focus is on the left-most cell in the row, the focus does not move.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Down Arrow</span>
+        </span>
+        <span class="button-descr">
+            Moves the focus one cell down. If the focus is on the bottom-most cell in the column, the focus does not move.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Up Arrow</span>
+        </span>
+        <span class="button-descr">
+            Moves the focus one cell up. If the focus is on the top-most cell in the column, the focus does not move.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Home</span>
+        </span>
+        <span class="button-descr">
+            Moves the focus to the first focusable cell in the row.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">End</span>
+        </span>
+        <span class="button-descr">
+            Moves the focus to the last focusable cell in the row.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Ctrl/Cmd</span>
+            +
+            <span class="key-button">Home</span>
+        </span>
+        <span class="button-descr">
+            Moves the focus to the first cell in the first row.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Ctrl/Cmd</span>
+            +
+            <span class="key-button">End</span>
+        </span>
+        <span class="button-descr">
+            Moves the focus to the last cell in the last row.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Enter/Space</span>
+        </span>
+        <span class="button-descr">
+            Toggles the expanded state of an expandable header when such is focused.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">o</span>
+        </span>
+        <span class="button-descr">
+            The small Latin letter "o". Opens the configurator when available.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Escape</span>
+        </span>
+        <span class="button-descr">
+            Closes the configurator when it contains the focus.
+        </span>
+    </li>
+</ul>
+
+<h4>Actions Applied on the PivotGridV2 Configurator</h4>
+<ul class="keyboard-legend">
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Escape</span>
+        </span>
+        <span class="button-descr">
+            Closes the Configurator and returns focus to the last focused PivotGrid table cell (or the first cell).
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Tab</span>
+        </span>
+        <span class="button-descr">
+            Focuses the next focusable element or the first focusable element, if the focus is on the last focusable element.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Shift</span>
+            +
+            <span class="key-button">Tab</span>
+        </span>
+        <span class="button-descr">
+            Focuses the previous focusable element or the last focusable element, if the focus is on the first focusable element.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Backspace/Delete</span>
+        </span>
+        <span class="button-descr">
+            Applicable when a Chip is focused. Removes the Chip, and the previous focusable element is focused.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Ctrl/Cmd</span>
+            +
+            <span class="key-button">Shift</span>
+            +
+            <span class="key-button">Left/Right Arrow</span>
+        </span>
+        <span class="button-descr">
+            Applicable when a Chip is focused. Switches the Chip with the next/previous one from the same section (if one is available).
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Ctrl/Cmd</span>
+            +
+            <span class="key-button">Shift</span>
+            +
+            <span class="key-button">Up/Down Arrow</span>
+        </span>
+        <span class="button-descr">
+            Applicable when a Chip is focused. Moves a Chip from the Rows section to the Columns one or vice-versa.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Alt</span>
+            +
+            <span class="key-button">Down Arrow</span>
+        </span>
+        <span class="button-descr">
+            Opens the Chip menu for the focused Chip. Focus goes to the first menu element is trapped in the menu popup.
+        </span>
+    </li>
+</ul>
+
+<h4>Actions Applied on the PivotGridV2 Configurator Chip Menu</h4>
+<ul class="keyboard-legend">
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Escape</span>
+        </span>
+        <span class="button-descr">
+            Closes the menu and returns the focus to the Chip that triggered it.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Tab</span>
+        </span>
+        <span class="button-descr">
+            Focuses the next focusable menu element or the first focusable element, if the focus is on the last focusable element.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Shift</span>
+            +
+            <span class="key-button">Tab</span>
+        </span>
+        <span class="button-descr">
+            Focuses the previous focusable element or the last focusable element, if the focus is on the first focusable element.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Enter</span>
+        </span>
+        <span class="button-descr">
+            Triggers the default action associated with the focused menu item.
+        </span>
+    </li>
+</ul>
+
+<h4>Actions Applied on the PivotGridV2 Configurator TreeView</h4>
+<ul class="keyboard-legend">
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider leftAlign">Up Arrow</span>
+        </span>
+        <span class="button-descr">
+            Highlights the previous item.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider leftAlign">Left Arrow</span>
+        </span>
+        <span class="button-descr">
+            Collapses the item.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider leftAlign">Down Arrow</span>
+        </span>
+        <span class="button-descr">
+            Highlights the next item.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider leftAlign">Right Arrow</span>
+        </span>
+        <span class="button-descr">
+            Expands the item.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Home</span>
+        </span>
+        <span class="button-descr">
+            Highlights the first item in the list.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">End</span>
+        </span>
+        <span class="button-descr">
+            Highlights the last item in the list.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider rightAlign">Enter</span>
+        </span>
+        <span class="button-descr">
+            Selects the highlighted item.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider rightAlign">Space</span>
+        </span>
+        <span class="button-descr">
+            Toggles the checkbox.
+        </span>
+    </li>
+</ul>

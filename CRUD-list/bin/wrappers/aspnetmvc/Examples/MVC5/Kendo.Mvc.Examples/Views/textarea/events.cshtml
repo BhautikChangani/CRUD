@@ -1,0 +1,19 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().TextArea()
+        .Name("textarea")
+        .Label(label => label.Content("Set value"))
+        .Rows(5)
+        .Events(e => e.Change("onChange"))
+        .HtmlAttributes(new { style = "width: 100%" })
+    )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function onChange() {
+            kendoConsole.log("Change :: " + this.value());
+        }
+    </script>
+}

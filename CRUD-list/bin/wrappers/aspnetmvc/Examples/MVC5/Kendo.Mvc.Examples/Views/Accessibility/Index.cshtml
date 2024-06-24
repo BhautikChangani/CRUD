@@ -1,0 +1,75 @@
+@{
+    Kendo.Mvc.Examples.Models.AccessibilityExample[] Examples = ViewBag.Examples;
+}
+
+@section styles{
+    <link href="@String.Format("{0}/styles/demos/pages/base.min.css{1}", ViewBag.AssetsCDN, Html.Version())" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 8px !important;
+        }
+    </style>
+}
+
+<section class="kd-components-list">
+        <div>
+            <div class="row">
+                <div class="col col-8">
+                    <h1 class="kd-title heading">Telerik UI for ASP.NET MVC Components</h1>
+
+                    <div class="row">
+                        @{
+                            var columns = new[] {
+                                new [] {
+                                    "Data Management",
+                                    "Navigation"
+                                },
+                                new [] {
+                                    "Editors",
+                                    "Conversational UI",
+                                },
+                                new [] {
+                                    "Charts",
+                                    "Gauges",
+                                    "PDF",
+                                    "Media",
+                                    "Barcodes"
+                                },
+                                new [] {
+                                    "Scheduling",
+                                    "Layout",
+                                    "Interactivity & UX",
+                                    "Diagrams & Maps"
+                                },
+                            };
+                        }
+
+                        @foreach (var column in columns)
+                        {
+                            <div class="col-3">
+                                <ul class="kd-list">
+                                    @foreach (var columnCategory in column)
+                                    {
+                                        var categoryExamples = Examples.Where(e => columnCategory == e.Category);
+                                        if (categoryExamples.Any())
+                                        {
+                                            <li>
+                                                <h6 class="kd-title">@columnCategory</h6>
+                                                <ul class="kd-list">
+                                                    @foreach (var example in categoryExamples)
+                                                    {
+                                                        <li><a class="kd-link" href="@example.Url.ToLowerInvariant()"><span class="link-text">@example.Name</span></a></li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

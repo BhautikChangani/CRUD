@@ -1,0 +1,22 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    @(Html.Kendo().DropDownButton()
+        .Name("dropDownButton")
+        .Text("User Settings")
+        .Items(items=>{
+            items.Add().Id("profile").Text("My Profile");
+            items.Add().Id("friend-request").Text("Friend Requests");
+            items.Add().Id("settings").Text("Account Settings");
+            items.Add().Id("support").Text("Support");
+            items.Add().Id("logout").Text("Log Out");
+        })
+    )
+</div>
+
+<script>
+    $(document).on("keydown", function (e) {
+        if (e.altKey && e.keyCode === 87) {
+            $("#dropDownButton").focus()
+        }
+    });
+</script>
+

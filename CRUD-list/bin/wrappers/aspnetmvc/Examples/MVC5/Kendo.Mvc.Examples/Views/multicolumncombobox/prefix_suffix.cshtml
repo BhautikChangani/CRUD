@@ -1,0 +1,33 @@
+<script type="text/x-kendo-template" id="suffixTemplate">
+    @(Html.Kendo().Button()
+            .Name("suffix-copy-button")
+            .Icon("copy")
+            .FillMode(ButtonFillMode.Flat)
+            .ThemeColor(ThemeColor.Primary)
+            .ToClientTemplate()
+      )
+</script>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().MultiColumnComboBox()
+            .Name("cities")
+            .PrefixOptions(prefix => prefix.Icon("map-marker-target"))
+            .SuffixOptions(suffix => suffix.TemplateId("suffixTemplate"))
+            .Columns(columns =>
+            {
+                columns.Add().Field("Value").Title("City ID");
+                columns.Add().Field("Text").Title("City Name");
+            })
+            .Filter("contains")
+            .Placeholder("Please select city...")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(dataSource =>
+            dataSource.Read("ReadCountries", "MultiColumnComboBox")
+                .ServerFiltering(false)
+            )
+            .HtmlAttributes(new { style = "width: 100%;" })
+            )
+    </div>
+</div>

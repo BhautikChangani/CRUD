@@ -1,0 +1,66 @@
+@using Kendo.Mvc.Examples.Models.Themes;
+@{
+    IEnumerable<SassTheme> sassThemes = ViewBag.SassThemes;
+    Theme SelectedTheme = ViewBag.Theme;
+}
+
+<script>
+    window.selectedTheme = "@SelectedTheme.Name";
+</script>
+
+<span class="theme-chooser-label kd-text kd-text-primary mb-0">Change Theme</span>
+<div class="theme-chooser-wrapper dropdown-wrapper">
+    <div class="theme-chooser-toggle-btn dropdown-toggle" tabindex="0" role="button" aria-haspopup="listbox" aria-controls="less-theme-choser-listbox sass-theme-choser-listbox">
+        @if (SelectedTheme != null)
+        {
+            var palette = SelectedTheme.Palette.Where((source, index) => index != 1 && index != 3).ToArray();
+            var themeName = SelectedTheme.Name.Split('-')[0];
+
+            @Html.Partial("ThemeColors", palette);
+
+            <span class="theme-@SelectedTheme.Title">
+                <span class="theme-name">@themeName</span>
+            </span>
+        }
+        <span class="spacer"></span>
+        <span class="icon arrow" aria-hidden="true">
+            @Html.Raw(File.ReadAllText(Server.MapPath("~/content/shared/images/site/arrow-60-down.svg")))
+        </span>
+    </div>
+    <div class="theme-chooser-dropdown dropdown">
+        <div id="sass-theme-choser-listbox" role="listbox" aria-label="SASS themes" class="themes-list sass-list kd-list">
+            @foreach (var theme in sassThemes)
+            {
+                <div role="group" class="theme-col">
+                    <div class="theme-title">
+                        @theme.Title Theme
+                    </div>
+                    <ul role="none" class="kd-list">
+                        @foreach (Theme swatch in theme.Swatches)
+                        {
+                            var selectedClass = SelectedTheme.Name.Equals(swatch.Name) ? "kd-theme-selected" : "";
+                            <li role="option" aria-describedby="group-heding-@theme.Title" class="kd-theme theme-@swatch.Title @selectedClass" data-val="@swatch.Name">
+                                @Html.Partial("ThemeColors", swatch.Palette)
+                                <span class="theme-name">@swatch.Title</span>
+                                @if (!string.IsNullOrEmpty(swatch.Icon))
+                                {
+                                    <span class="theme-icon">
+                                        @Html.Raw(File.ReadAllText(Server.MapPath("~/content/shared/icons/theme-chooser/" + @swatch.Icon + ".svg")))
+                                    </span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+        <div class="theme-chooser-footer">
+            <a class="tb-button kd-link" target="_blank" href="https://themebuilderapp.telerik.com">
+                <span class="icon">
+                    @Html.Raw(File.ReadAllText(Server.MapPath("~/content/shared/images/site/tb-icon-blue.svg")))
+                </span>
+                Launch Theme Builder
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="demo-section">
+        <h4>ProgressBar</h4>
+        @(Html.Kendo().ProgressBar()
+              .Name("progressBar")
+              .Min(0)
+              .Max(10)
+              .Type(ProgressBarType.Percent)
+              .Events(e => {
+                  e.Change("onChange");
+                  e.Complete("onComplete");
+              })
+        )
+        <button id="startProgress" class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md">Start progress</button>
+    </div>
+
+    @section scripts {
+<script>
+        function onChange(e) {
+            kendoConsole.log("Change event :: value is " + e.value);
+        }
+
+        function onComplete(e) {
+            kendoConsole.log("Complete event :: value is " + e.value);
+            $("#startProgress").text("Restart Progress").removeClass("k-disabled");
+        }
+
+        $(document).on("kendoReady", function () {
+
+            $("#startProgress").click(function () {
+                if (!$(this).hasClass("k-disabled")) {
+                    $(this).addClass("k-disabled");
+                    progress();
+                }
+            });
+        });
+
+        function progress() {
+            var pb = $("#progressBar").data("kendoProgressBar");
+            pb.value(0);
+
+            var interval = setInterval(function () {
+                if (pb.value() < 10) {
+                    pb.value(pb.value() + 1);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 100);
+        }
+    </script>
+}
+
+    <style>
+       #progressBar {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>

@@ -1,0 +1,131 @@
+<div class="demo-section custom-width">
+    <h4>Configure Kendo UI Grid</h4>
+    @(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.ProductViewModel>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ProductID).Filterable(false);
+            columns.Bound(p => p.ProductName).Width(100);
+            columns.Bound(p => p.QuantityPerUnit).Width(100);
+            columns.Bound(p => p.CategoryID).Width(80);
+            columns.Bound(p => p.UnitPrice).Width(75);
+        })
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .Groupable()
+        .HtmlAttributes(new { style = "height:400px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(100)
+            .Read(r => r.Action("GridIntegration_Read", "WordsProcessing"))
+         )
+         .Events(e => e.DataBound("onDataBound"))
+    )
+
+    <h4>Configure the generated document</h4>
+    @using (Html.BeginForm("DocumentFromGrid", "WordsProcessing", FormMethod.Post, new { id = "form" }))
+    {
+        <div class="configuration-container">
+            <label for="headerBackground" class="label">Header Background</label>
+            @(Html.Kendo().ColorPicker()
+                .Name("headerBackground")
+                .Value("rgb(127,127,127)")
+                .Format(ColorPickerFormat.Hex)
+                .Formats(new string[] { "hex" })
+            )
+        </div>
+        <div class="configuration-container">
+            <label for="groupHeaderBackground" class="label">Group Header Background</label>
+            @(Html.Kendo().ColorPicker()
+                .Name("groupHeaderBackground")
+                .Value("rgb(216,216,216)")
+                .Format(ColorPickerFormat.Hex)
+                .Formats(new string[] { "hex" })
+            )
+        </div>
+        <div class="configuration-container">
+            <label for="rowBackground" class="label">Row Background</label>
+            @(Html.Kendo().ColorPicker()
+                .Name("rowBackground")
+                .Value("rgb(251,247,255)")
+                .Format(ColorPickerFormat.Hex)
+                .Formats(new string[] { "hex" })
+            )
+        </div>
+        <div class="configuration-container">
+            @(Html.Kendo().CheckBox().Name("repeateHeader").Checked(true).Label("Repeat header on every page"))
+        </div>
+        <div class="configuration-container">
+            @Html.Label("fileExtension", "Export to: ", new { @class = "label" })
+            @(Html.Kendo().DropDownList()
+                .Name("fileType")
+                .SelectedIndex(0)
+                .Items(items =>
+                {
+                    items.Add().Text("DOCX").Value("docx");
+                    items.Add().Text("RTF").Value("rtf");
+                    items.Add().Text("HTML").Value("html");
+                    items.Add().Text("TXT").Value("txt");
+                })
+            )
+        </div>
+        <hr />
+        <input type="submit" class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md wide-btn clear" value="Generate and Download" />
+
+        @Html.Hidden("columns")
+    }
+</div>
+
+@section scripts {
+<script>
+    function onDataBound(e) {
+        var grid = e.sender;
+        var columns = [];
+        var gridColumns = grid.columns;
+
+        // Get the columns configuration from the Grid widget
+        for (var i = 0; i < gridColumns.length; i++) {
+            columns.push({
+                field: gridColumns[i].field,
+                title: gridColumns[i].title
+            });
+        }
+
+        $('#columns').val(JSON.stringify(columns));
+    }
+</script>
+}
+
+<style>
+    #example .demo-section.custom-width {
+        max-width: 720px;
+    }
+
+    .k-grid {
+        margin-bottom: 1.5em;
+    }
+
+   hr {
+        margin: 15px 0;
+        border-width: 0 0 1px 0;
+        border-color: #c9c9c9;
+        border-style: solid;
+    }
+
+    .configuration-container {
+        margin: 15px auto;
+        height: 30px;
+    }
+
+    .configuration-container .label {
+        display: inline-block;
+        width: 170px;
+    }
+
+    .wide-btn {
+        width: 240px;
+        margin-top: 2em;
+        float: right;
+    }
+</style>

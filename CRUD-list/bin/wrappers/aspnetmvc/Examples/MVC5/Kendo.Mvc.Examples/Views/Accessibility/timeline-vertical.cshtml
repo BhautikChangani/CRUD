@@ -1,0 +1,34 @@
+
+        <div id="example">
+            <div id="timeline"></div>
+
+            <script type="module">
+                $(document).ready(function () {
+                    $("#timeline").kendoTimeline({
+                        dataSource: {
+                          transport: {
+                            read: {
+                                url: "js/events-vertical-part2.json",
+                                dataType: "json"
+                            }
+                          },
+                          schema: {
+                            model: {
+                              fields: {
+                                date: {
+                                  type: "date"
+                                },
+                              }
+                            }
+                          }
+                        },
+                        alternatingMode: true,
+                        collapsibleEvents: true,
+                        navigatable: true,
+                        orientation: "vertical",
+						dateFormat: "M/d/yyyy"
+                    });
+                });
+            </script>
+        </div>
+    

@@ -1,0 +1,11 @@
+<div class="k-d-flex k-justify-content-center">
+    <div class="k-w-300">
+        <h4>Pick Range:</h4>
+        @(Html.Kendo().Calendar()
+            .Name("calendar")
+            .ShowOtherMonthDays(false)
+            .Selectable("range")
+            .AllowReverse(true)
+        )
+    </div> 
+</div>

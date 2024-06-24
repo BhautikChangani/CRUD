@@ -1,0 +1,57 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="orders">Search for shipping names:</label>
+        @(Html.Kendo().MultiSelect()
+          .Name("orders")
+          .DataTextField("ShipName")
+          .DataValueField("OrderID")
+          .Placeholder("Select addresses...")
+          .ItemTemplate("<span class=\"order-id\">#= OrderID #</span> #= ShipName #, #= ShipCountry #")
+          .Height(520)
+          .Filter("contains")
+          .DataSource(source => {
+              source.Custom()
+                  .ServerFiltering(true)
+                  .ServerPaging(true)
+                  .PageSize(80)
+                  .Type("aspnetmvc-ajax") //Set this type if you want to use DataSourceRequest and ToDataSourceResult instances
+                  .Transport(transport =>
+                  {
+                      transport.Read("Virtualization_Read", "MultiSelect");
+                  })
+                  .Schema(schema =>
+                  {
+                      schema.Data("Data") //define the [data](https://docs.telerik.com/kendo-ui/api/javascript/data/datasource#configuration-schema.data) option
+                            .Total("Total"); //define the [total](https://docs.telerik.com/kendo-ui/api/javascript/data/datasource#configuration-schema.total) option
+                  });
+          })
+          .Virtual(v => v.ItemHeight(26).ValueMapper("valueMapper"))
+          .Value(new int[] { 10265, 10289 })
+        )
+    </div>
+</div>
+    @section scripts {
+        <script>
+    function valueMapper(options) {
+        $.ajax({
+            url: "@Url.Action("Orders_ValueMapper", "MultiSelect")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function convertValues(value) {
+        var data = {};
+
+        value = $.isArray(value) ? value : [value];
+
+        for (var idx = 0; idx < value.length; idx++) {
+            data["values[" + idx + "]"] = value[idx];
+        }
+
+        return data;
+    }
+        </script>
+    }

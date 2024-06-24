@@ -1,0 +1,29 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="colorgradient">ColorGradient</label>
+        @(Html.Kendo().ColorGradient()
+            .Name("colorgradient")
+            .Value("#00f")
+            .Events(ev => ev.Change("onChange"))
+        )
+    </div>
+</div>
+
+@section scripts {
+<script type="text/javascript">
+    function onChange(e) {
+        kendoConsole.log("Change in picker #" + this.element.attr("id") + " :: " + e.value);
+    }
+</script>
+}
+
+<style>
+    .k-w-300 label{
+        text-align: center;
+        display: block;
+    }
+    
+    .k-colorgradient {
+        margin: 0 auto;
+    }
+</style>

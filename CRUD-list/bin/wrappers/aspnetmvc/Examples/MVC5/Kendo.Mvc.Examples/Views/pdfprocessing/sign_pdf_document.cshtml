@@ -1,0 +1,31 @@
+<div id="example">
+    <div class="demo-section">
+        <h4>Preview template used in the generated and signed PDF</h4>
+        @using (Html.BeginForm("Sign_PDF_Document", "PdfProcessing"))
+            {
+
+            <iframe src='@Url.Content("~/content/web/pdfprocessing/Unsigned.pdf")'
+                    width="400px" height="600px"></iframe>
+                    <div class="demo-hint">The generated document will be signed with "JohnDoe.pfx" preloaded certificate</div>
+
+                    <input type="submit" value="Sign and Download" class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md downloadBtn" />
+        }
+    </div>
+</div>
+
+
+<style>
+    input {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .downloadBtn {
+        width: 240px;
+        float: right;
+        margin-top: 15px;
+    }
+    .demo-hint {
+        padding-top: 0;
+    }
+</style>

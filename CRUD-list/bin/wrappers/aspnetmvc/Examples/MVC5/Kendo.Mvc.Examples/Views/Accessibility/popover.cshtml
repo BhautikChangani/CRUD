@@ -1,0 +1,24 @@
+
+            <div>
+     <button id="btn1" class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md"> Click to show PopOver  </button>
+        </div>
+        <script type="module">
+            $(document).ready(function () {
+             var popover = $("#btn1").kendoPopover({
+                showOn: "click",
+                width: "330px",
+                position: "right",
+                toggleOnClick: true,
+                header: "Info",
+                body: "Message",
+                actions: [
+                    {
+                      text: "Close",
+                    click: function (e) {
+                        e.sender.hide();
+                    }
+                    }]
+            }).data("kendoPopover");
+      });
+    </script>
+        

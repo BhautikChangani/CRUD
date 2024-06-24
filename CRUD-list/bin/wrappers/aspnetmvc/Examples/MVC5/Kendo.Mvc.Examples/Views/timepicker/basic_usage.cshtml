@@ -1,0 +1,11 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="timepicker">Set alarm time:</label>
+        @(Html.Kendo().TimePicker()
+            .Name("timepicker")
+            .Value("10:00 AM")
+            .HtmlAttributes(new { style = "width: 100%", title = "timepicker" })
+            .DateInput()
+        )
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<div id="example">
+    <div class="demo-section">
+        @using (Html.BeginForm("Create_Document", "WordsProcessing"))
+        {
+            <span>Preview:</span>
+            <div class="imageContainer">
+                <img alt="Telerik UI for ASP.NET MVC WordsProcessing sample document preview" src="~/Content/web/wordsprocessing/GenerateDocThumbnail.png" />
+            </div>
+            <hr />
+            <div class="file-options-wrapper">
+                <div class="heder-footer-wrapper">
+                    @(Html.Kendo().CheckBox().Name("includeHeader").Checked(true).Label("Include Header"))
+                    @(Html.Kendo().CheckBox().Name("includeFooter").Checked(true).Label("Include Footer"))
+                </div>
+                <div>
+                    @Html.Label("fileExtension", "Download as: ", new { @class="drop-down-label" })
+                    @(Html.Kendo().DropDownList()
+                        .Name("fileType")
+                        .SelectedIndex(0)
+                        .Items(items =>
+                        {
+                            items.Add().Text("DOCX").Value("docx");
+                            items.Add().Text("RTF").Value("rtf");
+                            items.Add().Text("HTML").Value("html");
+                            items.Add().Text("TXT").Value("txt");
+                        })
+                    )
+                </div>
+            </div>
+            <hr class="clear" />
+            <input type="submit" class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md wide-btn float-right" value="Generate and Download" />
+        }
+    </div>
+</div>
+
+<style>
+    .heder-footer-wrapper {
+        margin-left: 100px;
+        margin-bottom: 16px;
+    }
+
+        .heder-footer-wrapper .k-checkbox-label {
+            margin-right: 15px;
+        }
+
+    .drop-down-label {
+        width: 97px;
+        display: inline-block;
+    }
+
+    .imageContainer {
+        border: 1px solid #c9c9c9;
+        height: 259px;
+        width: 200px;
+        position: relative;
+        margin: 0 auto;
+        top: -10px;
+    }
+
+        .imageContainer img {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+        }
+
+    hr {
+        margin: 15px 0;
+        border-width: 0 0 1px 0;
+        border-color: #c9c9c9;
+        border-style: solid;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .wide-btn {
+        width: 240px;
+    }
+</style>

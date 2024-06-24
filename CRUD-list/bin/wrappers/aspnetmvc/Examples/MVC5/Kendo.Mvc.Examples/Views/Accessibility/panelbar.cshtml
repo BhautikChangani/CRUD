@@ -1,0 +1,50 @@
+
+            <div>
+                <ul id="panelbar" style="width: 400px;">
+                    <li>
+                        Projects
+                        <ul>
+                            <li>New Business Plan</li>
+                            <li>
+                                Sales Forecasts
+                                <ul>
+                                    <li>Q1 Forecast</li>
+                                    <li>Q2 Forecast</li>
+                                    <li>Q3 Forecast</li>
+                                    <li>Q4 Forecast</li>
+                                </ul>
+                            </li>
+                            <li>Sales Reports</li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        Programs
+                        <ul>
+                            <li>Monday</li>
+                            <li>Tuesday</li>
+                            <li>Wednesday</li>
+                            <li>Thursday</li>
+                            <li>Friday</li>
+                        </ul>
+                    </li>
+                    <li disabled="disabled">
+                        Communication
+                    </li>
+                </ul>
+            </div>
+
+            <script type="module">
+                $(document).ready(function() {
+                    $("#panelbar").kendoPanelBar({
+                        expandMode: "multiple"
+                    });
+
+                    $(document.body).keydown(function (e) {
+                        if (e.altKey && e.keyCode == 87) {
+                            $("#panelbar").focus();
+                        }
+                    });
+                });
+            </script>
+        

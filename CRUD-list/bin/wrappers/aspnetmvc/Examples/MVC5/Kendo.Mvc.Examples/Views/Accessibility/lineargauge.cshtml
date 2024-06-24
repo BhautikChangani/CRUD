@@ -1,0 +1,48 @@
+
+            <figure>
+                <div id="gauge" tabindex="0" role="img" title="Linear Gauge"></div>
+                <figcaption pos>
+                    The current value is 50
+                </figcaption>
+            </figure>
+          <script type="module">
+              $(document).ready(function () {
+
+                kendo.dataviz.autoTheme(true);
+                kendo.dataviz.ui['LinearGauge'].fn.options.theme = "sass";
+
+                  $("#gauge").kendoLinearGauge({
+                      pointer: {
+                          value: 50
+                      },
+                      scale: {
+                          majorUnit: 20,
+                          minorUnit: 2,
+                          min: -40,
+                          max: 60,
+                          vertical: true,
+                          ranges: [
+                              {
+                                  from: -40,
+                                  to: -20,
+                                  color: "#2798df"
+                              }, {
+                                  from: 30,
+                                  to: 45,
+                                  color: "#ffc700"
+                              }, {
+                                  from: 45,
+                                  to: 60,
+                                  color: "#c20000"
+                              }
+                          ]
+                      }
+                  });
+                });
+          </script>
+                 <style>
+                    figure {
+                        text-align: center;
+                    }
+                </style>
+        

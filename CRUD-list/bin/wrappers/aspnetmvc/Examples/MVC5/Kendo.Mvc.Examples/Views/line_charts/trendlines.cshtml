@@ -1,0 +1,80 @@
+@model IEnumerable<Kendo.Mvc.Examples.Models.Chart.SalesPerQuarterViewModel>
+
+<script>
+    var dataSource = new kendo.data.DataSource({
+        data: [
+            {
+                period: "2021 Q1",
+                count: 369590.0
+            },
+            {
+                period: "2021 Q2",
+                count: 793564.0
+            },
+            {
+                period: "2021 Q3",
+                count: 1441133.0
+            },
+            {
+                period: "2021 Q4",
+                count: 1233020.0
+            },
+            {
+                period: "2022 Q1",
+                count: 933020.0
+            },
+            {
+                period: "2022 Q2",
+                count: 533020.0
+            },
+            {
+                period: "2022 Q3",
+                count: 1533020.0
+            }
+        ]
+    });
+</script>
+<div class="demo-section wide">
+    @(Html.Kendo().Chart(Model)
+        .Name("chart")
+        .Title("Trends in Quarterly Sales")
+        .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+        .Series(series =>
+        {
+            series.Line(model => model.Amount)
+                .Name("Sales By Quarter")
+                .CategoryField("Period");
+            series.LinearTrendline().For("Sales By Quarter").Color("darkgreen").Name("Forecast")
+                .Trendline(trendline => trendline.Forecast(forecast => forecast.After(15)));
+            series.MovingAverageTrendline().For("Sales By Quarter").Name("Moving Average")
+                .Trendline(trendline => trendline.Period(2));
+        })
+        .CategoryAxis(axis => axis
+            .MajorGridLines(lines => lines.Visible(false))
+            .Labels(lbls => lbls.Position(ChartAxisLabelsPosition.Start).Rotation(-99)))
+        .ValueAxis(axis => axis.Numeric()
+            .Min(-4e5)
+            .Max(1.2e6))
+        .Tooltip(tooltip => tooltip.Format("C").Visible(true).Shared(true))
+        .Pannable(true)
+        .Transitions(false))
+    <br />
+    @(Html.Kendo().Chart()
+        .Name("polynomial-chart")
+        .Title("Polynomial Trend Line")
+        .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+        .Series(series =>
+        {
+            series.Line("count")
+                .Name("Sales By Quarter")
+                .CategoryField("period");
+            series.PolynomialTrendline()
+                .Name("Sales Trend")
+                .For("Sales By Quarter")
+                .Trendline(trendline => trendline.Order(3));
+        })
+        .DataSource("dataSource")
+        .Pannable(true)
+        .Transitions(false))
+</div>
+

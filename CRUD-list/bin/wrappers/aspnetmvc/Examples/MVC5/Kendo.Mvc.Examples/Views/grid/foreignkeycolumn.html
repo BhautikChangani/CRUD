@@ -1,0 +1,33 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The ForeignKey column functionality of the <a href="https://www.telerik.com/aspnet-mvc/grid">Telerik UI for ASP.NET MVC Grid</a> component is primarily used for matching the value of a bound property to
+  a desired text field from a collection that is external for the Data Grid. The ForeignKey column feature follows
+  the convention of the SQL ForeignKey functionality that is used for linking
+  two tables based on a foreign key.
+</p>
+<p>
+  This example shows how to implement a foreign-key column in the
+  ASP.NET MVC Data Grid, which generates an <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/editors/dropdownlist/overview" target="_blank">ASP.NET MVC DropDownList</a> editor for
+  its <strong>Category</strong> column. To define the ForeignKey column, set  <code>columns.ForeignKey(p => p.CategoryID,(System.Collections.IEnumerable)ViewData["categories"],"CategoryID","CategoryName").Title("Category").Width(150);</code>.
+</p>
+<p> 
+  When a column is defined as a ForeignKey column, the Data Grid will look for the <code>GridForeignKey.cshtml</code> editor template in the <code>~Views\\Shared\\EditorTemplates</code> folder, and populate it with the passed collection through the column declaration. To set the editor template, use the following definition:
+</p>
+<p>
+  @model object
+  <br />
+  @(Html.Kendo().DropDownListFor(m => m)
+  <br />
+  <span>&nbsp;&nbsp;&nbsp;</span>.BindTo((SelectList)ViewData[ViewData.TemplateInfo.GetFullHtmlFieldName("")+
+  "_Data"])
+  <br />
+</p>
+<p>
+  In addition to the Foreign Key editor template, you can populate a list which holds all the categories and pass it through the <code>ViewData</code>. For the specific configuration, refer to the <code>ForeignKeyColumnController.cs</code> <code>PopulateCategories()</code> method.
+</p>
+<p>
+  If you are going to use <code>Create</code> operations, provide a <code>DefaultCategory</code> in the DataSource <code>Model</code> field.
+</p>
+<p>
+  For more information about the ForeignKey column capabilities, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/filtering" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available fltering approaches</a>.
+</p>

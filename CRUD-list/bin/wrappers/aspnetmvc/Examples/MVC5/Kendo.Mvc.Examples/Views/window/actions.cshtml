@@ -1,0 +1,109 @@
+@(Html.Kendo().Window()
+    .Name("window")
+    .Title("About Josef Hoffmann")
+    .Actions(actions => actions
+        .Custom("custom")
+        .Minimize()
+        .Maximize()
+        .Close()
+    )
+    .Content(@<text>
+        <div class="armchair">
+            <img src="@Url.Content("~/Content/web/window/kubus-armchair.png")"
+                    alt="Josef Hoffmann - Kubus Armchair" />
+            Josef Hoffmann - Kubus Armchair
+        </div>
+
+        <p>
+            Josef Hoffmann studied architecture at the Academy of Fine Arts in Vienna,
+            Austria, under Art Nouveau architect Otto Wagner, whose theories of functional,
+            modern architecture profoundly influenced his works, and in 1896 he joined his office.
+        </p>
+
+        <p>
+            In 1898, he established his own practice in Vienna. In 1897, inspired by Mackintosh
+            and the Glasgow School, he was one of the founding members with Gustav Klimt, of an
+            association of revolutionary artists and architects, the Vienna Secession.
+        </p>
+
+        <p>
+            In 1903, he founded with architects Koloman Moser and Joseph Maria Olbrich, the Wiener
+            Werkstätte for decorative arts.
+        </p>
+
+        <p>
+            They aspired to the renaissance of the arts and crafts and to bring more abstract and
+            purer forms to the designs of buildings and furniture, glass and metalwork, following
+            the concept of total work of art. Hoffmans works combined functionality and simplicity
+            of craft production with refined and innovative ornamental details and geometric
+            elements. He is an important precursor of the Modern Movement and Art Deco.
+        </p>
+
+        <p>
+            Source:
+            <a href="https://www.senses-artnouveau.com" title="About Josef Hoffmann">https://www.senses-artnouveau.com</a>
+        </p>
+    </text>)
+    .Draggable()
+    .Resizable()
+    .Events(ev => ev.Close("onClose"))
+    .Width(500)
+)
+
+<span id="undo" style="display: none;" class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md hidden-on-narrow">Click to open the window</span>
+
+<div class="responsive-message"></div>
+
+@section scripts {
+<script>
+    function onClose() {
+        $("#undo").show();
+    }
+
+    $(document).on("kendoReady", function () {
+        var dialog = $("#window");
+
+        $("#undo").bind("click", function () {
+            dialog.data("kendoWindow").open();
+            $("#undo").hide();
+        });
+
+        dialog.data("kendoWindow").wrapper
+            .find(".k-svg-i-gear").parent().click(function (e) {
+                alert("Custom action button clicked");
+                e.preventDefault();
+            });
+    });
+</script>
+}
+
+<style>
+    #example {
+        min-height:500px;
+    }
+
+    #undo {
+        position: absolute;
+    }
+
+    .armchair {
+        float: left;
+        margin: 20px 30px;
+        text-align: center;
+    }
+
+    .armchair img {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .k-window {
+        z-index: 100000;
+    }
+
+    @@media screen and (max-width: 1023px) {
+        div.k-window {
+            display: none !important;
+        }
+    }
+</style>

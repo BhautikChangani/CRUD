@@ -1,0 +1,24 @@
+
+        <figure>
+            <div id="gauge" tabindex="0" role="img" title="Arc Gauge Temperature"></div>
+            <figcaption pos>
+                75 % loaded
+            </figcaption>
+        </figure>
+        <script type="module">
+            $(document).ready(function () {
+
+                kendo.dataviz.autoTheme(true);
+                kendo.dataviz.ui['ArcGauge'].fn.options.theme = "sass";
+
+                $("#gauge").kendoArcGauge({
+                    value: 75
+                });
+            });
+        </script>
+        <style>
+            figure {
+                text-align: center;
+            }
+        </style>
+    

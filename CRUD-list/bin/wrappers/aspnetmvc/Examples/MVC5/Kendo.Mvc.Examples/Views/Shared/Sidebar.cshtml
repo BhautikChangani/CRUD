@@ -1,0 +1,104 @@
+@{
+    string navProduct = ViewBag.NavProduct;
+}
+
+<style>
+    .kd-sidebar-root-nav li > a.kd-group-link > .k-icon {
+        margin-left: -16px;
+        margin-right: 4px;
+    }
+
+    .kd-sidebar-root-nav li.level-1 > a {
+        padding-left: 32px
+    }
+
+    .kd-sidebar-root-nav li.level-2 > a, .kd-sidebar-root-nav li.level-2 .group {
+        padding-left: 48px
+    }
+
+    .kd-sidebar-root-nav li.level-3 > a {
+        padding-left: 64px
+    }
+
+    .kd-link.kd-link-bolded {
+        font-weight: bold;
+    }
+
+    .kd-sidebar-root-nav li.level-2 > a {
+        padding-left: 48px;
+    }
+
+    .kd-sidebar-root-nav a {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .kd-jquery .kd-sidebar-container a.kd-group-link:focus {
+        color: inherit;
+    }
+
+    .kd-sidebar-root-nav li > span, .kd-sidebar-root-nav li a {
+        padding: 0 32px;
+        display: block;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 30px;
+    }
+</style>
+
+<aside class="kd-sidebar">
+    @if (ViewBag.CurrentWidget != null)
+    {
+        <div class="kd-sidebar-toggle">
+            <a href="#" title="See all components" class="kd-link">
+                <span class="text">All Components</span>
+            </a>
+        </div>
+    }
+    <div class="kd-sidebar-container root">
+        <div class="kd-sidebar-root-nav">
+            <ul class="kd-list">
+                @if (ViewBag.Navigation != null)
+                {
+                    foreach (NavigationWidget widget in ViewBag.Navigation)
+                    {
+                        if (widget.ShouldInclude())
+                        {
+                            <li class="@(ViewBag.CurrentWidget != null && ViewBag.CurrentWidget.Text == widget.Text ? "level-1 selected" : "level-1")">
+                                @if (ViewBag.CurrentWidget != null)
+                                {
+                                    @Html.WidgetExpander(widget, (bool)(ViewBag.CurrentWidget.Name != widget.Name))
+                                    <ul class="kd-list" style="@(ViewBag.CurrentWidget.Name != widget.Name ? "display:none" : "")">
+                                        @foreach (NavigationExample example in widget.Items)
+                                        {
+                                            if (example.ShouldInclude())
+                                            {
+                                                <li class="level-2">@Html.ExampleLink(example)</li>
+                                            }
+                                        }
+                                        @foreach (NavigationExampleGroup group in widget.Groups)
+                                        {
+
+                                            <li class="level-2">
+                                                @Html.GroupExpander(group)
+                                                <ul class="kd-list">
+                                                    @foreach (NavigationExample demo in group.Items)
+                                                    {
+                                                        if (demo.ShouldInclude())
+                                                        {
+                                                            <li class="level-3">@Html.ExampleLink(demo)</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</aside>

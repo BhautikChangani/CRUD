@@ -1,0 +1,39 @@
+@model IEnumerable<Kendo.Mvc.Examples.Models.ProductViewModel>
+
+@(Html.Kendo().Grid(Model)    
+    .Name("Grid")
+    .Columns(columns => {        
+        columns.Bound(p => p.ProductName);
+        columns.Bound(p => p.UnitPrice);
+        columns.Bound(p => p.UnitsInStock);
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250);
+    })
+    .Height(500)
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+        .Server()
+        .Model(model => model.Id(p => p.ProductID))
+        .Read("ServerEditing", "Grid")
+        .Update("Update", "Grid")
+        .Create("Create", "Grid")
+        .Destroy("Destroy", "Grid")
+    )
+)
+
+@section scripts {
+<script type="text/javascript">
+    $(document).on("kendoReady", function() {        
+        $("form.k-edit-form").kendoValidator();
+    });
+</script>
+}
+<style>
+    .k-grid-actions {
+        display: inline-block;
+        margin-left: 5px;
+    }
+</style>

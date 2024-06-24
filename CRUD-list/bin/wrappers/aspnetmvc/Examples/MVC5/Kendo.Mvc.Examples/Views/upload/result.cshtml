@@ -1,0 +1,20 @@
+<div class="demo-section">
+<h4>Uploaded files</h4>
+
+@if (TempData.ContainsKey("UploadedFiles")) {
+    <div class="t-widget t-upload">
+        <ul class="t-upload-files t-reset">
+    @foreach (var attachment in (IEnumerable<string>)TempData["UploadedFiles"])
+       {
+            <li class="t-file"><span class="t-icon t-success"></span>@attachment</li>
+     }
+        </ul>
+    </div>
+ } else {
+    <text>-- None --</text>
+ }
+
+<p style="margin-top: 1em;">
+    <a href='@Url.Action("BasicUsage", "Upload")' class="k-button k-button-flat-primary k-button-flat k-button-md k-rounded-md">Go back</a>
+</p>
+</div>

@@ -1,0 +1,21 @@
+@(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.ProductViewModel>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.ProductName).HideOnGroup(true);
+        columns.Bound(p => p.UnitPrice).HideOnGroup(true);
+        columns.Bound(p => p.UnitsInStock).HideOnGroup(true);
+        columns.Bound(p => p.Discontinued).HideOnGroup(true);
+    })
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+    .Groupable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Read(read => read.Action("HidingGroupedColumns_Read", "Grid"))
+    )
+)

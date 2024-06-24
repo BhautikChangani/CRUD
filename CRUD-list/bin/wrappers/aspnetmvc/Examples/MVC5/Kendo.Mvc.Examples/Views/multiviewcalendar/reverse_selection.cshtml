@@ -1,0 +1,10 @@
+<div class="k-d-flex k-justify-content-center">
+    <div class="k-w-500">
+        <h4>Pick a date</h4>
+        @(Html.Kendo().MultiViewCalendar()
+            .Name("multiViewCalendar")
+            .Selectable("range")
+            .AllowReverse(true)
+        )
+    </div>
+</div>

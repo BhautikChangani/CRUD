@@ -1,0 +1,22 @@
+
+        <button type="button" id="textButton">Text button</button>
+        <span id="iconTextButton">Icon and text</span>
+        <em id="iconButton" title="Refresh"><span class="k-icon refresh"></span></em>
+
+        <script type="module">
+
+            $(document).ready(function () {
+
+                $("#textButton").kendoToggleButton({
+                });
+
+                $("#iconTextButton").kendoToggleButton({
+                    icon: "ungroup"
+                });
+
+                $("#iconButton").kendoToggleButton({
+                    icon: "arrow-rotate-cw"
+                });
+            });
+        </script>
+    

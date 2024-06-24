@@ -1,0 +1,215 @@
+<h2 class="kd-title">Description</h2>
+<div class="kd-text kd-text-secondary">
+<p>
+  Keyboard navigation provides all web and app users with a fast keyboard-only navigation capability and is also part of the web accessibility features&#8212;it enables users with disabilities to fully control their website or app access through the keyboard.
+</p>
+<p>
+  By default, users can only navigate to links, buttons, and form controls with a keyboard. The navigation order in which interactive items receive keyboard focus has to be logical and intuitive. Generally, keyboard navigation logic needs to follow the visual horizontal and vertical flow of the page, for example, left to right and top to bottom, header first followed by the main and then the page navigation.
+</p>
+<p>
+  The <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/accessibility/keyboard-navigation" target="_blank">Data Grid keyboard navigation</a> is enabled by default, as demonstrated in this demo.
+</p>
+<p>
+  The Grid supports the following keyboard shortcuts:
+</p>
+<h4>Focus</h4>
+<ul class="keyboard-legend" style="margin-bottom: 1em;">
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Alt</span>
+            +
+            <span class="key-button">W</span>
+        </span>
+        <span class="button-descr">
+            Focuses the component.
+        </span>
+    </li>
+</ul>
+
+<h4>Actions Applied to the Data Grid Header</h4>
+<ul class="keyboard-legend">
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Enter</span>
+        </span>
+        <span class="button-descr">
+            Sorts by the column.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Alt</span>
+            +
+            <span class="key-button">Down</span>
+        </span>
+        <span class="button-descr">
+            Opens the filter menu.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Esc</span>
+        </span>
+        <span class="button-descr">
+            Closes the filter menu.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Tab</span>
+        </span>
+        <span class="button-descr">
+            Navigates through the elements in the filter menu (default browser behavior).
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Shift</span>
+            +
+            <span class="key-button">Tab</span>
+        </span>
+        <span class="button-descr">
+            Same as <code>Tab</code>, but in reverse order.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Ctrl</span>
+            +
+            <span class="key-button">Left Arrow</span>
+        </span>
+        <span class="button-descr">
+            Reorders the column with the previous one.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Ctrl</span>
+            +
+            <span class="key-button">Right Arrow</span>
+        </span>
+        <span class="button-descr">
+            Reorders the column with the next one.
+        </span>
+    </li>
+</ul>
+
+<h4>Actions Applied to the Data Grid Table</h4>
+<ul class="keyboard-legend">
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider">Arrow Keys</span>
+        </span>
+        <span class="button-descr">
+            Navigate over the cells.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Enter</span>
+        </span>
+        <span class="button-descr">
+            On a group row toggles the expand and collapse state.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider">Page Up</span>
+        </span>
+        <span class="button-descr">
+            Pages to the previouse page.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider">Page Down</span>
+        </span>
+        <span class="button-descr">
+            Pages to the next page.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button">Space</span>
+        </span>
+        <span class="button-descr">
+            Selects the row holding the currently highlighted cell.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Ctrl</span>
+            +
+            <span class="key-button">Space</span>
+        </span>
+        <span class="button-descr">
+            (For the multiple selection mode) Selects or deselects the current row while persisting the previously selected ones.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Shift</span>
+            +
+            <span class="key-button">Space</span>
+        </span>
+        <span class="button-descr">
+            Performs range selection, selects all the rows between the last selected one (with <code>Space</code> or a mouse click) and the one holding the focused cell.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Shift</span>
+            +
+            <span class="key-button">Arrow Keys</span>
+        </span>
+        <span class="button-descr">
+            (For the multiple selection mode) Adds the row which holds the focused cell to the selection.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider">Ctrl</span>
+            +
+            <span class="key-button">Home</span>
+        </span>
+        <span class="button-descr">
+            Focuses the first focusable element inside the body.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider">Ctrl</span>
+            +
+            <span class="key-button">End</span>
+        </span>
+        <span class="button-descr">
+            Focuses the last focusable cell in the last row.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider">Home</span>
+        </span>
+        <span class="button-descr">
+            Focuses the first focusable cell in the row.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button wider">End</span>
+        </span>
+        <span class="button-descr">
+            Focuses the last focusable cell in the row.
+        </span>
+    </li>
+    <li>
+        <span class="button-preview">
+            <span class="key-button leftAlign">Ctrl</span>
+            +
+            <span class="key-button">Space</span>
+        </span>
+        <span class="button-descr">
+            Groups or ungroups the focused column.
+        </span>
+    </li>
+</ul>

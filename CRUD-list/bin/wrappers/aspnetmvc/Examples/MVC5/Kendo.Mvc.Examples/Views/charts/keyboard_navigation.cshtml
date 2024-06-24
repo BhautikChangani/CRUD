@@ -1,0 +1,27 @@
+<div class="demo-section wide">
+    @(Html.Kendo().Chart()
+    .Name("chart")
+    .Title(t=>t.Text("Electricity Generation").Description("A chart displaying a breakdown of the electricity generation by source"))
+    .Legend(legend => legend
+        .Position(ChartLegendPosition.Bottom)
+    )
+    .Series(series => {
+        series.Donut(new dynamic[] {
+            new {category = "Hydro",value = 0.175},
+            new {category = "Nuclear",value = 0.238},
+            new {category = "Coal",value = 0.118},
+            new {category = "Solar",value = 0.052},
+            new {category = "Wind",value = 0.225},
+            new {category = "Other",value = 0.192}
+        })
+        .Labels(labels => labels
+            .Visible(true)
+            .Template("#= category #")
+            .AriaTemplate("#= value # is produced by #= category #")
+            .Color("#fff")
+            .Background("none")
+        );
+    })
+)
+</div>
+

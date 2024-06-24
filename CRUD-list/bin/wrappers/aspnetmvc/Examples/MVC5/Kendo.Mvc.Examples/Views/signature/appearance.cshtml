@@ -1,0 +1,134 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <h4>SIZE</h4>
+        <ul class="options">
+            <li>
+                <input id="size" />
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>BORDER RADIUS</h4>
+        <ul class="options">
+            <li>
+                <input id="rounded" />
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>FILL MODE</h4>
+        <ul class="options">
+            <li>
+                <input id="fillMode" />
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>Brush Color</h4>
+        <ul class="options">
+            <li>
+                <input id='colorpicker' />
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>Background Color</h4>
+        <ul class="options">
+            <li>
+                <input id='background' />
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>Brush Size</h4>
+        <ul class="options">
+            <li>
+                <input id='brush-size' />
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="k-d-flex k-justify-content-center">
+    @(Html.Kendo().Signature()
+            .Name("signature")
+            .Maximizable(true)
+            .HideLine(false)
+            .PopupScale(1)
+            .Width(600)
+            .Height(340)
+            )
+</div>
+
+<script>
+    $(document).ready(function () {
+        var signature = $("#signature").getKendoSignature();
+
+        $("#colorpicker").kendoColorPicker({
+            view: "gradient",
+            views: ["gradient", "palette"],
+            value: "#000000",
+            change: function (e) {
+                signature.setOptions({
+                    color: e.value
+                });
+            },
+            buttons: false
+        });
+        $("#background").kendoColorPicker({
+            view: "gradient",
+            value: "#FFFFFF",
+            views: ["gradient", "palette"],
+            change: function (e) {
+                signature.setOptions({
+                    backgroundColor: e.value
+                });
+            },
+            buttons: false
+        });
+        $("#brush-size").kendoSlider({
+            min: 1,
+            max: 5,
+            tooltip: {
+                enabled: false
+            },
+            change: function (e) {
+                let value = this.value();
+                signature.setOptions({
+                    strokeWidth: value
+                });
+            }
+        });
+        $("#size").kendoDropDownList({
+            dataSource: ["small", "medium", "large", "none"],
+            value: "medium",
+            change: function () {
+                let value = this.value();
+                signature.setOptions({ size: value });
+            }
+        });
+        $("#rounded").kendoDropDownList({
+            dataSource: ["small", "medium", "large", "none"],
+            value: "medium",
+            change: function () {
+                let value = this.value();
+                signature.setOptions({ rounded: value });
+            }
+        });
+        $("#fillMode").kendoDropDownList({
+            dataSource: ["solid", "flat", "outline", "none"],
+            value: "solid",
+            change: function () {
+                let value = this.value();
+                signature.setOptions({ fillMode: value });
+            }
+        });
+    });
+</script>
+
+<style>
+    .k-picker.k-dropdownlist {
+        width: 140px;
+    }
+</style>

@@ -1,0 +1,75 @@
+<div class="k-d-flex hidden-on-narrow wide" style="margin-top: 54px;">
+    <div class="column k-d-flex k-flex-col k-justify-content-center k-align-items-center">
+        <label for="foreground-picker">Foreground Color</label>
+        @(Html.Kendo().ColorPicker()
+            .Name("foreground-picker")
+            .ContrastTool(tool=>tool
+                .BackgroundColor("#ffffff")
+            )
+            .Events(ev=>ev.Select("foregroundPickerSelect"))
+        )
+    </div>
+    <div class="column">
+        <div id="background">Text for Contrast Tool Demo</div>
+    </div>
+    <div class="column k-d-flex k-flex-col k-justify-content-center k-align-items-center">
+        <label for="background-picker">Background Color</label>
+        @(Html.Kendo().ColorPicker()
+            .Name("background-picker")
+            .Opacity(true)
+            .Input(false)
+            .Views(new string[] { "gradient"})
+            .Events(ev=>ev.Select("backgroundPickerSelect").Change("backgroundPickerChange"))
+        )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).on("kendoReady", function () {
+            var foregroundColor = $('.k-body').css("color");
+            var backgroundColor = $('.k-body').css("background-color");
+
+            var foregroundPicker = $("#foreground-picker").data('kendoColorPicker');
+            var backgroundPicker = $("#background-picker").data('kendoColorPicker');
+
+            foregroundPicker.value(foregroundColor);
+            backgroundPicker.value(backgroundColor);
+            foregroundPicker.setBackgroundColor(backgroundColor);
+        })
+
+        function foregroundPickerSelect(e) {
+            $("#background").css("color", e.value);
+        }
+
+        function backgroundPickerSelect(e) {
+            $("#background").css("background-color", e.value);
+        }
+
+        function backgroundPickerChange(e) {
+            var foregroundPicker = $("#foreground-picker").data("kendoColorPicker");
+            foregroundPicker.setBackgroundColor(e.value);
+        }
+    </script>
+}
+
+<style>
+    #background {
+        border-radius: 20px;
+        width: 300px;
+        height: 300px;
+        border: 1px solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .column {
+        margin: auto;
+    }
+
+    .k-colorpicker {
+        vertical-align: top;
+        margin: 20px 0;
+    }
+</style>

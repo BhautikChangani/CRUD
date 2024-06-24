@@ -1,0 +1,139 @@
+    <div class="configurator">
+        <div class="header">Configurator</div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Size</h4>
+                    <input id="size" name="size" />
+                </li>
+            </ul>
+        </div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Theme Color</h4>
+                    <input id="themeColor" name="themeColor" />
+                </li>
+            </ul>
+        </div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Fill Mode</h4>
+                    <input id="fillMode" name="fillMode" />
+                </li>
+            </ul>
+        </div>
+        <div class="box-col">
+            <ul class="options">
+                <li>
+                    <h4>Border Radius</h4>
+                    <input id="rounded" name="rounded" />
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+        @(Html.Kendo().DropDownButton()
+                .Name("dropDownButton")
+                .Text("User Settings")
+                .Items(items=>{
+                    items.Add().Id("profile").Text("My Profile").Icon("image");
+                    items.Add().Id("friend-request").Text("Friend Requests").Icon("inbox");
+                    items.Add().Id("settings").Text("Account Settings").Icon("gear");
+                    items.Add().Id("support").Text("Support").Icon("question-circle");
+                    items.Add().Id("logout").Text("Log Out").Icon("logout");
+                })
+            )
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $("#size").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "medium",
+                change: onChange,
+                dataSource: [
+                    { text: "Small", value: "small" },
+                    { text: "Medium", value: "medium" },
+                    { text: "Large", value: "large" },
+                    { text: "None", value: "none" }
+
+                ]
+            });
+
+            $("#themeColor").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "base",
+                change: onChange,
+                dataSource: [
+                    { text: "Base", value: "base" },
+                    { text: "Primary", value: "primary" },
+                    { text: "Secondary", value: "secondary" },
+                    { text: "Teritary", value: "teritary" },
+                    { text: "Info", value: "info" },
+                    { text: "Success", value: "success" },
+                    { text: "Warning", value: "warning" },
+                    { text: "Error", value: "error" },
+                    { text: "Dark", value: "dark" },
+                    { text: "Light", value: "light" },
+                    { text: "Inverse", value: "inverse" },
+                    { text: "None", value: "none" }
+                ]
+            });
+
+            $("#rounded").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "medium",
+                change: onChange,
+                dataSource: [
+                    { text: "Small", value: "small" },
+                    { text: "Medium", value: "medium" },
+                    { text: "Large", value: "large" },
+                    { text: "Full", value: "full" },
+                    { text: "None", value: "none" }
+                ]
+            });
+
+            $("#fillMode").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                value: "solid",
+                change: onChange,
+                dataSource: [
+                    { text: "Solid", value: "solid" },
+                    { text: "Outline", value: "outline" },
+                    { text: "Flat", value: "flat" },
+                    { text: "Link", value: "link" },
+                    { text: "None", value: "none" }
+                ]
+            });
+
+            function onChange(e) {
+                e.preventDefault();
+                var size = $("#size").data("kendoDropDownList").value();
+                var themeColor = $("#themeColor").data("kendoDropDownList").value();
+                var rounded = $("#rounded").data("kendoDropDownList").value();
+                var fillMode = $("#fillMode").data("kendoDropDownList").value();
+                
+
+                var button = $("#dropDownButton").data("kendoDropDownButton");
+                button.setOptions({
+                    size: size,
+                    themeColor: themeColor,
+                    rounded: rounded,
+                    fillMode: fillMode,
+                })
+            }
+        });
+    </script>
+
+    <style>
+        .k-picker.k-dropdownlist {
+            width: 140px;
+        }
+    </style>

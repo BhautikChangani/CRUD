@@ -1,0 +1,174 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 27px;">
+    <div id="window">
+        <div class="banner">
+        </div>
+    </div>
+
+    @(Html.Kendo().Form<Kendo.Mvc.Examples.Models.TimeDurationPickerViewModel>()
+        .Name("formExample")
+        .Orientation("vertical")
+        .HtmlAttributes(new { style="width:400px"})
+        .Validatable(v =>
+        {
+            v.ValidateOnBlur(false);
+            v.ValidationSummary(vs => vs.Enable(false));
+        })
+        .Items(items =>
+        {
+            items.AddGroup()
+                .Label("Conference Session")
+                .Items(i =>
+                {
+                    i.Add()
+                        .Field(f => f.Title)
+                        .Label(l => l.Text("Session title:").Optional(false));
+                    i.Add()
+                       .Field(f => f.Start).Label("Start:").Editor("DateTimePicker");
+                    i.Add()
+                       .Field(f => f.Duration).Label("Duration:")
+                               .Editor(e =>
+                               {
+                                   e.TimeDurationPicker()
+                                        .Columns(c =>
+                                        {
+                                            c.Hours().Format("## hours ");
+                                            c.Minutes().Format(" ## minutes");
+                                        })
+                                        .Shortcuts(s =>
+                                        {
+                                            s.Add().Text("1 h").Value(3600000);
+                                            s.Add().Text("1 h 30 m").Value(5400000);
+                                        })
+                                        .Separator(":");
+                               });
+                    i.Add()
+                       .Field(f => f.Banner).Label("Show banner before the session:")
+                               .Editor(e =>
+                               {
+                                   e.TimeDurationPicker()
+                                        .Columns(c =>
+                                        {
+                                            c.Minutes().Format("## minutes").Max(30).Min(1);
+                                        });
+                               });
+                });
+        })
+        .Events(e => e.Submit("onFormSubmit"))
+    )
+</div>
+
+@section scripts {
+    <script>
+        let interval;
+
+        $(document).on("kendoReady", function () {
+            $("#window").kendoWindow({
+                height: 397,
+                width: 443,
+                visible: false,
+                resizable: false,
+                title: false,
+                draggable: {
+                    dragHandle: "#window"
+                }
+            });
+        })
+
+        function onFormSubmit(e) {
+            e.preventDefault();
+
+            let model = e.model;
+            let duration = convertToTime(model.Duration),
+                banner = convertToTime(model.Banner);
+
+            var window = $("#window").data("kendoWindow");
+            window.content(`<button class='close'></button>
+                                                    <div class="title">${duration.hours}h ${duration.minutes}m <strong>${model.Title}</strong></div>
+                                                    <div class="title">session will start in</div>
+                                                    <div class="countdown">${banner.minutes} : ${banner.seconds}0</div>`);
+
+            initCloseButton();
+            countdown(model.Banner);
+
+            window.open().center();
+        }
+
+        function convertToTime(milliseconds) {
+            let seconds = Math.floor(milliseconds / 1000);
+            let minutes = Math.floor(seconds / 60);
+            let hours = Math.floor(minutes / 60);
+
+            seconds = seconds % 60;
+            minutes = minutes % 60;
+            hours = hours % 24;
+
+            return {
+                hours,
+                minutes,
+                seconds
+            };
+        }
+
+        function countdown(ms) {
+            clearInterval(interval);
+            interval = setInterval(() => {
+                ms -= 1000,
+                    banner = convertToTime(ms);
+
+                $(".countdown").html(`${banner.minutes} : ${banner.seconds < 10 ? 0 : ''}${banner.seconds}`);
+
+                if (ms === 0) {
+                    clearInterval(interval);
+                    $(".countdown").html(`STARTING`);
+                }
+            }, 1000);
+        }
+
+        function initCloseButton() {
+            $(".close").kendoButton({
+                size: "small",
+                icon: "close",
+                click: () => {
+                    $("#window").data("kendoWindow").close();
+                }
+            });
+        }
+
+    </script>
+}
+
+<style>
+    #window {
+        padding: 0;
+    }
+
+    .k-window-content {
+        background-image: url('@Url.Content("~/content/web/timedurationpicker/banner.png")');
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: none;
+    }
+
+    .title {
+        font-size: 28px;
+        color: #666666;
+    }
+
+    .countdown {
+        font-size: 42px;
+        color: #006AE8;
+        padding-top: 10px;
+    }
+
+    .close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        padding: 2px !important;
+        color: #424242;
+        background-color: #f5f5f5;
+    }
+</style>

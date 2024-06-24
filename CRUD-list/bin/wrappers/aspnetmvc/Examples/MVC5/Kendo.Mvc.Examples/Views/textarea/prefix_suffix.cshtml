@@ -1,0 +1,40 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().TextArea()
+            .Name("comment")
+            .Placeholder("Add comment...")
+            .Rows(5)
+            .LayoutFlow(TextAreaLayoutFlow.Horizontal)
+            .PrefixOptions(prefix => prefix.TemplateHandler("prefixTemplate"))
+            .SuffixOptions(suffix => suffix.TemplateHandler("suffixTemplate"))
+            )
+        @(Html.Kendo().TextArea()
+            .Name("comment-vertical")
+            .Placeholder("Add comment...")
+            .Rows(5)
+            .LayoutFlow(TextAreaLayoutFlow.Vertical)
+            .PrefixOptions(prefix => prefix.TemplateHandler("prefixTemplate"))
+            .SuffixOptions(suffix => suffix.TemplateHandler("suffixTemplate"))
+            )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function prefixTemplate() {
+            return `${kendo.ui.icon("comment")}`;
+        }
+
+        function suffixTemplate() {
+            return `${kendo.ui.icon("redo")} ${kendo.ui.icon("volume-up")}`;
+        }
+    </script>
+}
+
+<style>
+    .k-w-300 {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+</style>

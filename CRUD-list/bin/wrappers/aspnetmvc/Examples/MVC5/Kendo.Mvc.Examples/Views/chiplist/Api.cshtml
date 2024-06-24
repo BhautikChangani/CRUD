@@ -1,0 +1,57 @@
+@using Kendo.Mvc.UI
+
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <h4>SELECT CHIP ITEM</h4>
+        <ul class="options">
+            <li>
+                <input type="text" value="1" id="inputSetValue" style="width: 50px" />
+                <button id="buttonSelectValue" type="button">Select Item</button>
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>ENABLE / DISABLE EDIT CHIP ITEM</h4>
+        <ul class="options">
+            <li>
+                <input type="text" value="1" id="inputEnableValue" style="width: 50px" />
+                <button id="enableChipList" type="button">Enable</button>
+                <button id="disableChipList" type="button">Disable</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    @(Html.Kendo().ChipList()
+        .Name("chiplist")
+        .Selectable(ChipListSelectableMode.Single)
+        .Items(item=>{
+            item.Add().Icon("plus").Label("Add").Selected(true);
+            item.Add().Icon("pencil").Label("Edit").HtmlAttributes(new { id = "edit" });
+            item.Add().Icon("trash").Label("Remove");
+        })
+    )    
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#buttonSelectValue").click(function () {
+            var chiplist = $('#chiplist').data("kendoChipList");
+            chiplist.select(chiplist.item($("#inputSetValue").val()));
+        });
+
+        $("#enableChipList").click(function () {
+            var chiplist = $('#chiplist').data("kendoChipList");
+            var item = chiplist.item($("#inputEnableValue").val());
+            chiplist.enable(item, true);
+        });
+
+        $("#disableChipList").click(function () {
+            var chiplist = $('#chiplist').data("kendoChipList");
+            var item = chiplist.item($("#inputEnableValue").val());
+            chiplist.enable(item, false);
+        });
+    });
+</script>

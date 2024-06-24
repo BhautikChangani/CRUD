@@ -1,0 +1,23 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="products">Select a product:</label>
+        @(Html.Kendo().AutoComplete()
+          .Name("products")
+          .DataTextField("ProductName")
+          .Filter("contains")
+          .MinLength(3)
+          .HtmlAttributes(new { style = "width:100%" })
+          .DataSource(source => source
+              .Custom()
+              .Type("odata")
+              .ServerFiltering(true)
+              .ServerPaging(true)
+              .PageSize(20)
+              .Transport(transport => transport
+                  .Read(read => read.Url("https://demos.telerik.com/kendo-ui/service/Northwind.svc/Products"))
+              )
+          )
+        )
+        <div class="demo-hint">Hint: type "che"</div>
+    </div>
+</div>

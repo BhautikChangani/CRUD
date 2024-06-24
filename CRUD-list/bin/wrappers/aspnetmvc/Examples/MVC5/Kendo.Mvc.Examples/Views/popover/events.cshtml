@@ -1,0 +1,37 @@
+<div class="demo-section">
+    <span id="buttonHover" class="k-button wider">Hover me!</span>
+</div>
+
+@(Html.Kendo().Popover()
+    .For("#buttonHover")
+    .Position(PopoverPosition.Bottom)
+    .ShowOn(PopoverShowOn.MouseEnter)
+    .Body("Hello!")
+    .Width(100)
+    .Events(events => events.Hide("onHide").Show("onShow"))
+)
+
+@section scripts {
+    <script type="text/javascript">
+        function onShow(e) {
+            kendoConsole.log("event :: show");
+        }
+
+        function onHide(e) {
+            kendoConsole.log("event :: hide");
+        }
+    </script>
+}
+<style>
+    .demo-section {
+        text-align: center;
+    }
+
+    .wider {
+        display: block;
+        margin: 20px 0;
+        padding: 15px 8px;
+        line-height: 23px;
+        width: 100%;
+    }
+</style>

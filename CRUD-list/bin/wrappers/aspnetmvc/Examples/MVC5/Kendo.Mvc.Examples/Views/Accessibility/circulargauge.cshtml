@@ -1,0 +1,38 @@
+
+            <figure>
+                <div id="gauge" tabindex="0" role="img" title="Circular Gauge Temperature"></div>
+                <figcaption pos>
+                    Temperature 50 degrees
+                </figcaption>
+            </figure>
+          <script type="module">
+              $(document).ready(function () {
+
+                kendo.dataviz.autoTheme(true);
+                kendo.dataviz.ui['CircularGauge'].fn.options.theme = "sass";
+
+                  $("#gauge").kendoCircularGauge({
+                      value: 50,
+                      scale: {
+                          min: 0,
+                          max: 140,
+                          majorTicks: {
+                              visible: true
+                          },
+                          minorTicks: {
+                              visible: true
+                          },
+                          labels: {
+                              visible: true,
+                          },
+                      },
+                      centerTemplate: "Temperature",
+                  });
+              });
+          </script>
+                  <style>
+                    figure {
+                        text-align: center;
+                    }
+                </style>
+        

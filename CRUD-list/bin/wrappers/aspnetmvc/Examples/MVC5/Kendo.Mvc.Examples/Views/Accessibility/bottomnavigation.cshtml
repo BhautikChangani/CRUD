@@ -1,0 +1,24 @@
+
+        <div>
+            <nav id="bottomNavigation"></nav>
+        </div>
+        <script type="module">
+            $(document).ready(function () {
+                var itemTemplate = '<span class="k-bottom-nav-item-icon k-icon k-i-calendar-date"></span><span class="k-bottom-nav-item-text">calendar</span>';
+
+                $("#bottomNavigation").kendoBottomNavigation({
+                    positionMode: "absolute",
+                    items: [
+                        { data: { view: "home" }, url: "#home", text: "home", icon: "home", enabled: false, cssClass: "custom-css-class" },
+                        { data: { view: "calendar" }, url: "#calendar", template: itemTemplate, cssClass: "custom-css-class" },
+                        { data: { view: "profile" }, url: "#profile", text: "user", icon: "user", cssClass: "custom-css-class", selected: true }
+                    ]
+                });
+            });
+            $(document).on("keydown", function (e) {
+                if (e.altKey && e.keyCode === 87) {
+                    $("#bottomNavigation").data("kendoBottomNavigation").item(0).focus();
+                }
+            });
+        </script>
+    

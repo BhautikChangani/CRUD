@@ -1,0 +1,79 @@
+
+          <div id="grid" style="height: 660px; width: 1000px;"></div>
+
+          <script type="module">
+              $(document).ready(function () {
+                  var crudServiceBaseUrl = "https://demos.telerik.com/kendo-ui/service",
+                      dataSource = new kendo.data.DataSource({
+                          transport: {
+                              read: {
+                                  url: crudServiceBaseUrl + "/Products",
+                                  dataType: "jsonp"
+                              },
+                              update: {
+                                  url: crudServiceBaseUrl + "/Products/Update",
+                                  dataType: "jsonp"
+                              },
+                              destroy: {
+                                  url: crudServiceBaseUrl + "/Products/Destroy",
+                                  dataType: "jsonp"
+                              },
+                              create: {
+                                  url: crudServiceBaseUrl + "/Products/Create",
+                                  dataType: "jsonp"
+                              },
+                              parameterMap: function (options, operation) {
+                                  if (operation !== "read" && options.models) {
+                                      return { models: kendo.stringify(options.models) };
+                                  }
+                              }
+                          },
+                          batch: true,
+                          pageSize: 20,
+                          group: { field: "ProductName" },
+                          schema: {
+                              model: {
+                                  id: "ProductID",
+                                  fields: {
+                                      ProductID: { editable: false, nullable: true },
+                                      ProductName: { validation: { required: true } },
+                                      UnitPrice: { type: "number", validation: { required: true, min: 1 } },
+                                      Discontinued: { type: "boolean" },
+                                      UnitsInStock: { type: "number", validation: { min: 0, required: true } }
+                                  }
+                              }
+                          }
+                      });
+
+                  $("#grid").kendoGrid({
+                      dataSource: dataSource,
+                      selectable: "multiple row",
+                      navigatable: true,
+                      filterable: true,
+                      sortable: true,
+                      pageable: true,
+                      reorderable: true,
+                      groupable: true,
+                      messages: {
+                        expandCollapseColumnHeader: "E/C"
+                    },
+                      columns: [{
+                          field: "ProductName",
+                          width: 120,
+                          title: "Product Name"
+                      }, {
+                          field: "UnitPrice",
+                          width: 120,
+                          title: "Unit Price"
+                      }
+                      ]
+                  });
+
+                  $(document.body).keydown(function (e) {
+                      if (e.altKey && e.keyCode == 87) {
+                          $("#grid").data("kendoGrid").table.focus();
+                      }
+                  });
+              });
+          </script>
+        

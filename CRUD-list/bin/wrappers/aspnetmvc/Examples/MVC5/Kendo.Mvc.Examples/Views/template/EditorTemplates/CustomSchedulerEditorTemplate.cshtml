@@ -1,0 +1,76 @@
+@model Kendo.Mvc.Examples.Models.Scheduler.TaskViewModel
+
+@functions {
+    public Dictionary<string, object> generateDatePickerAttributes(
+           string elementId,
+           string fieldName,
+           string dataBindAttribute,
+           Dictionary<string, object> additionalAttributes = null)
+    {
+
+        Dictionary<string, object> datePickerAttributes = additionalAttributes != null ? new Dictionary<string, object>(additionalAttributes) : new Dictionary<string, object>();
+
+        datePickerAttributes["id"] = elementId;
+        datePickerAttributes["name"] = fieldName;
+        datePickerAttributes["data-bind"] = dataBindAttribute;
+        datePickerAttributes["required"] = "required";
+        datePickerAttributes["style"] = "z-index: inherit;";
+
+        return datePickerAttributes;
+    }
+}
+
+@(Html.Kendo().Template()
+    .AddHtml("<h3>Custom event editor template</h3><br/>")
+    .AddHtml("<div class=\"k-form-field\"><label class=\"k-label k-form-label\" for=\"title\">Event Title:</label><div data-container-for=\"title\" class=\"k-form-field-wrap\">")
+    .AddComponent(tbox => tbox
+        .TextBoxFor(m => m.Title)
+        .HtmlAttributes(new { data_bind = "value:title" })
+    )
+    .AddHtml("</div></div>")
+
+    .AddHtml("<div class=\"k-form-field\"><label class=\"k-label k-form-label\" for=\"start\">Start:</label><div data-container-for=\"start\" class=\"k-form-field-wrap\">")
+    .AddComponent(dtp => dtp
+        .DateTimePickerFor(m => m.Start)
+        .HtmlAttributes(generateDatePickerAttributes("startDateTime", "start", "value:start,invisible:isAllDay"))
+    )
+    .AddComponent(dp => dp
+        .DatePickerFor(m => m.Start)
+        .HtmlAttributes(generateDatePickerAttributes("startDate", "start", "value:start,visible:isAllDay"))
+    )
+    .AddHtml("<span data-for=\"start\" class=\"k-invalid-msg\"></span>")
+    .AddHtml("</div></div>")
+
+    .AddHtml("<div class=\"k-form-field\"><label class=\"k-label k-form-label\" for=\"end\">End:</label><div data-container-for=\"end\" class=\"k-form-field-wrap\">")
+    .AddComponent(dtp => dtp
+        .DateTimePickerFor(m => m.End)
+        .HtmlAttributes(generateDatePickerAttributes("endDateTime", "end", "value:end,invisible:isAllDay", new Dictionary<string, object>() { { "data-dateCompare-msg", "End date should be greater than or equal to the start date" } }))
+    )
+    .AddComponent(dp => dp
+        .DatePickerFor(m => m.End)
+        .HtmlAttributes(generateDatePickerAttributes("endDate", "end", "value:end,visible:isAllDay", new Dictionary<string, object>() { { "data-dateCompare-msg", "End date should be greater than or equal to the start date" } }))
+    )
+    .AddHtml("<span data-for=\"end\" class=\"k-invalid-msg\"></span>")
+    .AddHtml("</div></div>")
+
+    .AddHtml("<div class=\"k-form-field\"><div data-container-for=\"isAllDay\" class=\"k-form-field-wrap\">")
+    .AddHtml("<input type=\"checkbox\" data-role=\"checkbox\" data-bind=\"value:isAllDay,checked:isAllDay\" id=\"isAllDay\" name=\"isAllDay\" class=\"k-checkbox k-checkbox-md k-rounded-md\"/>")
+    .AddHtml("<label class=\"k-checkbox-label\" for=\"isAllDay\">All day event</label>")
+    .AddHtml("</div></div>")
+
+    .AddHtml("<div class=\"k-form-field\"><label class=\"k-label k-form-label\" for=\"OwnerID\">Event owner:</label><div data-container-for=\"OwnerID\" class=\"k-form-field-wrap\">")
+    .AddComponent(ddl => ddl
+        .DropDownListFor(m => m.OwnerID)
+        .HtmlAttributes(new { data_bind = "value:OwnerID", style = "width: 100%;" })
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .ValuePrimitive(true)
+        .BindTo(new[] {
+            new { Text = "Alex", Value = 1, Color = "#f8a398" },
+            new { Text = "Bob", Value = 2, Color = "#51a0ed" },
+            new { Text = "Charlie", Value = 3, Color = "#56ca85" }
+        })
+    )
+    .AddHtml("</div></div>")
+)
+

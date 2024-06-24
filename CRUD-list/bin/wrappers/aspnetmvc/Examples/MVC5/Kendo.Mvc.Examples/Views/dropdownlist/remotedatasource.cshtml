@@ -1,0 +1,17 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="products">Products:</label>
+        @(Html.Kendo().DropDownList()
+          .Name("products")
+          .DataTextField("ProductName")
+          .DataValueField("ProductID")
+          .DataSource(source => {
+              source.Read(read =>
+              {
+                  read.Action("RemoteDataSource_GetProducts", "DropDownList");
+              });
+          })
+          .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+</div>

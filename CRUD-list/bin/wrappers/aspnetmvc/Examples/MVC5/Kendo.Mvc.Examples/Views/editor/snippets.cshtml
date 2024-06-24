@@ -1,0 +1,13 @@
+@(Html.Kendo().Editor()
+      .Name("editor")
+      .Tools(tools => tools
+        .Clear()
+        .Snippets(snippets => snippets
+            .Add("Signature", "<p>Regards,<br /> John Doe,<br /><a href='mailto:john.doe@example.com'>john.doe@example.com</a></p>")
+            .Add("Telerik UI online demos", " <a href='https://demos.telerik.com/aspnet-mvc/'>Telerik UI for ASP.NET MVC Online Demos</a> ")
+        )
+      )
+      .Value(@<text>
+            Put the cursor after this text and use the "Insert HTML" tool.
+      </text>)
+)

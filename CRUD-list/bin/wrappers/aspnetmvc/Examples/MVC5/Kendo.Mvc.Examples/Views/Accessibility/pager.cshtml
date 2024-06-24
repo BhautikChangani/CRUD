@@ -1,0 +1,31 @@
+
+          <div id="pager"></div>
+
+          <script type="module">
+              var dataSource = new kendo.data.DataSource({
+                  data: [
+                      { productName: "Tea", category: "Beverages" },
+                      { productName: "Coffee", category: "Beverages" },
+                      { productName: "Ham", category: "Food" },
+                      { productName: "Bread", category: "Food" },
+                      { productName: "Tea 1", category: "Beverages" },
+                      { productName: "Coffee 1", category: "Beverages" },
+                      { productName: "Ham 1", category: "Food" },
+                      { productName: "Bread 1", category: "Food" }
+                  ],
+                  pageSize: 2
+              });
+
+              $("#pager").kendoPager({
+                  dataSource: dataSource,
+            navigatable: true,
+                  pageSizes: [10, 25, 50]
+              });
+              dataSource.read();
+              $(document.body).keydown(function (e) {
+                if (e.altKey && e.keyCode === 87 /* w */) {
+                    $("#pager").data("kendoPager").element.focus();
+                }
+            });
+          </script>
+        

@@ -1,0 +1,30 @@
+<div class="k-d-flex k-align-items-center k-justify-content-evenly" style="padding-top: 54px;">
+    <div class="column">
+        <label for="picker">Choose Your Color | RGB</label>
+        @(Html.Kendo().ColorPicker()
+            .Name("picker")
+            .Value("#ff0000")
+            .Format(ColorPickerFormat.Rgb)
+            .Formats(new string[] { "rgb", "hex" })
+        )
+    </div>
+    <div class="column">
+        <label for="no-inputs-picker">Choose Your Color | HEX</label>
+        @(Html.Kendo().ColorPicker()
+            .Name("no-inputs-picker")
+            .Value("#fff700")
+            .Input(false)
+            .Format(ColorPickerFormat.Rgb)
+            .Formats(new string[] { "rgb", "hex" })
+        )
+    </div>
+</div>
+
+<style>
+    .column {
+        text-align: center;
+    }
+        .column label {
+            display: block;
+        }
+</style>

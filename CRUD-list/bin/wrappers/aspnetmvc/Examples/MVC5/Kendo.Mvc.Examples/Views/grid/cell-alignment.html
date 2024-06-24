@@ -1,0 +1,16 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The <a href="https://www.telerik.com/aspnet-mvc/grid" target="_blank">Telerik UI for ASP.NET MVC Grid</a> enables you to specify the alignment of its cell content in either of the following ways:
+</p>
+<ul>  
+  <li>Through the column definition by using the <code>HtmlAttributes()</code> method&#8212;<code>columns.Bound(o => o.ShipCity).HtmlAttributes(new { style = "text-align: right" });</code>.</li>
+  <li>By applying the <code>k-text-left</code>, <code>k-text-right</code>, or <code>k-text-center</code> classes&#8212;<code>columns.Bound(o => o.ShipCity).HtmlAttributes(new { @class = "k-text-right" });</code>.
+</li>
+<p>Also, you can update the alignment of the column header through the <code>HeaderHtmlAttributes()</code> method&#8212;<code>columns.Bound(o => o.ShipCity).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: center" });</code>
+</p>
+<p>Additionally, the ASP.NET MVC Data Grid enables you to align its column footer by using the <code>FooterHtmlAttributes()</code> method&#8212;<code>columns.Bound(o => o.Freight).FooterHtmlAttributes(new { style = "text-align: right" });</code>.
+</p>
+<p>This demo shows how to change the alignment of the default column text and value in the ASP.NET MVC Data Grid.</p>
+<p>
+  For more information about the approaches for taking the best out of the component, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/overview" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation</a>.
+</p>

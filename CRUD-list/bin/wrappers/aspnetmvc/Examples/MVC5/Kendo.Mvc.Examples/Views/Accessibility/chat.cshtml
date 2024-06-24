@@ -1,0 +1,21 @@
+
+            <div id="chat"></div>
+
+            <script type="module">
+                var chat = $("#chat").kendoChat({
+                    toolbar: {
+                        toggleable: true,
+                        buttons: [
+                            { name: "sendimage", icon: "image" },
+                            { name: "none", icon: "arrow-up" }
+                        ]
+                    }
+                }).data("kendoChat");
+
+                $(document.body).keydown(function (e) {
+                    if (e.altKey && e.keyCode === 87 /* w */) {
+                        $("#chat").focus();
+                    }
+                });
+            </script>
+        

@@ -1,0 +1,102 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <form id="employeeForm" data-role="validator" novalidate="novalidate">
+        <div class="k-w-300">
+            <ul id="fieldlist">
+                <li>
+                    <label for="FirstName">First Name:</label>
+                    <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid">
+                        <input type="text" class="k-input-inner" name="FirstName" id="FirstName" required="required" />
+                    </span>
+                </li>
+                <li>
+                    <label for="LastName">Last Name:</label>
+                    <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid">
+                        <input type="text" class="k-input-inner" name="LastName" id="LastName" required="required" />
+                    </span>
+                </li>
+                <li>
+                    <label for="PhoneNumber">Phone Number:</label>
+                    @(Html.Kendo().MaskedTextBox()
+                      .Name("PhoneNumber")
+                      .Mask("(999) 000-0000")
+                      .HtmlAttributes(new {
+                        data_validmask_msg = "Phone number is incomplete",
+                        required = "required",
+                        style = "width: 100%;"
+                      })
+                    )
+                    <span data-for='PhoneNumber' class='k-invalid-msg'></span>
+                </li>
+                <li class="actions">
+                    <button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base" data-click='save'>
+                        <span class="k-button-icon k-icon k-font-icon k-i-check"></span>
+                        <span class="k-button-text">Save</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+<script type="text/javascript">
+    $(document).on("kendoReady", function () {
+        var container = $("#employeeForm");
+        kendo.init(container);
+        container.kendoValidator({
+            rules: {
+                validmask: function (input) {
+                    if (input.is("[data-validmask-msg]") && input.val() != "") {
+                        var maskedtextbox = input.data("kendoMaskedTextBox");
+                        return maskedtextbox.value().indexOf(maskedtextbox.options.promptChar) === -1;
+                    }
+
+                    return true;
+                }
+            }
+        });
+    });
+
+    function save(e) {
+        var validator = $("#employeeForm").data("kendoValidator");
+        if (validator.validate()) {
+            alert("Employee Saved");
+        }
+    }
+
+</script>
+}
+
+<style>
+
+    #fieldlist {
+        margin: 0 0 -2em;
+        padding: 0;
+    }
+
+    #fieldlist li {
+        list-style: none;
+        padding-bottom: 2em;
+    }
+
+    #fieldlist label {
+        display: block;
+        padding-bottom: 1em;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+
+    #fieldlist input {
+        width: 100%;
+    }
+
+    span.k-tooltip {
+        margin-top: 5px;
+        line-height: 1.7em;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left;
+    }
+
+</style>

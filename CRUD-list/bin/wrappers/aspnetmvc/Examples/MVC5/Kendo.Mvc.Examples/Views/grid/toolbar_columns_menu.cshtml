@@ -1,0 +1,27 @@
+@(Html.Kendo().Grid<Kendo.Mvc.Examples.Models.Order>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(o => o.OrderID).Title("Order ID").Width(120);
+        columns.Bound(o => o.ShipName).Title("Ship Name").Width(300).ColumnMenu(false);
+        columns.Bound(o => o.ShipCountry).Title("Ship Country").Width(300);
+        columns.Bound(o => o.ShipCity).Title("Ship City").Width(300);
+        columns.Bound(o => o.ShipAddress).Title("Ship Address").Filterable(false);
+    })
+    .ToolBar(toolbar => toolbar.Columns())
+    .Pageable()
+    .Filterable()
+    .Sortable()
+    .Scrollable()
+    .Reorderable(reorder => reorder.Columns(true))
+    .ColumnMenu(menu =>
+    {
+        menu.ComponentType("modern");
+        menu.ClearAllFilters(true);
+    })
+    .HtmlAttributes(new { style = "height:430px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("ToolbarColumnsMenu_Read", "Grid"))
+     )
+)

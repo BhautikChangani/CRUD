@@ -1,0 +1,23 @@
+@section scripts {
+<script data-src="@Url.Script("cultures/kendo.culture.de-DE.min.js")"></script>
+}
+
+@{
+    Culture = "de-DE";
+}
+
+<script type="text/javascript">
+    //set culture of the Kendo UI
+    kendo.culture("de-DE");
+</script>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="dateinput">Enter a date:</label>
+        @(Html.Kendo().DateInput()
+          .Name("dateinput")
+          .Value(DateTime.Today)
+        )
+    </div>
+</div>
+

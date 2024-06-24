@@ -1,0 +1,30 @@
+@using Kendo.Mvc.UI
+
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+           @(Html.Kendo().ChipList()
+                .Name("chiplist")
+                .FillMode(ChipFillMode.Solid)
+                .Removable(true)
+                .Selectable(ChipListSelectableMode.Single)
+                .Items(item=>{
+                    item.Add().Icon("plus").Label("Add");
+                    item.Add().Icon("pencil").Label("Edit");
+                    item.Add().Icon("trash").Label("Remove");
+                })
+                .Events(e=>e.Select("onSelect").Remove("onRemove"))
+            )
+</div>
+
+
+@section scripts{
+    <script>
+        function onSelect(e) {
+            kendoConsole.log("Select :: " + e.item.element.text());
+        };
+
+        function onRemove(e) {
+            kendoConsole.log("Remove :: " + e.item.element.text());
+        };
+    </script>
+}

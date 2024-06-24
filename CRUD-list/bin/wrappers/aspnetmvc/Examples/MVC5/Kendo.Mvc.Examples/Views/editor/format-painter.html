@@ -1,0 +1,14 @@
+<h2 class="kd-title">Description</h2>
+<p>The <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/editors/editor/overview" target="_blank">Telerik UI for ASP.NET MVC Editor</a> provides the <b>Format Painter</b> tool which enables users to copy the formatting of a specific chunk of text and apply it to other chunks in its content area. This functionality is resembles the FormatPainter of MS Word®. It saves time when the user needs to apply identical formatting to multiple sections of the edited content.</p>
+<h4>How It Works</h4>
+<ol>
+  <li>To save the formatting of the selected content in the clipboard, apply the desired formatting to a section and click the <b>Copy Format</b> button. If the selection includes sections with different formatting, the tool will copy the styles from the section where the start of the selection is placed.</li>
+  <li>To apply the saved formatting, select the text that you want to format and click the <b>Apply Format</b> button.</li>
+</ol>
+<h4>Supported Formatting</h4>
+<p>The tool will copy and apply all inline styles. Also, any classes and attributes present in the source will be copied to the target.</p>
+<p>The tool will also transfer the DOM structure from the source to the target, clearing the previous DOM structure. The exceptions are the following targets:</p>
+<ul>
+    <li><code>li</code> target elements will not be modified. Instead, the copied structure will be applied within them.</li>
+    <li><code>th</code> and <code>td</code> target elements will not be modified. The copied structure will also be applied within them.</li>
+</ul>

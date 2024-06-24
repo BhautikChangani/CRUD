@@ -1,0 +1,12 @@
+<div class="demo-section wide">
+    @(Html.Kendo().Menu()
+            .Name("myMenu")
+            .DataTextField("Name")
+            .DataSource(dataSource => dataSource
+                .Model(model => model.Children("Products"))
+                .Read(read => read
+                    .Action("GetCategories", "Menu")
+                )
+            )
+    )
+</div>

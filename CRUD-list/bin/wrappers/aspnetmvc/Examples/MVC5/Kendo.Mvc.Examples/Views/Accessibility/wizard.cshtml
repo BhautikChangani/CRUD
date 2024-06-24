@@ -1,0 +1,67 @@
+
+        <div class="demo-section k-content wide" style="width: 700px;">
+            <form id="wizard" novalidate></form>
+        </div>
+
+        <script type="module">
+            $("#wizard").kendoWizard({
+                contentPosition: "right",
+                validateForms: false,
+                done: function (e) {
+                    e.originalEvent.preventDefault();
+                    kendo.alert("Thank you for registering! Registration details will be sent to your email.");
+                },
+                stepper: {
+                    linear: false
+                },
+                steps: [
+                    {
+                        title: "Welcome",
+                        buttons: ["next"],
+                        content: '<div style="text-align:center"><h2>Complete the Registration Form to enroll in the course</h2></div>'
+                    },
+                    {
+                        title: "User Details",
+                        buttons: ["previous", "next"],
+                        form: {
+                            formData: {
+                                FirstName: "",
+                                LastName: "",
+                                Email: ""
+                            },
+                            items: [
+                                { field: "Username", label: "Username:", validation: { required: true } },
+                                { field: "Email", label: "Email:", validation: { required: true, email: true } },
+                                { field: "Password", label: "Password:", validation: { required: true }, hint: "Hint: enter alphanumeric characters only.", attributes: { type: "password" } }
+                            ]
+                        }
+                    }, {
+                        title: "Personal Details",
+                        buttons: ["previous", "next"],
+                        form: {
+                            formData: {
+                                FirstName: "",
+                                LastName: "",
+                                DateOfBirth: new Date()
+                            },
+                            items: [
+                                { field: "FirstName", label: "First Name:", validation: { required: true } },
+                                { field: "LastName", label: "Last Name:", validation: { required: true } },
+                                { field: "DateOfBirth", label: "Date of Birth:", validation: { required: true } }
+                            ]
+                        },
+                    }, {
+                        title: "Finish",
+                        buttons: ["previous", "done"],
+                        content: '<div style="text-align:center"><h2>Registration Complete!</h2></div>'
+                    },
+                ]
+            });
+
+            $(document.body).keydown(function (e) {
+                if (e.altKey && e.keyCode == 87) {
+                    $("#wizard .k-step-current .k-step-link").focus();
+                }
+            });
+        </script>
+    

@@ -1,0 +1,17 @@
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        <label for="size">T-shirt Sizes</label>
+        @(Html.Kendo().MultiSelect()
+          .Name("size")
+          .HtmlAttributes(new { accesskey = "w" })
+          .BindTo(new List<string>() {
+              "X-Small",
+              "Small",
+              "Medium",
+              "Large",
+              "X-Large",
+              "2X-Large"
+          })
+        )
+    </div>
+</div>

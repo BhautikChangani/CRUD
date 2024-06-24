@@ -1,0 +1,20 @@
+<h2 class="kd-title">Description</h2>
+<p>
+  The <a href="https://www.telerik.com/aspnet-mvc/grid">Telerik UI for ASP.NET MVC Grid</a> component exposes an option for defining a content template for its toolbar.
+</p>
+<p>
+  This demo shows a sample implementation of a toolbar template incorporating a <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/editors/dropdownlist/overview" target="_blank">Telerik UI for ASP.NET MVC DropDownList</a> to list the
+  Data Grid records by category. The DropDownList is populated with the list of
+  categories and the filter
+  is applied on its change event by invoking the
+  <code><a href="https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/methods/filter" target="_blank">grid.dataSource.filter()</a></code>
+  method from the client-side API of the DataSource.
+</p>
+<p>
+  Note that the toolbar template is instantiated by the
+  <code>.ToolBar(toolbar => { toolbar.ClientTemplateId("GridToolbarTemplate");})</code> method. The method expects
+  the id of the <code>script</code> element which holds the client template as a string parameter.
+</p> 
+<p>
+  For more information, refer to the <a href="https://docs.telerik.com/aspnet-mvc/html-helpers/data-management/grid/toolbar" target="_blank">official Telerik UI for ASP.NET MVC Data Grid product documentation on the available toolbar options</a>.
+</p>

@@ -1,0 +1,77 @@
+<script type="text/x-kendo-template" id="prefixTemplate">
+    @(Html.Kendo().DropDownList()
+        .Name("card-types")
+        .Size(ComponentSize.Small)
+        .FillMode(FillMode.Flat)
+        .Rounded(Rounded.None)
+        .ValueTemplateHandler("valueTemplate")
+        .TemplateHandler("itemTemplate")
+        .BindTo(new List<string>() {
+                "Visa",
+                "MasterCard",
+                "PayPal"
+        })
+        .HtmlAttributes(new { style = "width: 110px; height: 40px;" })
+        .ToClientTemplate()
+    )
+</script>
+
+<div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+    <div class="k-w-300">
+        @(Html.Kendo().MaskedTextBox()
+            .Name("card")
+            .Mask("0000-0000-0000-0000")
+            .Size(ComponentSize.Large)
+            .PrefixOptions(prefix => prefix.TemplateId("prefixTemplate"))
+            .SuffixOptions(suffix => suffix.Icon("lock"))
+            )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function valueTemplate(data) {
+            return `<span class="card ${data.toLowerCase()}"></span>`;
+        }
+
+        function itemTemplate(data) {
+            return `<span class="dropdown-card ${data.toLowerCase()}"></span>`;
+        }
+    </script>
+}
+
+<style>
+    .card {
+        position: absolute;
+        cursor: pointer;
+        background-size: 55px;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 55px;
+        display: inline-table;
+        height: 33px;
+        top: 4px;
+    }
+
+    .dropdown-card {
+        display: inline-block;
+        height: 40px;
+        width: 90px;
+        margin-top: 5px;
+        background-size: 60px;
+        background-repeat: no-repeat;
+        background-position-y: center;
+    }
+
+    .visa {
+        background-image: url(https://cdn-icons-png.flaticon.com/128/196/196578.png);
+    }
+
+    .mastercard {
+        background-image: url(https://cdn-icons-png.flaticon.com/128/196/196561.png);
+    }
+
+    .paypal {
+        background-image: url(https://cdn-icons-png.flaticon.com/128/196/196565.png);
+    }
+</style>

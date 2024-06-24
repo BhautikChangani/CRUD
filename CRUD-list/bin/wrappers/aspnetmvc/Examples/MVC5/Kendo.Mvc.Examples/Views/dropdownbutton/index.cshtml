@@ -1,0 +1,82 @@
+<div class="demo-section k-d-flex k-justify-content-between" style="padding-top: 54px;">
+    <div class='column'>
+        <h4>Default Button:</h4>
+        @(Html.Kendo().DropDownButton()
+                .Name("default")
+                .Text("Paste")
+                .Icon("clipboard")
+                .Items(items=>{
+                    items.Add().Id("keep-text").Text("Keep Text Only").Icon("clipboard-text").Click("keepText");
+                    items.Add().Id("paste-html").Text("Paste as HTML").Icon("clipboard-code").Click("pasteHtml");
+                    items.Add().Id("paste-markdown").Text("Paste Markdown").Icon("clipboard-markdown").Click("pasteMarkdown");
+                    items.Add().Id("paste-default").Text("Set Default Paste").Click("setDefault");
+                })
+            )
+    </div>
+    <div class='column'>
+        <h4>Flat Button:</h4>
+        @(Html.Kendo().DropDownButton()
+                .Name("flat")
+                .Text("Paste")
+                .FillMode(FillMode.Flat)
+                .Icon("clipboard")
+                .Items(items=>{
+                    items.Add().Id("keep-text").Text("Keep Text Only").Icon("clipboard-text").Click("keepText");
+                    items.Add().Id("paste-html").Text("Paste as HTML").Icon("clipboard-code").Click("pasteHtml");
+                    items.Add().Id("paste-markdown").Text("Paste Markdown").Icon("clipboard-markdown").Click("pasteMarkdown");
+                    items.Add().Id("paste-default").Text("Set Default Paste").Click("setDefault");
+                })
+            )
+    </div>
+    <div class='column'>
+        <h4>Outline Button:</h4>
+        @(Html.Kendo().DropDownButton()
+                .Name("outline")
+                .Text("Paste")
+                .FillMode(FillMode.Outline)
+                .Icon("clipboard")
+                .Items(items=>{
+                    items.Add().Id("keep-text").Text("Keep Text Only").Icon("clipboard-text").Click("keepText");
+                    items.Add().Id("paste-html").Text("Paste as HTML").Icon("clipboard-code").Click("pasteHtml");
+                    items.Add().Id("paste-markdown").Text("Paste Markdown").Icon("clipboard-markdown").Click("pasteMarkdown");
+                    items.Add().Id("paste-default").Text("Set Default Paste").Click("setDefault");
+                })
+            )
+    </div>
+    <div class='column'>
+        <h4>Primary Button:</h4>
+        @(Html.Kendo().DropDownButton()
+                .Name("primary")
+                .Text("Paste")
+                .ThemeColor(ThemeColor.Primary)
+                .Icon("clipboard")
+                .Items(items=>{
+                    items.Add().Id("keep-text").Text("Keep Text Only").Icon("clipboard-text").Click("keepText");
+                    items.Add().Id("paste-html").Text("Paste as HTML").Icon("clipboard-code").Click("pasteHtml");
+                    items.Add().Id("paste-markdown").Text("Paste Markdown").Icon("clipboard-markdown").Click("pasteMarkdown");
+                    items.Add().Id("paste-default").Text("Set Default Paste").Click("setDefault");
+                })
+            )
+    </div>
+</div>
+@section scripts {
+    <script>
+        function keepText(e) {
+            alert("Keep Text Only")
+        }
+        function pasteHtml(e) {
+            alert("Paste as HTML")
+        }
+        function pasteMarkdown(e) {
+            alert("Paste Markdown")
+        }
+        function setDefault(e) {
+            alert("Set Default Paste")
+        }
+    </script>
+}
+<style>
+    .column {
+        margin-top: 100px;
+    }
+</style>

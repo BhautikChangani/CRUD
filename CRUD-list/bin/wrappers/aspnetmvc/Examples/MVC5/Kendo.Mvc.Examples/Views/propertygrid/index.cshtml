@@ -1,0 +1,158 @@
+@using Kendo.Mvc.Examples.Models.PropertyGrid;
+@model PropertyGridItemsViewModel
+
+<div class="demo-section wide">
+    @(
+        Html.Kendo().Splitter()
+        .Name("splitter")
+        .Orientation(SplitterOrientation.Horizontal)
+        .Panes(panes =>
+        {
+            panes.Add().Size("30%").Content(@<text>
+                <div id="container">
+                    <div class="demo-instructions">Edit the property values in the PropertyGrid, and the Button appearance will update accordingly.</div>
+                    <div class="button-item">
+                        @(Html.Kendo().Button()
+                            .Name("kendoIconTextButton")
+                            .Content("Button")
+                            .Icon("star")
+                        )
+                    </div>
+                </div>
+            </text>);
+            panes.Add().Content(
+                Html.Kendo().PropertyGrid<PropertyGridItemsViewModel>()
+                .Name("propertyGrid")
+                .Model(Model)
+                .Columns(columns => columns.FieldColumn(fieldCol => fieldCol.Width(200)).ValueColumn(valueCol => valueCol.Width(250)))
+                .Groupable(true)
+                .Navigatable(true)
+                .ContextMenu(true)
+                .EditMode(true)
+                .Resizable(true)
+                .Height(450)
+                .Items(items =>
+                {
+                    items.Add().Field(f => f.size);
+                    items.Add().Field(f => f.fillMode);
+                    items.Add().Field(f => f.themeColor);
+                    items.Add().Field(f => f.rounded);
+                    items.Add().Field(f => f.icon)
+                    .TemplateHandler("iconTemplate")
+                    .Editor(editor => editor
+                        .DropDownList()
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .BindTo(new List<SelectListItem>() {
+                        new SelectListItem() {
+                            Text = "gear", Value = "gear"
+                        },
+                        new SelectListItem() {
+                            Text = "star", Value = "star"
+                        },
+                        new SelectListItem() {
+                            Text = "folder", Value = "folder"
+                        },
+                        new SelectListItem() {
+                            Text = "user", Value = "user"
+                        },
+                        new SelectListItem() {
+                            Text = "info-circle", Value = "info-circle"
+                        }
+                        }));
+
+                    items.Add().Field("font").TemplateHandler("fontTemplate")
+                    .Items(childItems =>
+                    {
+                        childItems.Add().Field("fontWeight").Editor(editor => editor.NumericTextBox().Step(100).Min(100).Max(900));
+                        childItems.Add().Field("fontFamily").Editor(editor => editor
+                            .AutoComplete()
+                            .BindTo(new string[] { "Arial", "Roboto", "Georgia", "Calibri", "Cursive", "Monospace", "Fantasy" }));
+                    });
+                })
+        .Events(ev => ev.Save("saveHandler").Cancel("saveHandler"))
+        .ToHtmlString()
+        );
+        })
+    )
+</div>
+
+@section scripts {
+    <script>
+        var sizeOptions = ["small", "medium", "large", "none"];
+        var fillModeOptions = ["solid", "flat", "outline", "link", "clear", "none"];
+        var themeColorOptions = ["base", "primary", "secondary", "tertiary", "info", "success", "warning", "error", "dark", "light", "inverse"];
+        var roundedOptions = ["small", "medium", "large", "full", "none"];
+
+        function iconTemplate(data) {
+            return `${kendo.ui.icon(data.value)}`;
+        }
+
+        function fontTemplate(data) {
+            var propertyGridModel = $("#propertyGrid").data('kendoPropertyGrid').model();
+                return `<span class="fontWeight">${propertyGridModel.font["fontWeight"]}</span> <span class="fontFamily">${propertyGridModel.font["fontFamily"]}</span>`;
+        }
+
+        function saveHandler(e) {
+            var elem = $("#kendoIconTextButton");
+            var button = elem.getKendoButton();
+            var buttonOptions = button.options;
+            var model = e.model;
+            var value = e.values ? e.values.value : model.value;
+
+            if (model.field == 'fontWeight') {
+                $('.fontWeight').text(value);
+            } else if (model.field == 'fontFamily') {
+                $('.fontFamily').text(value);
+            }
+
+            if (model.group == "Kendo UI/Telerik") {
+                let optionValue;
+                switch (model.field) {
+                    case "size":
+                        optionValue = sizeOptions[value];
+                        break;
+                    case "fillMode":
+                        optionValue = fillModeOptions[value];
+                        break;
+                    case "themeColor":
+                        optionValue = themeColorOptions[value];
+                        break;
+                    case "rounded":
+                        optionValue = roundedOptions[value];
+                        break;
+                    default:
+                        optionValue = value;
+                }
+                buttonOptions[model.field] = optionValue;
+                button.destroy();
+                elem.kendoButton(buttonOptions);
+            } else {
+                button.element.css(model.field, value);
+            }
+        }
+    </script>
+}
+
+<style>
+    .k-pane:nth-child(1) {
+        text-align: center;
+        margin-top: 5%;
+    }
+
+    #container {
+        gap: 30px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #container .demo-instructions {
+        padding-block: 4px;
+        padding-inline: 8px;
+        font-style: italic;
+    }
+
+    #splitter {
+        min-height: 500px;
+    }
+</style>

@@ -1,0 +1,65 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <h4>Toggle Pane</h4>
+        <ul class="options">
+            <li>
+                <input id="toggleTargetPane" value="tools" />
+                <button id="togglePane">Toggle Pane</button>
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>Remove Pane</h4>
+        <ul class="options">
+            <li>
+                <input id="removeTargetPane" value="console" />
+                <button id="removePane">Remove Pane</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="k-d-flex k-justify-content-center" style="height: 500px;">
+    @(Html.Kendo().DockManager()
+        .Name("dockmanager")
+        .RootPane(root =>
+        {
+            root.Id("root").Type(RootPaneType.Split).Orientation(DockSplitterOrientation.Vertical).Panes(panes => {
+                panes.Add().Type(PaneType.Split).Size("80%").Orientation(DockSplitterOrientation.Horizontal).Panes(top => {
+                    top.Add().Id("tools").Type(PaneType.Content).Title("Tools").Content("Content").Size("20%");
+                    top.Add().Id("files").Type(PaneType.Tab).Size("40%").Panes(tabs =>
+                    {
+                        tabs.Add().Id("file1").Type(PaneType.Content).Title("File 1").Content("Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi suscipit porro optio veritatis obcaecati nostrum molestias dolor maxime! Molestias ducimus placeat quia possimus esse atque odio, a recusandae iste exercitationem. Sapiente fugit assumenda at explicabo quos consequuntur dicta cumque ex aspernatur, nesciunt itaque doloremque exercitationem eaque iusto. Iste non officia consequatur quis veritatis magni, quo autem dolores numquam dignissimos nemo.");
+                        tabs.Add().Id("file2").Type(PaneType.Content).Title("File 2").Content("Etiam neque dui, rutrum vitae ullamcorper id, gravida vel leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed sit amet massa turpis. Proin mattis dui tempor tincidunt tincidunt. Proin elementum ornare elit et imperdiet. Donec nunc ipsum, molestie vitae neque sed, lacinia mollis lacus. Donec viverra egestas enim nec vestibulum. Sed ac condimentum felis. Aenean luctus sed enim sed faucibus. Donec gravida, dui sit amet fringilla dignissim, metus elit varius nisl, a interdum justo ligula nec leo. Nunc et ultricies felis. Nulla facilisi. Sed sed lacus eu neque aliquet placerat");
+                        tabs.Add().Id("file3").Type(PaneType.Content).Title("File 3").Unpinnable(u=>u.Unpinned(true)).Content("Cras hendrerit mattis semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur nec dapibus quam. Duis sollicitudin nisl et purus venenatis, ut interdum massa tincidunt. Vestibulum sit amet nulla at dolor ullamcorper iaculis. Morbi gravida tincidunt lectus dapibus suscipit. Integer aliquet ligula enim, quis varius sapien dapibus in. Donec pulvinar ex et sapien rutrum venenatis. Quisque pulvinar, dui vitae pretium auctor, nunc mauris interdum est, vitae ullamcorper mi mauris sit amet felis. Phasellus non justo gravida, placerat risus quis, facilisis lacus. Suspendisse potenti. Praesent bibendum, lectus et fermentum varius, mi magna egestas nulla, ut interdum augue purus vitae leo.");
+                    });
+                    top.Add().Id("options").Type(PaneType.Split).Size("40%").Panes(split =>
+                    {
+                        split.Add().Type(PaneType.Tab).Title("Container Pane").Orientation(DockSplitterOrientation.Vertical).Panes(optionTabs => {
+                            optionTabs.Add().Id("properties").Type(PaneType.Content).Title("Properties").Content("Properties content");
+                            optionTabs.Add().Id("history").Type(PaneType.Content).Title("History").Content("History content");
+                        });
+                        split.Add().Id("layers").Type(PaneType.Content).Title("Layers").Content("Layers content");
+                    });
+                });
+                panes.Add().Type(PaneType.Content).Size("20%").Title("Console").Content("Console content").Id("console");
+            });
+        })
+    )
+</div>
+
+<script>
+    $(document).ready(function () {
+        var dockmanager = $("#dockmanager").data("kendoDockManager");
+
+        $("#togglePane").click(function () {
+            var paneId = $("#toggleTargetPane").val();
+            dockmanager.togglePane(paneId);
+        });
+        $("#removePane").click(function () {
+            var paneId = $("#removeTargetPane").val();
+            dockmanager.removePane(paneId);
+        });
+    });
+</script>

@@ -1,0 +1,120 @@
+<div class="configurator">
+    <div class="header">Configurator</div>
+    <div class="box-col">
+        <h4>Set View</h4>
+        @(Html.Kendo().RadioGroup()
+            .Name("radiogroup")
+            .Items(i =>
+            {
+                i.Add().Label("prompt").Value("prompt");
+                i.Add().Label("output").Value("output");
+                i.Add().Label("commands").Value("commands");
+            })
+            .Layout(RadioGroupLayout.Horizontal)
+            .Value("prompt")
+            .Events(ev => ev.Change("onSetViewChange"))
+            )
+    </div>
+    <div class="box-col">
+        <h4>Get View</h4>
+        <ul class="options">
+            <li>
+                <button id="getView">Get View</button>
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>Add Output</h4>
+        <ul class="options">
+            <li>
+                <input id="outPut" />
+                <button id="addOutput">Add Output</button>
+            </li>
+        </ul>
+    </div>
+    <div class="box-col">
+        <h4>Get Views</h4>
+        <ul class="options">
+            <li>
+                <button id="getViews">Get Views</button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="k-d-flex k-justify-content-center" style="width: 600px; margin: auto;">
+    <div class="k-w-full">
+        @(Html.Kendo().AIPrompt()
+                .Name("aiprompt")
+                .Events(ev => ev.PromptRequest("onPromptRequest"))
+                .Views(views =>
+                {
+                    views.Add().Type(Kendo.Mvc.UI.ViewType.Prompt)
+                    .PromptSuggestions(new string[] { "Act as [actor] and write [format] about [subject] in [100 words]", "Suggest post about [subject] that will be used in [social media]" });
+                    views.Add().Type(Kendo.Mvc.UI.ViewType.Output);
+                    views.Add().Type(Kendo.Mvc.UI.ViewType.Commands)
+                    .PromptCommands(command =>
+                    {
+                        command.Add().Id("1").Text("Simplify").Icon("min-width");
+                        command.Add().Id("2").Text("Extend").Icon("arrows-left-right");
+                    });
+                })
+            )
+    </div>
+</div>
+
+@section scripts {
+    <script>
+    $(document).on("kendoReady", function () {
+        var prompt = $("#aiprompt").data("kendoAIPrompt");
+
+        $("#getViews").on("click", function () {
+                kendo.alert(JSON.stringify(prompt.getViews()));
+        });
+
+        $("#addOutput").on("click", function () {
+            if ($("#outPut").val() != "") {
+                prompt.activeView(0);
+                let newId = kendo.guid();
+                let newOutput = {
+                    id: newId,
+                    output: $("#outPut").val(),
+                    prompt: "Dynamically added prompt " + newId
+                };
+                prompt.addPromptOutput(newOutput);
+                prompt.activeView(1);
+            } else kendo.alert("Please enter a prompt output.");
+        });
+
+        $("#getView").on("click", function () {
+            let currentView = prompt.activeView();
+            kendo.alert("Active view index: " + currentView);
+        });
+    });
+
+    function onSetViewChange(e) {
+        var prompt = $("#aiprompt").data("kendoAIPrompt");
+        prompt.activeView($(e.target[0]).val());
+    }
+
+    function onPromptRequest(ev) {
+        var response = {
+            id: kendo.guid(),
+            output: 'For real prompt processing, please connect the component to a preferred AI service. You can use one of the items from the "Prompt Suggestions" section in the Prompt View to get a sample result.',
+            prompt: ev.prompt,
+        };
+        this.addPromptOutput(response);
+        this.activeView("output");
+    }
+    </script>
+}
+
+<style>
+    .k-d-flex {
+        border-radius: 4px 4px 0 0;
+        box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .k-dialog {
+        max-width: 900px;
+    }
+</style>

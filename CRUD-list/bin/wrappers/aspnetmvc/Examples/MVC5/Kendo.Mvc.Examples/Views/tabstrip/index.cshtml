@@ -1,0 +1,182 @@
+<div class="demo-section">
+    @(Html.Kendo().TabStrip()
+          .Name("tabstrip")
+          .Animation(animation =>
+              animation.Open(effect =>
+                  effect.Fade(FadeDirection.In)))
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text("London <span class='k-icon k-font-icon k-i-close'></span>")
+                  .Encoded(false)
+                  .Selected(true)
+                  .ImageUrl(@Url.Content("~/Content/web/tabstrip/sun.svg"))
+                  .Content(@<text>
+                    <div class="weather">
+                        <div class="temperature">
+                            <img class="weather-image" src="@Url.Content("~/Content/web/tabstrip/sun.svg")" />
+                            <div class="degrees">
+                                 <h2>29<span>&ordm;</span></h2>
+                                 <p>30<span>&ordm;</span>&nbsp;/&nbsp;16<span>&ordm;</span></p>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="location">London, UK</div>
+                            <div class="stats">
+                                <p>Chance of Rain: 10%</p>
+                                <p>Humidity: 36%</p>
+                            </div>
+                        </div>
+                    </div>
+                  </text>);
+
+                tabstrip.Add().Text("Sofia <span class='k-icon k-font-icon k-i-close'></span>")
+                  .Encoded(false)
+                  .ImageUrl(@Url.Content("~/Content/web/tabstrip/rain.svg"))
+                  .Content(@<text>
+                    <div class="weather">
+                        <div class="temperature">
+                            <img class="weather-image" src="@Url.Content("~/Content/web/tabstrip/rain.svg")" />
+                            <div class="degrees">
+                                <h2>22<span>&ordm;</span></h2>
+                                <p>24<span>&ordm;</span>&nbsp;/&nbsp;9<span>&ordm;</span></p>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="location">Sofia, BG</div>
+                            <div class="stats">
+                                <p>Chance of Rain: 67%</p>
+                                <p>Humidity: 92%</p>
+                            </div>
+                        </div>
+                    </div>
+                  </text>);
+
+                tabstrip.Add().Text("Berlin <span class='k-icon k-font-icon k-i-close'></span>")
+                  .Encoded(false)
+                  .ImageUrl(@Url.Content("~/Content/web/tabstrip/sun.svg"))
+                  .Content(@<text>
+                    <div class="weather">
+                        <div class="temperature">
+                            <img class="weather-image" src="@Url.Content("~/Content/web/tabstrip/sun.svg")" />
+                            <div class="degrees">
+                                <h2>33<span>&ordm;</span></h2>
+                                <p>33<span>&ordm;</span>&nbsp;/&nbsp;14<span>&ordm;</span></p>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="location">Berlin, DE</div>
+                            <div class="stats">
+                                <p>Chance of Rain: 22%</p>
+                                <p>Humidity: 56%</p>
+                            </div>
+                        </div>
+                    </div>
+                  </text>);
+
+                tabstrip.Add().Text("Paris <span class='k-icon k-font-icon k-i-close'></span>")
+                  .Encoded(false)
+                  .ImageUrl(@Url.Content("~/Content/web/tabstrip/sun.svg"))
+                  .Content(@<text>
+                    <div class="weather">
+                        <div class="temperature">
+                            <img class="weather-image" src="@Url.Content("~/Content/web/tabstrip/sun.svg")" />
+                            <div class="degrees">
+                                <h2>17<span>&ordm;</span></h2>
+                                <p>19<span>&ordm;</span>&nbsp;/&nbsp;13<span>&ordm;</span></p>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="location">Paris, FR</div>
+                            <div class="stats">
+                                <p>Chance of Rain: 87%</p>
+                                <p>Humidity: 70%</p>
+                            </div>
+                        </div>
+                    </div>
+                  </text>);
+          })
+    )
+</div>
+
+<script>
+    $("body").on("click", ".k-link .k-icon", function (e) {
+        var tabstrip = $("#tabstrip").data("kendoTabStrip");
+        var tab = $(e.currentTarget).closest("li");
+        tabstrip.remove(tab);
+        tabstrip.select(0);
+    })
+</script>
+<style>
+    .k-tabstrip-items .k-link {
+        width: 133px;
+        padding: 7px 17px;
+        gap: 16px;
+    }
+
+    .k-link > .k-image {
+        margin-right: -10px;
+    }
+
+    .weather {
+        color: var(--base-text, #424242);
+        text-align: center;
+        font-variant-ligatures: no-common-ligatures;
+        font-family: Roboto, sans-serif;
+        display: flex;
+        width: 472px;
+        padding: 13px 17px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .temperature {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .weather-image {
+        width: 64px;
+        height: 64px;
+    }
+
+    .degrees, .details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .degrees p, .stats p {
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 100;
+        line-height: 20px;
+    }
+
+    .location {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+    }
+
+    .stats p {
+        text-align: left;
+        margin-bottom: 0;
+    }
+
+    #tabstrip h2 {
+        font-size: 42px;
+        font-style: normal;
+        font-weight: 100;
+        line-height: 50.4px;
+        margin: 0;
+    }
+
+    #tabstrip h2 span {
+        background: none;
+        padding-left: 5px;
+        vertical-align: top;
+    }
+</style>

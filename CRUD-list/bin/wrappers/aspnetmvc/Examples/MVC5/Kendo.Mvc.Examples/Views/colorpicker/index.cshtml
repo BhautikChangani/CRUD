@@ -1,0 +1,110 @@
+@using Kendo.Mvc.UI
+
+
+<div class="demo-wrapper k-d-grid k-gap-8 k-flex-1 k-px-8 k-pt-8 k-pb-8">
+    <div data-role="ninjacontainer" class="ninja-container k-bg-light !k-d-flex k-flex-col k-flex-1 k-align-items-center k-px-5 k-rounded-md" aria-live="polite" aria-label="Loading...">
+        <div class="ninja"></div>
+    </div>
+    <div class="main-container k-d-flex k-flex-col">
+        <div class="k-d-flex k-gap-3 k-align-items-center k-mb-5">
+            <h4 class="k-h4 k-opacity-20 k-font-bold">T-shirt Design</h4>
+        </div>
+        <div class="k-d-flex k-flex-col k-gap-1">
+            <span class="k-skeleton k-opacity-40 k-rounded-md k-w-24 k-px-3 k-h-4"></span>
+            <div class="k-d-flex k-gap-5">
+                <span class="k-skeleton k-opacity-30 k-rounded-md k-h-8 k-flex-1"></span>
+                @(Html.Kendo().ColorPicker()
+                    .Name("colorpicker")
+                    .Input(false)
+                    .Preview(false)
+                    .Value("#8174F2")
+                    .Buttons(false)
+                    .View(ColorPickerView.Gradient)
+                    .Views(new string[] { "gradient" })
+                    .Events(e => e.Change("preview"))
+                    )
+            </div>
+        </div>
+
+        <div class="k-d-flex k-flex-col k-grow k-gap-1 k-mt-5">
+            <span class="k-skeleton k-opacity-40 k-rounded-md k-w-24 k-px-3 k-h-4"></span>
+            <span class="content-expanded k-grow k-skeleton k-opacity-30 k-rounded-md k-h-14"></span>
+        </div>
+
+        <div class="kd-actions k-d-flex k-mt-5 k-justify-content-end">
+            <div class="k-w-20 k-h-8 k-skeleton k-opacity-40 k-rounded-md"></div>
+            <div class="k-w-20 k-h-8 k-ml-4 k-skeleton k-opacity-50 k-rounded-md"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .demo-wrapper {
+        grid-template-columns: 1fr 272px;
+    }
+
+    .ninja {
+        width: 205px;
+        height: 235px;
+        margin: auto;
+    }
+
+    .k-h4 {
+        line-height: 32px;
+        margin-bottom: 0;
+    }
+
+    .content-expanded {
+        height: 250px;
+    }
+
+
+    /* Breakpoints for full screen demo: max:599px, min:759px and max: 959 */
+    @@media (max-width: 730px), (min-width: 821px) and (max-width: 1090px), (min-width: 1241px) and (max-width: 1380px) {
+        .demo-wrapper {
+            grid-template-columns: 1fr;
+            padding-inline: 16px;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+
+        .ninja {
+            width: 155px;
+            height: 180px;
+        }
+
+        .ninja-container {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .content-expanded {
+            height: 215px;
+        }
+    }
+</style>
+@section scripts {
+    <script>
+        var ninjaSvg;
+        $(document).on("kendoReady", function () {
+            // fetch SVG and append to container
+            fetch("@Url.Content("~/Content/web/ninja.svg")")
+                .then(r => r.text())
+                .then(text => {
+                    $(".ninja").append(text);
+
+                    ninjaSvg = $("#ninja-svg");
+                    // remove the absolute position.
+                    ninjaSvg.removeClass("k-pos-absolute");
+                });
+        });
+
+        function preview(e) {
+            var selectedColor = e.value;
+            $(ninjaSvg).find(".ninja-belt").each(function (i, el) {
+                $(el).attr('fill', selectedColor);
+            })
+        }
+    </script>
+}
+
