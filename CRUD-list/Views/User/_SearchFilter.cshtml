@@ -1,0 +1,56 @@
+﻿<div id="commonFilter" class="d-flex flex-wrap align-items-center gap-1 m-2">
+    <select class=" p-1 rounded" id="columnSelect" style="outline: none; height: 32px; border-color: rgba(0, 0, 0, 0.08) ">
+        <option value="">Select Column</option>
+    </select>
+    <input class=" border-1 p-1 rounded" type="text" placeholder="search here..." id="searchText" style="outline: none; height: 32px; border-color: rgba(0, 0, 0, 0.08)" />
+    <button id="searchButton" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary p-1" style="outline: none; height: 32px">
+        Search
+    </button>
+    <button id="clearButton" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base" style="outline: none; height: 32px">Clear</button>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $.get("/User/GetColumnNames?id=1", function (data) {
+            var columnSelect = $("#columnSelect");
+            data.forEach(function (column) {
+                columnSelect.append(new Option(column.ColumnTitle, column.ColumnName));
+            });
+        });
+
+        $("#searchButton").click(function () {
+            var selectedColumn = $("#columnSelect").val();
+            var searchText = $("#searchText").val().trim();
+
+            if (selectedColumn && searchText) {
+                var filter = { logic: "and", filters: [] };
+                var grid = $("#grid").data("kendoGrid");
+                var dataSource = grid.dataSource;
+                filter.filters.push({
+                    field: selectedColumn,
+                    operator: "contains",
+                    value: searchText
+                });
+
+                dataSource.filter(filter);
+            } else {
+                alert("Please select a column and enter search text.");
+            }
+        });
+
+        $("#clearButton").click(function () {
+            var grid = $("#grid").data("kendoGrid");
+            var filters = grid.dataSource.filter();
+
+            // Clear the column select and search text
+            $("#columnSelect").val('');
+            $("#searchText").val('');
+
+            // Clear filters from the grid
+            if (filters) {
+                filters = { logic: "and", filters: [] };
+                grid.dataSource.filter(filters);
+            }
+        });
+    });
+</script>

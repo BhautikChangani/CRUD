@@ -1,40 +1,62 @@
-﻿<div id="commonFilter">
-    <select id="columnSelect"></select>
-    <input type="text" id="searchText" />
-    <button id="searchButton">Search</button>
+﻿
+@using Kendo.Mvc.UI
+@using Kendo.Mvc.Extensions
+@using CRUD_list.DBModels
+
+<div id="grid">
+    @Html.Partial("_SearchFilter")
+    @(Html.Kendo().Grid<Users>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.EmpId).Title("Employee Id");
+        columns.Bound(p => p.DeptName).Title("Department").Width(200);
+        columns.Bound(p => p.MngrName).Title("Manager").Width(200);
+        columns.Bound(p => p.EmpName).Title("Employee Name").Width(200);
+        columns.Bound(p => p.Salary).Title("Salary").Width(150);
+        columns.Command(command =>
+        {
+            command.Edit();
+            command.Destroy();
+        }).Title("Action").Width(200);
+    })
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .ToolBar(toolbar =>
+    {
+        toolbar.Create().Text("Add New Record");
+        toolbar.Custom().Text("Delete All").IconClass("k-icon k-i-trash").Url("#").HtmlAttributes(new { id = "deleteAllButton" });
+    })
+    .Pageable(pageable => pageable
+        .PageSizes(new[] { 10, 20, 50 })
+        .ButtonCount(5)
+    )
+    .Sortable()
+    .Filterable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(10)
+        .Model(model =>
+        {
+            model.Id(p => p.EmpId);
+            model.Field(p => p.DeptName);
+            model.Field(p => p.MngrName);
+            model.Field(p => p.EmpName);
+            model.Field(p => p.Salary);
+        })
+        .Create(create => create.Action("UpdateUsersData", "User").Type(HttpVerbs.Post))
+        .Read(read => read.Action("GetUsersData", "User"))
+        .Update(update => update.Action("UpdateUsersData", "User").Type(HttpVerbs.Post))
+        .Destroy(destroy => destroy.Action("DeleteUsersData", "User").Type(HttpVerbs.Post))
+    )
+    .Events(events => events.Edit("onEdit"))
+)
+
 </div>
-<div id="grid"></div>
 
 <script>
     $(document).ready(function () {
-        $.get("/User/GetColumnNames", function (data) {
-            var columnSelect = $("#columnSelect");
-            data.forEach(function (column) {
-                columnSelect.append(new Option(column, column));
-            });
-        });
 
-        $("#searchButton").click(function () {
-            var selectedColumn = $("#columnSelect").val();
-            var searchText = $("#searchText").val();
-
-            if (selectedColumn && searchText) {
-                var filter = { logic: "and", filters: [] };
-                var grid = $("#grid").data("kendoGrid");
-                var dataSource = grid.dataSource;
-                filter.filters.push({
-                    field: selectedColumn,
-                    operator: "contains",
-                    value: searchText
-                });
-
-                dataSource.filter(filter);
-            } else {
-                alert("Please select a column and enter search text.");
-            }
-        });
-
-        $("#grid").kendoGrid({
+        /*$("#grid").kendoGrid({
             sortable: true,
             filterable: true,
             pageable: {
@@ -224,7 +246,7 @@
                 }, 400);
             },
 
-        });
+        });*/
 
         $("#grid").on("click", ".k-grid-delete", function () {
             deleteSelectedRows();

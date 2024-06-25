@@ -10,5 +10,6 @@ namespace CRUD_list.DBModels
         public int ColumnId { get; set; }
         public string ColumnName { get; set; }
         public int PageId { get; set; }
+        public string ColumnTitle { get; set; }
     }
 }

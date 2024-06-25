@@ -37,7 +37,7 @@ namespace CRUD_list.Controllers
         public ActionResult Index()
         {
             var listofData = _context.employee1.ToList();
-            return View("Index");
+            return View("List");
         }
         public async Task<JsonResult> GetUsersData([DataSourceRequest] DataSourceRequest request)
         {
@@ -126,21 +126,22 @@ namespace CRUD_list.Controllers
             var response = await _httpClient.PostAsync("User/DeleteSelectedUsers", content);
             }
         }
-        public async Task<JsonResult> GetColumnNames()
+        public async Task<JsonResult> GetColumnNames(int id)
         {
-            var response = await _httpClient.GetAsync("User/GetColumnList");
+            string requestUrl = $"User/GetColumnList?id={id}";
+            var response = await _httpClient.GetAsync(requestUrl);
             if (response.IsSuccessStatusCode)
             {
 
                 string responseBody = await response.Content.ReadAsStringAsync();
 
-                List<ColumnVM> managerList = JsonConvert.DeserializeObject<List<ColumnVM>>(responseBody);
+                List<ColumnVM> columnList = JsonConvert.DeserializeObject<List<ColumnVM>>(responseBody);
                 List<string> data = new List<string>();
-                foreach (var item in managerList)
+                foreach (var item in columnList)
                 {
                     data.Add(item.ColumnName);
                 }
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return Json(columnList, JsonRequestBehavior.AllowGet);
             }
             else
             {

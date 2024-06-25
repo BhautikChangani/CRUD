@@ -1,0 +1,58 @@
+﻿@using Kendo.Mvc.UI
+@using Kendo.Mvc.Extensions
+@using CRUD_list.DBModels
+@model IEnumerable<Users>
+
+@{
+    ViewBag.Title = "User Grid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@(Html.Kendo().Grid<Users>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.EmpId).Title("Employee Id").Width(120).Filterable(false);
+        columns.Bound(p => p.DeptName).Title("Department").Width(200).Filterable(ftb => ftb.Multi(true).DataSource(ds => ds.Read(r => r.Action("GetDepartment", "User"))));
+        columns.Bound(p => p.MngrName).Title("Manager").Width(200).Filterable(ftb => ftb.Multi(true).DataSource(ds => ds.Read(r => r.Action("GetManagerList", "User"))));
+        columns.Bound(p => p.EmpName).Title("Employee Name").Width(200).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").SuggestionOperator(FilterType.Contains)));
+        columns.Bound(p => p.Salary).Title("Salary").Width(200).Sortable(true).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").SuggestionOperator(FilterType.Contains).Template("n0")));
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Title("Action").Width(250);
+    })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Create().Text("Add New Record");
+        toolbar.Custom().Text("Delete All").HtmlAttributes(new { onclick = "deleteAll()" });
+    })
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .Pageable(pageable => pageable
+        .Refresh(true)
+        .PageSizes(new[] { 10, 20, 50 })
+        .ButtonCount(5)
+    )
+    .Sortable()
+    .Filterable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(10)
+        .Model(model =>
+        {
+            model.Id(p => p.EmpId);
+            model.Field(p => p.DeptName);
+            model.Field(p => p.MngrName);
+            model.Field(p => p.EmpName);
+            model.Field(p => p.Salary);
+        })
+        .Read(read => read.Action("GetUsersData", "User"))
+        .Update(update => update.Action("UpdateUsersData", "User").Type(HttpVerbs.Post))
+        .Create(create => create.Action("UpdateUsersData", "User").Type(HttpVerbs.Post))
+        .Destroy(destroy => destroy.Action("DeleteUsersData", "User").Type(HttpVerbs.Post))
+    )
+)
+
+<script>
+    function deleteAll() {
+        // Implement logic to delete all records
+        console.log("Delete All clicked");
+    }
+</script>
