@@ -1,58 +1,225 @@
 ﻿@using Kendo.Mvc.UI
-@using Kendo.Mvc.Extensions
 @using CRUD_list.DBModels
-@model IEnumerable<Users>
 
 @{
     ViewBag.Title = "User Grid";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div>
+    <a href="@Url.Action("List", "User")" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary m-2 nav_link">Go to Second Page</a>
+</div>
+    @Html.Partial("_SearchFilter", new ViewDataDictionary { { "Id", 1 } })
 @(Html.Kendo().Grid<Users>()
     .Name("grid")
     .Columns(columns =>
     {
-        columns.Bound(p => p.EmpId).Title("Employee Id").Width(120).Filterable(false);
-        columns.Bound(p => p.DeptName).Title("Department").Width(200).Filterable(ftb => ftb.Multi(true).DataSource(ds => ds.Read(r => r.Action("GetDepartment", "User"))));
-        columns.Bound(p => p.MngrName).Title("Manager").Width(200).Filterable(ftb => ftb.Multi(true).DataSource(ds => ds.Read(r => r.Action("GetManagerList", "User"))));
-        columns.Bound(p => p.EmpName).Title("Employee Name").Width(200).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").SuggestionOperator(FilterType.Contains)));
-        columns.Bound(p => p.Salary).Title("Salary").Width(200).Sortable(true).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").SuggestionOperator(FilterType.Contains).Template("n0")));
-        columns.Command(command => { command.Edit(); command.Destroy(); }).Title("Action").Width(250);
+        columns.Select().Width(50).HtmlAttributes(new {@class = "row-checkbox"});
+        columns.Bound(p => p.EmpId).Title("Employee Id").Width(120);
+        columns.Bound(p => p.DeptName).Title("Department").Width(200).Filterable(ftb => ftb
+    .Multi(true)
+    .DataSource(ds => ds
+        .Read(read => {
+            read.Action("GetDepartment", "User")
+            .Data("onReadSuccess");
+        })
+    )
+    .ItemTemplate("function(args) { console.log(args); return '<input type=\"checkbox\" name=\"deptFilter\" value=\"' + args.DeptId + '\"> ' + args.DeptName }")
+    .CheckAll(true)
+    .Messages(msg =>
+    {
+        msg.CheckAll("Select All");
+        msg.Clear("Clear");
+        msg.Filter("Apply");
+    })
+    .Operators(op => op
+        .ForString(str =>
+        {
+            str.Contains("Contains");
+        })
+    )
+    
+);
+        columns.Bound(p => p.MngrName).Title("Manager").Width(200);
+        columns.Bound(p => p.EmpName).Title("Employee Name").Width(200);
+        columns.Bound(p => p.Salary).Title("Salary").Width(200).Format("{0:n2}").Sortable(true);
+        columns.Command(command =>
+        {
+            command.Edit().Text("Edit").HtmlAttributes(new { title = "Edit" });
+            command.Destroy().Text("Delete").HtmlAttributes(new { title = "Delete" });
+        }).Title("Action").Width(250);
     })
     .ToolBar(toolbar =>
     {
-        toolbar.Create().Text("Add New Record");
-        toolbar.Custom().Text("Delete All").HtmlAttributes(new { onclick = "deleteAll()" });
+        {
+            toolbar.Create().Text("Add new Record");
+            toolbar.Custom().Text("Delete All").IconClass("k-icon k-i-trash").HtmlAttributes(new { @class = "k-grid-delete" });
+        }
     })
-    .Editable(editable => editable.Mode(GridEditMode.PopUp))
-    .Pageable(pageable => pageable
-        .Refresh(true)
-        .PageSizes(new[] { 10, 20, 50 })
-        .ButtonCount(5)
-    )
     .Sortable()
     .Filterable()
+    .Pageable(pageable => pageable
+        .PageSizes(new int[] { 10, 20, 50 }) // Define the page size options
+        .ButtonCount(5) // Number of page buttons to display
+    )
+    .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("departmentDropDownEditor"))
     .DataSource(dataSource => dataSource
         .Ajax()
         .PageSize(10)
+        .ServerOperation(false)
         .Model(model =>
         {
             model.Id(p => p.EmpId);
-            model.Field(p => p.DeptName);
-            model.Field(p => p.MngrName);
-            model.Field(p => p.EmpName);
-            model.Field(p => p.Salary);
+            model.Field(p => p.DeptName).Editable(true);
+            model.Field(p => p.MngrName).Editable(true);
+            model.Field(p => p.EmpName).Editable(true);
+            model.Field(p => p.Salary).Editable(true);
         })
-        .Read(read => read.Action("GetUsersData", "User"))
+        .Read(read => read
+            .Action("GetUsersData", "User")
+            .Data("onReadSuccess")
+        )
         .Update(update => update.Action("UpdateUsersData", "User").Type(HttpVerbs.Post))
         .Create(create => create.Action("UpdateUsersData", "User").Type(HttpVerbs.Post))
         .Destroy(destroy => destroy.Action("DeleteUsersData", "User").Type(HttpVerbs.Post))
     )
+    .Events(events => events.DataBound("onDataBound"))
 )
 
+
 <script>
-    function deleteAll() {
-        // Implement logic to delete all records
-        console.log("Delete All clicked");
+    $(document).ready(function () {
+        $("#grid").on("click", ".k-grid-delete", function () {
+            deleteSelectedRows();
+        });
+    });
+</script>
+<script>
+    function onDataBound(e) {
+        console.log("Grid data:", this.dataSource);
+        // Additional actions after data binding
     }
+
+    function onReadSuccess(data) {
+        console.log(data); // Print data to console
+        // Process or display data as needed
+    }
+
+    $(document).ready(function () {
+        // Additional JavaScript initialization or event bindings
+    });
+</script>
+<script>
+
+   /* function departmentDropDownEditor(container, options) {
+        $('<input required name="' + options.field + '"/>')
+            .appendTo(container)
+            .kendoMultiColumnComboBox({
+                dataTextField: "DeptName",
+                dataValueField: "DeptName",
+                height: 400,
+                width: 400,
+                columns: [
+                    { field: "DeptId", title: "Department Id", width: 200 },
+                    { field: "DeptName", title: "Department Name", width: 200 }
+                ],
+                footerTemplate: 'Total #: instance.dataSource.total() # items found',
+                filter: "contains",
+                filterFields: ["DeptName"],
+                dataSource: {
+                    transport: {
+                        read: "/User/GetDepartment",
+                    },
+                    schema: {
+                        model: {
+                            id: "DeptId",
+                            fields: {
+                                DeptId: { type: "number" },
+                                DeptName: { type: "string" }
+                            }
+                        }
+                    }
+                },
+                change: function (e) {
+                    var widget = e.sender;
+
+                    if (widget.value() && widget.select() === -1) {
+                        widget.value("");
+                    }
+                }
+            });
+    }*/
+
+/*    function managerDropDownEditor(container, options) {
+        $('<input required name="' + options.field + '"/>')
+            .appendTo(container)
+            .kendoMultiColumnComboBox({
+                dataTextField: "MngrName",
+                dataValueField: "MngrName",
+                height: 400,
+                width: 400,
+                columns: [
+                    { field: "MngrId", title: "Manager Id", width: 200 },
+                    { field: "MngrName", title: "Manager Name", width: 200 }
+                ],
+                footerTemplate: 'Total #: instance.dataSource.total() # items found',
+                filter: "contains",
+                filterFields: ["MngrName"],
+                dataSource: {
+                    transport: {
+                        read: "/User/GetManagerList",
+                    },
+                    schema: {
+                        model: {
+                            id: "MngrId",
+                            fields: {
+                                MngrId: { type: "number" },
+                                MngrName: { type: "string" }
+                            }
+                        }
+                    }
+                },
+                change: function (e) {
+                    var widget = e.sender;
+
+                    if (widget.value() && widget.select() === -1) {
+                        widget.value("");
+                    }
+                }
+            });
+    }
+*/
+    function deleteSelectedRows() {
+        var grid = $("#grid").data("kendoGrid");
+        var selectedRows = grid.select();
+        var dataItems = selectedRows.map(function (index, row) {
+            return grid.dataItem(row);
+        }).toArray();
+        if (dataItems.length === 0) {
+            alert("Please select at least one row to delete.");
+            return;
+        }
+
+        if (confirm("Are you sure you want to delete the selected rows?")) {
+            var dataToSend = {
+                selectedItems: dataItems
+            };
+
+            $.ajax({
+                url: '/User/DeleteAll',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dataToSend),
+                success: function (response) {
+                    console.log('Deleted successfully:', response);
+                    grid.dataSource.read();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error deleting:', error);
+                }
+            });
+
+        }
+    }
+
 </script>

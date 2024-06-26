@@ -4,10 +4,10 @@
 @using CRUD_list.DBModels
 
 <div>
-    <a href="@Url.Action("List", "User")"  class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary m-2 nav_link">Go to Second Page</a>
+    <a href="@Url.Action("Index", "User")" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary m-2 nav_link">Go to First Page</a>
 </div>
 <div id="grid">
-    @Html.Partial("_SearchFilter", new ViewDataDictionary { { "Id", 1 } })
+    @Html.Partial("_SearchFilter", new ViewDataDictionary { { "Id", 2 } })
 </div>
 
 <script>
@@ -22,37 +22,37 @@
             },
             dataSource: {
                 transport: {
-                    read: "/User/GetUsersData",
+                    read: "/User/GetAdminData",
                     update: {
-                        url: "/User/UpdateUsersData",
+                        url: "/User/UpdateAdminData",
                         type: "Post"
                     },
                     create: {
-                        url: "/User/UpdateUsersData",
+                        url: "/User/UpdateAdminData",
                         type: "Post"
                     },
                     destroy: {
-                        url: "/User/DeleteUsersData",
+                        url: "/User/DeleteAdminData",
                         type: "Post"
                     }
                 },
                 schema: {
                     model: {
-                        id: "EmpId",
+                        id: "AdminId",
                         fields: {
-                            EmpId: { editable: false, nullable: true },
-                            DeptName: { validation: { required: true } },
-                            MngrName: { validation: { required: true } },
-                            EmpName: { validation: { required: true } },
-                            Salary: { validation: { required: true }, type: "number" }
+                            AdminId: { editable: false, nullable: true },
+                            AdminDept: { validation: { required: true } },
+                            AdminAst: { validation: { required: true } },
+                            Admin: { validation: { required: true } },
+                            AdminSalary: { validation: { required: true }, type: "number" }
                         }
                     }
                 },
                 pageSize: 10,
             },
-            /*events: {
+            events: {
                 edit: "onEdit"
-            },*/
+            },
             toolbar: [
                 { name: "create", text: "Add New Record" },
                 { name: "delete", text: "Delete All", iconClass: "k-icon k-i-trash" }
@@ -66,9 +66,9 @@
                     }
                 },
 
-                { field: "EmpId", title: "Employee Id", width: "120px", filterable: false },
+                { field: "AdminId", title: "Admin Id", width: "120px", filterable: false },
                 {
-                    field: "DeptName",
+                    field: "AdminDept",
                     title: "Department",
                     width: "200px",
                     editor: departmentDropDownEditor,
@@ -76,21 +76,21 @@
                         multi: true,
                         dataSource: {
                             transport: {
-                                read: "/User/GetDepartment",
+                                read: "/User/GetAdminDepartment",
                             },
                             schema: {
                                 model: {
-                                    id: "DeptId",
+                                    id: "AdminDeptId",
                                     fields: {
-                                        DeptId: { type: "number" },
-                                        DeptName: { type: "string" }
+                                        AdminDeptId: { type: "number" },
+                                        AdminDept: { type: "string" }
                                     }
                                 }
                             }
                         },
 
                         template: function (dataItem) {
-                            return '<input type="checkbox" name="deptFilter" value="' + dataItem.DeptId + '"> ' + dataItem.DeptName;
+                            return '<input type="checkbox" name="deptFilter" value="' + dataItem.AdminDeptId + '"> ' + dataItem.AdminDept;
                         },
                         checkAll: true,
                         messages: {
@@ -107,29 +107,29 @@
                     }
                 },
                 {
-                    field: "MngrName",
-                    title: "Manager",
+                    field: "AdminAst",
+                    title: "Admin Assistant",
                     width: "200px",
                     editor: managerDropDownEditor,
                     filterable: {
                         multi: true,
                         dataSource: {
                             transport: {
-                                read: '/User/GetManagerList'
+                                read: '/User/GetAdminManagerList'
                             },
                             schema: {
                                 model: {
-                                    id: "MngrId",
+                                    id: "AdminAstId",
                                     fields: {
-                                        MngrId: { type: "number" },
-                                        MngrName: { type: "string" }
+                                        AdminAstId: { type: "number" },
+                                        AdminAst: { type: "string" }
                                     }
                                 }
                             }
                         },
 
                         template: function (dataItem) {
-                            return '<input type="checkbox" name="mngrFilter" value="' + dataItem.MngrId + '"> ' + dataItem.MngrName;
+                            return '<input type="checkbox" name="mngrFilter" value="' + dataItem.AdminAstId + '"> ' + dataItem.AdminAst;
                         },
                         checkAll: true,
                         message: {
@@ -146,8 +146,8 @@
                     }
                 },
                 {
-                    field: "EmpName",
-                    title: "Employee Name",
+                    field: "Admin",
+                    title: "Admin Name",
                     width: "200px",
                     filterable: {
                         cell: {
@@ -165,8 +165,8 @@
                     }
                 },
                 {
-                    field: "Salary",
-                    title: "Salary",
+                    field: "AdminSalary",
+                    title: "Admin Salary",
                     width: "200px",
                     sortable: true,
                     filterable: {
@@ -196,7 +196,7 @@
             editable: {
                 mode: "popup",
             },
-            dataBound: function (e) {
+            /*dataBound: function (e) {
                 var grid = this;
                 grid.tbody.find("tr").each(function () {
                     var dataItem = grid.dataItem(this);
@@ -205,7 +205,7 @@
                         $(this).addClass("high-salary-row"); // Apply a CSS class for high salary rows
                     }
                 });
-            },
+            },*/
             save: function (e) {
                 setTimeout(function () {
                     $("#grid").data("kendoGrid").dataSource.read();
@@ -224,7 +224,6 @@
     .high-salary-row {
         background-color: cadetblue !important;
     }
-
 </style>
 <script>
 
@@ -232,27 +231,27 @@
         $('<input required name="' + options.field + '"/>')
             .appendTo(container)
             .kendoMultiColumnComboBox({
-                dataTextField: "DeptName",
-                dataValueField: "DeptName",
+                dataTextField: "AdminDept",
+                dataValueField: "AdminDept",
                 height: 400,
                 width: 400,
                 columns: [
-                    { field: "DeptId", title: "Department Id", width: 200 },
-                    { field: "DeptName", title: "Department Name", width: 200 }
+                    { field: "AdminDeptId", title: "Department Id", width: 200 },
+                    { field: "AdminDept", title: "Department Name", width: 200 }
                 ],
                 footerTemplate: 'Total #: instance.dataSource.total() # items found',
                 filter: "contains",
-                filterFields: ["DeptName"],
+                filterFields: ["AdminDept"],
                 dataSource: {
                     transport: {
-                        read: "/User/GetDepartment",
+                        read: "/User/GetAdminDepartment",
                     },
                     schema: {
                         model: {
-                            id: "DeptId",
+                            id: "AdminDeptId",
                             fields: {
-                                DeptId: { type: "number" },
-                                DeptName: { type: "string" }
+                                AdminDeptId: { type: "number" },
+                                AdminDept: { type: "string" }
                             }
                         }
                     }
@@ -271,27 +270,27 @@
         $('<input required name="' + options.field + '"/>')
             .appendTo(container)
             .kendoMultiColumnComboBox({
-                dataTextField: "MngrName",
-                dataValueField: "MngrName",
+                dataTextField: "AdminAst",
+                dataValueField: "AdminAst",
                 height: 400,
                 width: 400,
                 columns: [
-                    { field: "MngrId", title: "Manager Id", width: 200 },
-                    { field: "MngrName", title: "Manager Name", width: 200 }
+                    { field: "AdminAstId", title: "Assistant Id", width: 200 },
+                    { field: "AdminAst", title: "Assistant Name", width: 200 }
                 ],
                 footerTemplate: 'Total #: instance.dataSource.total() # items found',
                 filter: "contains",
-                filterFields: ["MngrName"],
+                filterFields: ["AdminAst"],
                 dataSource: {
                     transport: {
-                        read: "/User/GetManagerList",
+                        read: "/User/GetAdminManagerList",
                     },
                     schema: {
                         model: {
-                            id: "MngrId",
+                            id: "AdminAstId",
                             fields: {
-                                MngrId: { type: "number" },
-                                MngrName: { type: "string" }
+                                AdminAstId: { type: "number" },
+                                AdminAst: { type: "string" }
                             }
                         }
                     }
@@ -323,7 +322,7 @@
             };
 
             $.ajax({
-                url: '/User/DeleteAll',
+                url: '/User/DeleteAllAdmin',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(dataToSend),

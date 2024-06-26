@@ -98,6 +98,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DBModels\AdminAssistantVM.cs" />
+    <Compile Include="DBModels\AdminDepartment.cs" />
+    <Compile Include="DBModels\AdminVM.cs" />
     <Compile Include="DBModels\ColumnVM.cs" />
     <Compile Include="DBModels\DepartmentVM.cs" />
     <Compile Include="DBModels\ManagerVM.cs" />
@@ -223,6 +226,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_SearchFilter.cshtml" />
     <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\User\List2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

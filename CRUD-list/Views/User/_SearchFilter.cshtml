@@ -11,7 +11,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $.get("/User/GetColumnNames?id=1", function (data) {
+        $.get("/User/GetColumnNames?id=@ViewData["Id"]", function (data) {
             var columnSelect = $("#columnSelect");
             data.forEach(function (column) {
                 columnSelect.append(new Option(column.ColumnTitle, column.ColumnName));
@@ -21,7 +21,8 @@
         $("#searchButton").click(function () {
             var selectedColumn = $("#columnSelect").val();
             var searchText = $("#searchText").val().trim();
-
+            console.log(selectedColumn);
+            console.log(searchText);
             if (selectedColumn && searchText) {
                 var filter = { logic: "and", filters: [] };
                 var grid = $("#grid").data("kendoGrid");
@@ -31,7 +32,7 @@
                     operator: "contains",
                     value: searchText
                 });
-
+                console.log(filter);
                 dataSource.filter(filter);
             } else {
                 alert("Please select a column and enter search text.");
